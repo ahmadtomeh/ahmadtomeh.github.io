@@ -1733,21 +1733,41 @@
       requestAnimationFrame(animate);
     }
 
-    // Custom Cursor Follower Logic
+    // Custom Cursor Follower Logic (Smooth LERP rendering)
     const cursorDot = document.getElementById('custom-cursor');
     const cursorFollower = document.getElementById('custom-cursor-follower');
 
     if (cursorDot && cursorFollower) {
+      let mouseX = 0, mouseY = 0;         // Target mouse positions
+      let dotX = 0, dotY = 0;             // Interpolated positions for dot
+      let followerX = 0, followerY = 0;   // Interpolated positions for follower
+
       document.addEventListener('mousemove', (e) => {
-        cursorDot.style.left = e.clientX + 'px';
-        cursorDot.style.top = e.clientY + 'px';
-        
-        // Smooth follower animation
-        setTimeout(() => {
-          cursorFollower.style.left = e.clientX + 'px';
-          cursorFollower.style.top = e.clientY + 'px';
-        }, 50);
+        mouseX = e.clientX;
+        mouseY = e.clientY;
       });
+
+      // Animation loop synchronized with screen refresh rate
+      function updateCursor() {
+        // Fast interpolation for inner dot
+        dotX += (mouseX - dotX) * 0.35;
+        dotY += (mouseY - dotY) * 0.35;
+
+        // Smooth springy interpolation for outer circle
+        followerX += (mouseX - followerX) * 0.15;
+        followerY += (mouseY - followerY) * 0.15;
+
+        cursorDot.style.left = `${dotX}px`;
+        cursorDot.style.top = `${dotY}px`;
+
+        cursorFollower.style.left = `${followerX}px`;
+        cursorFollower.style.top = `${followerY}px`;
+
+        requestAnimationFrame(updateCursor);
+      }
+
+      // Start animation loop
+      requestAnimationFrame(updateCursor);
 
       // Event delegation for cursor hover state
       document.addEventListener('mouseover', (e) => {
