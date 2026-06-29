@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ahmad Tomeh - Resume</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;850&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary: #0f172a; /* Slate 900 */
+      --secondary: #475569; /* Slate 600 */
+      --accent: #1e40af; /* Deep Royal Blue */
+      --light-bg: #f8fafc; /* Slate 50 */
+      --border: #cbd5e1; /* Slate 300 */
+      --text: #334155; /* Slate 700 */
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f1f5f9;
+      color: var(--text);
+      line-height: 1.45;
+      padding: 15px;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    /* CV Page Container optimized for A4 */
+    .cv-page {
+      width: 210mm;
+      min-height: 297mm;
+      margin: 0 auto;
+      background: #ffffff;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+      padding: 35px;
+      display: grid;
+      grid-template-columns: 1.4fr 0.9fr;
+      gap: 22px;
+      position: relative;
+      border-radius: 4px;
+    }
+
+    /* Vertical divider line */
+    .cv-page::after {
+      content: '';
+      position: absolute;
+      top: 160px;
+      left: 60%;
+      bottom: 35px;
+      width: 1px;
+      background-color: #e2e8f0;
+    }
+
+    /* ============ COMMON STYLES ============ */
+    .section-title {
+      font-size: 12.5px;
+      font-weight: 850;
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 12px;
+      padding-bottom: 4px;
+      border-bottom: 2px solid var(--primary);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* ============ HEADER ============ */
+    .cv-header {
+      grid-column: span 2;
+      border-bottom: 2px solid var(--primary);
+      padding-bottom: 15px;
+      margin-bottom: 5px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+
+    .header-main h1 {
+      font-size: 30px;
+      font-weight: 850;
+      color: var(--primary);
+      line-height: 1.1;
+      letter-spacing: -0.5px;
+    }
+
+    .header-main p {
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--accent);
+      margin-top: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .header-contact {
+      text-align: right;
+      font-size: 11px;
+      color: var(--secondary);
+      line-height: 1.5;
+    }
+
+    .header-contact a {
+      color: var(--secondary);
+      text-decoration: none;
+    }
+
+    .header-contact a:hover {
+      color: var(--accent);
+    }
+
+    /* ============ LEFT COLUMN (Experience & Projects) ============ */
+    .left-col {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      padding-right: 8px;
+    }
+
+    .experience-item {
+      margin-bottom: 12px;
+    }
+
+    .exp-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 3px;
+    }
+
+    .exp-title {
+      font-size: 12.5px;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .exp-company {
+      font-size: 11.5px;
+      font-weight: 600;
+      color: var(--accent);
+    }
+
+    .exp-date {
+      font-size: 9.5px;
+      color: var(--secondary);
+      background: var(--light-bg);
+      padding: 1px 6px;
+      border-radius: 4px;
+      border: 1px solid #e2e8f0;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .exp-desc {
+      font-size: 11px;
+      line-height: 1.5;
+      margin-top: 3px;
+      color: var(--text);
+    }
+
+    .exp-desc ul {
+      padding-left: 14px;
+      list-style-type: square;
+    }
+
+    .exp-desc li {
+      margin-bottom: 2px;
+    }
+
+    /* Projects */
+    .project-item {
+      margin-bottom: 10px;
+    }
+
+    .proj-title-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 2px;
+    }
+
+    .proj-name {
+      font-size: 11.5px;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .proj-org {
+      font-size: 10.5px;
+      color: var(--accent);
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .proj-desc {
+      font-size: 11px;
+      line-height: 1.5;
+      color: var(--text);
+    }
+
+    /* ============ RIGHT COLUMN (Sidebar Info) ============ */
+    .right-col {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      padding-left: 8px;
+    }
+
+    .summary-text {
+      font-size: 11px;
+      line-height: 1.6;
+      text-align: justify;
+      color: var(--text);
+    }
+
+    /* Education */
+    .edu-item {
+      margin-bottom: 10px;
+    }
+
+    .edu-degree {
+      font-size: 11.5px;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .edu-school {
+      font-size: 10.5px;
+      color: var(--secondary);
+      font-weight: 600;
+    }
+
+    .edu-date {
+      font-size: 10px;
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    /* Skills List */
+    .skills-group {
+      margin-bottom: 10px;
+    }
+
+    .skills-group-title {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 3px;
+    }
+
+    .skills-list {
+      font-size: 10.5px;
+      line-height: 1.4;
+      color: var(--text);
+    }
+
+    /* Languages */
+    .lang-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
+      margin-bottom: 3px;
+    }
+
+    .lang-name {
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    /* ============ PRINT CONFIGURATION ============ */
+    @page {
+      size: A4;
+      margin: 0;
+    }
+
+    @media print {
+      body {
+        background-color: #ffffff;
+        padding: 0;
+      }
+      .cv-page {
+        width: 210mm;
+        height: 297mm;
+        box-shadow: none;
+        padding: 15mm 12mm;
+        border-radius: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="cv-page">
+    
+    <!-- Header -->
+    <header class="cv-header">
+      <div class="header-main">
+        <h1>Ahmad Tomeh</h1>
+        <p>Full Stack Developer & Content Creator</p>
+      </div>
+      <div class="header-contact">
+        <div>📍 Tulkarm, Palestine</div>
+        <div>📱 <a href="tel:+970569922257" style="direction: ltr; display: inline-block;">+970 569 922 257</a></div>
+        <div>✉️ <a href="mailto:ahmad.r.tomeh@gmail.com">ahmad.r.tomeh@gmail.com</a></div>
+        <div>🔗 <a href="https://ahmadtomeh.github.io/" target="_blank">Portfolio</a> | <a href="https://linkedin.com" target="_blank">LinkedIn</a> | <a href="https://github.com" target="_blank">GitHub</a></div>
+      </div>
+    </header>
+
+    <!-- LEFT COLUMN: Experience & Projects -->
+    <div class="left-col">
+      
+      <!-- Experience -->
+      <section>
+        <h2 class="section-title">Work Experience</h2>
+
+        <!-- Role 1 -->
+        <div class="experience-item">
+          <div class="exp-header">
+            <div>
+              <span class="exp-title">Control Room Operator</span>
+              <span class="exp-company">| Bank of Palestine</span>
+            </div>
+            <span class="exp-date">05/2024 – 07/2025</span>
+          </div>
+          <div class="exp-desc">
+            <ul>
+              <li>Monitored critical bank systems and infrastructure to ensure maximum security, quality, and service uptime.</li>
+              <li>Developed and deployed a real-time system checking ATM connectivity and attached security cameras across the West Bank and Gaza, accelerating response times for tech and security teams.</li>
+              <li>Drafted and presented comprehensive system status and diagnostic reports to senior executive management.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Role 2 -->
+        <div class="experience-item">
+          <div class="exp-header">
+            <div>
+              <span class="exp-title">Web Developer & Content Creator</span>
+              <span class="exp-company">| Freelance</span>
+            </div>
+            <span class="exp-date">2021 – Present</span>
+          </div>
+          <div class="exp-desc">
+            <ul>
+              <li>Designed digital brand assets and marketing designs using Photoshop, Illustrator, and Canva.</li>
+              <li>Produced and edited video reels and visual contents to drive traffic and engagement on social channels.</li>
+              <li>Built custom responsive websites and web apps, integrating APIs and applying basic SEO strategies.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Role 3 -->
+        <div class="experience-item">
+          <div class="exp-header">
+            <div>
+              <span class="exp-title">Technical Support Representative</span>
+              <span class="exp-company">| Mada Internet Services</span>
+            </div>
+            <span class="exp-date">12/2019 – 07/2020</span>
+          </div>
+          <div class="exp-desc">
+            <ul>
+              <li>Interacted directly with clients to resolve connectivity issues, building professional support and customer relations.</li>
+              <li>Logged daily network tickets and generated support reports to aid hardware and systems teams in service optimization.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Role 4 -->
+        <div class="experience-item" style="margin-bottom: 0;">
+          <div class="exp-header">
+            <div>
+              <span class="exp-title">Maintenance Technician & Sales Associate</span>
+              <span class="exp-company">| Brothers of Computer Co.</span>
+            </div>
+            <span class="exp-date">06/2017 – 06/2018</span>
+          </div>
+          <div class="exp-desc">
+            <ul>
+              <li>Assisted retail clients with computer hardware diagnostics, repair, and sales inquiries.</li>
+              <li>Coordinated field deployments and setup installations of computer hardware networks for local businesses.</li>
+            </ul>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- Projects -->
+      <section>
+        <h2 class="section-title">Selected Projects</h2>
+
+        <!-- Project 1 -->
+        <div class="project-item">
+          <div class="proj-title-row">
+            <span class="proj-name">ATM & Camera Connectivity System</span>
+            <span class="proj-org">Bank of Palestine</span>
+          </div>
+          <p class="proj-desc">
+            A real-time network diagnostic system designed to ping, monitor, and log the network connectivity status of ATMs and security cameras, reducing diagnostic response times significantly.
+          </p>
+        </div>
+
+        <!-- Project 2 -->
+        <div class="project-item">
+          <div class="proj-title-row">
+            <span class="proj-name">AutoSalePalestine – Vehicle Marketplace</span>
+            <span class="proj-org">Axsos Academy</span>
+          </div>
+          <p class="proj-desc">
+            Python/Django web app allowing users to search and list vehicles, featuring a custom SQL query filter system and secure user credential hashing using Bcrypt.
+          </p>
+        </div>
+
+        <!-- Project 3: Graduation Project -->
+        <div class="project-item" style="margin-bottom: 0;">
+          <div class="proj-title-row">
+            <span class="proj-name">SaleSYS – Sales & Inventory Management System</span>
+            <span class="proj-org">Graduation Project | PTUK</span>
+          </div>
+          <p class="proj-desc">
+            Designed and built a desktop sales management application, serving as a comprehensive system for graduation, which achieved a top score of 93/100.
+          </p>
+        </div>
+
+      </section>
+
+    </div>
+
+    <!-- RIGHT COLUMN: Professional Summary, Education, Skills, Languages -->
+    <div class="right-col">
+      
+      <!-- Summary -->
+      <section>
+        <h2 class="section-title">Profile</h2>
+        <p class="summary-text">
+          Versatile Web Developer and Content Creator with a solid commercial background. Combines advanced full-stack development capabilities with practical experiences at major financial institutions. Skilled in designing visual identities, producing video contents, managing digital platforms, and executing targeted campaigns with data-backed reports.
+        </p>
+      </section>
+
+      <!-- Skills -->
+      <section>
+        <h2 class="section-title">Skills</h2>
+        
+        <div class="skills-group">
+          <p class="skills-group-title">Marketing & Content:</p>
+          <p class="skills-list">Social Media Management, Video Editing & Reels, Visual Identity Design, Meta Sponsored Ads, Performance Reports.</p>
+        </div>
+
+        <div class="skills-group">
+          <p class="skills-group-title">Software & Tools:</p>
+          <p class="skills-list">Photoshop, Illustrator, Canva, Premiere Pro, CapCut, MS Excel.</p>
+        </div>
+
+        <div class="skills-group" style="margin-bottom: 0;">
+          <p class="skills-group-title">Web Technologies:</p>
+          <p class="skills-list">HTML5, CSS3, JavaScript, React.js, Python, Django, SQL/SQLite, Git & GitHub, SEO.</p>
+        </div>
+      </section>
+
+      <!-- Education -->
+      <section>
+        <h2 class="section-title">Education</h2>
+
+        <div class="edu-item">
+          <h3 class="edu-degree">Full Stack Developer Certificate</h3>
+          <p class="edu-school">Axsos Academy</p>
+          <span class="edu-date">📅 2022 – 2023</span>
+        </div>
+
+        <div class="edu-item">
+          <h3 class="edu-degree">Diploma in Programming & Databases</h3>
+          <p class="edu-school">Palestine Technical University (PTUK)</p>
+          <span class="edu-date">📅 2015 – 2018</span>
+        </div>
+
+        <div class="edu-item">
+          <h3 class="edu-degree">Commercial Branch Secondary School</h3>
+          <p class="edu-school">Qaffeen Secondary School for Boys</p>
+          <span class="edu-date">📅 2009 – 2014</span>
+        </div>
+
+        <div class="edu-item" style="margin-bottom: 0;">
+          <h3 class="edu-degree">Domestic & Industrial Electrical Installations</h3>
+          <p class="edu-school">Technical Engineering Training</p>
+          <span class="edu-date">📅 2020 – 2021</span>
+        </div>
+      </section>
+
+      <!-- Languages -->
+      <section>
+        <h2 class="section-title">Languages</h2>
+        <div class="lang-row">
+          <span class="lang-name">Arabic</span>
+          <span>Native</span>
+        </div>
+        <div class="lang-row">
+          <span class="lang-name">English</span>
+          <span>Advanced</span>
+        </div>
+      </section>
+
+    </div>
+
+  </div>
+
+</body>
+</html>

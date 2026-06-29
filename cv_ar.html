@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>السيرة الذاتية – أحمد طعمة</title>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary: #0f172a; /* Slate 900 */
+      --secondary: #475569; /* Slate 600 */
+      --accent: #1e40af; /* Deep Royal Blue */
+      --light-bg: #f8fafc; /* Slate 50 */
+      --border: #cbd5e1; /* Slate 300 */
+      --text: #334155; /* Slate 700 */
+    }
+
+    body {
+      font-family: 'Tajawal', sans-serif;
+      background-color: #f1f5f9;
+      color: var(--text);
+      line-height: 1.45;
+      padding: 15px;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    /* CV Page Container optimized for A4 */
+    .cv-page {
+      width: 210mm;
+      min-height: 297mm;
+      margin: 0 auto;
+      background: #ffffff;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+      padding: 35px;
+      display: grid;
+      grid-template-columns: 1.4fr 0.9fr;
+      gap: 22px;
+      position: relative;
+      border-radius: 4px;
+    }
+
+    /* Vertical divider line */
+    .cv-page::after {
+      content: '';
+      position: absolute;
+      top: 160px;
+      right: 60%;
+      bottom: 35px;
+      width: 1px;
+      background-color: #e2e8f0;
+    }
+
+    /* ============ COMMON STYLES ============ */
+    .section-title {
+      font-size: 12.5px;
+      font-weight: 800;
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 12px;
+      padding-bottom: 4px;
+      border-bottom: 2px solid var(--primary);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* ============ HEADER ============ */
+    .cv-header {
+      grid-column: span 2;
+      border-bottom: 2px solid var(--primary);
+      padding-bottom: 15px;
+      margin-bottom: 5px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+
+    .header-main h1 {
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--primary);
+      line-height: 1.1;
+      letter-spacing: -0.5px;
+    }
+
+    .header-main p {
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--accent);
+      margin-top: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .header-contact {
+      text-align: left;
+      font-size: 11px;
+      color: var(--secondary);
+      line-height: 1.5;
+    }
+
+    .header-contact a {
+      color: var(--secondary);
+      text-decoration: none;
+    }
+
+    .header-contact a:hover {
+      color: var(--accent);
+    }
+
+    /* ============ LEFT COLUMN (Experience & Projects) ============ */
+    .left-col {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      padding-left: 8px;
+    }
+
+    .experience-item {
+      margin-bottom: 12px;
+    }
+
+    .exp-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 4px;
+    }
+
+    .exp-title {
+      font-size: 12.5px;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .exp-company {
+      font-size: 11.5px;
+      font-weight: 600;
+      color: var(--accent);
+    }
+
+    .exp-date {
+      font-size: 10px;
+      color: var(--secondary);
+      background: var(--light-bg);
+      padding: 2px 8px;
+      border-radius: 4px;
+      border: 1px solid #e2e8f0;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .exp-desc {
+      font-size: 11.5px;
+      line-height: 1.6;
+      margin-top: 4px;
+      color: var(--text);
+    }
+
+    .exp-desc ul {
+      padding-right: 16px;
+      list-style-type: square;
+    }
+
+    .exp-desc li {
+      margin-bottom: 3px;
+    }
+
+    /* Projects */
+    .project-item {
+      margin-bottom: 10px;
+    }
+
+    .proj-title-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 2px;
+    }
+
+    .proj-name {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .proj-org {
+      font-size: 11px;
+      color: var(--accent);
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .proj-desc {
+      font-size: 11.5px;
+      line-height: 1.6;
+      color: var(--text);
+    }
+
+    /* ============ RIGHT COLUMN (Sidebar Info) ============ */
+    .right-col {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      padding-right: 10px;
+    }
+
+    .summary-text {
+      font-size: 11.5px;
+      line-height: 1.7;
+      text-align: justify;
+      color: var(--text);
+    }
+
+    /* Education */
+    .edu-item {
+      margin-bottom: 10px;
+    }
+
+    .edu-degree {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .edu-school {
+      font-size: 11px;
+      color: var(--secondary);
+      font-weight: 600;
+    }
+
+    .edu-date {
+      font-size: 10.5px;
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    /* Skills List */
+    .skills-group {
+      margin-bottom: 10px;
+    }
+
+    .skills-group-title {
+      font-size: 11.5px;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 4px;
+    }
+
+    .skills-list {
+      font-size: 11px;
+      line-height: 1.5;
+      color: var(--text);
+    }
+
+    /* Languages */
+    .lang-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 11.5px;
+      margin-bottom: 4px;
+    }
+
+    .lang-name {
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    /* ============ PRINT CONFIGURATION ============ */
+    @page {
+      size: A4;
+      margin: 0;
+    }
+
+    @media print {
+      body {
+        background-color: #ffffff;
+        padding: 0;
+      }
+      .cv-page {
+        width: 210mm;
+        height: 297mm;
+        box-shadow: none;
+        padding: 15mm 12mm;
+        border-radius: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="cv-page">
+    
+    <!-- Header -->
+    <header class="cv-header">
+      <div class="header-main">
+        <h1>أحمد طعمة</h1>
+        <p>مطور ويب متكامل وصانع محتوى رقمي</p>
+      </div>
+      <div class="header-contact">
+        <div>📍 طولكرم، فلسطين</div>
+        <div>📱 <a href="tel:+970569922257" style="direction: ltr; display: inline-block;">+970 569 922 257</a></div>
+        <div>✉️ <a href="mailto:ahmad.r.tomeh@gmail.com">ahmad.r.tomeh@gmail.com</a></div>
+        <div>🔗 <a href="https://ahmadtomeh.github.io/" target="_blank">معرض الأعمال</a> | <a href="https://linkedin.com" target="_blank">LinkedIn</a> | <a href="https://github.com" target="_blank">GitHub</a></div>
+      </div>
+    </header>
+
+    <!-- LEFT COLUMN: Experience & Projects -->
+    <div class="left-col">
+      
+      <!-- Experience -->
+      <section>
+        <h2 class="section-title">الخبرة المهنية</h2>
+
+        <!-- Role 1 -->
+        <div class="experience-item">
+          <div class="exp-header">
+            <div>
+              <span class="exp-title">مسؤول عمليات وغرفة التحكم</span>
+              <span class="exp-company">| بنك فلسطين</span>
+            </div>
+            <span class="exp-date">05/2024 – 07/2025</span>
+          </div>
+          <div class="exp-desc">
+            <ul>
+              <li>مراقبة وإدارة الأنظمة والعمليات الحيوية للبنك لضمان جودة الأداء واستمرارية العمل.</li>
+              <li>تطوير وبرمجة نظام خاص لفحص حالة اتصال أجهزة الصراف الآلي (ATMs) والكاميرات الأمنية فوريًا على مستوى كافة المحافظات في الضفة وغزة، مما سرّع عمليات الصيانة والحماية.</li>
+              <li>إعداد وعرض التقارير الفنية الدورية الدقيقة للإدارات العليا حول أداء البنية التحتية واستقرار الأجهزة.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Role 2 -->
+        <div class="experience-item">
+          <div class="exp-header">
+            <div>
+              <span class="exp-title">مطور ويب وصانع محتوى (عمل حر)</span>
+              <span class="exp-company">| طولكرم</span>
+            </div>
+            <span class="exp-date">2021 – الآن</span>
+          </div>
+          <div class="exp-desc">
+            <ul>
+              <li>تصميم الهويات البصرية والمواد الإعلانية الرقمية للمشاريع المحلية باستخدام Canva وبرامج التصميم.</li>
+              <li>إنتاج وتحرير مقاطع الفيديو القصيرة والريلز التسويقية لزيادة التفاعل ونسب الوصول على المنصات.</li>
+              <li>بناء وتطوير مواقع وتطبيقات ويب متكاملة، وربط واجهات التطبيقات (APIs)، وتطبيق أساسيات الـ SEO.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Role 3 -->
+        <div class="experience-item">
+          <div class="exp-header">
+            <div>
+              <span class="exp-title">أخصائي دعم فني وخدمة عملاء</span>
+              <span class="exp-company">| شركة مدى لخدمات الإنترنت</span>
+            </div>
+            <span class="exp-date">12/2019 – 07/2020</span>
+          </div>
+          <div class="exp-desc">
+            <ul>
+              <li>التواصل المباشر مع العملاء لحل المشكلات الفنية المتعلقة بالاتصال والشبكات باحترافية وسرعة.</li>
+              <li>إعداد تقارير الأعطال الفنية ومتابعة التذاكر اليومية لمساعدة فرق الصيانة في تحسين جودة الخدمة.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Role 4 -->
+        <div class="experience-item" style="margin-bottom: 0;">
+          <div class="exp-header">
+            <div>
+              <span class="exp-title">فني صيانة ومسؤول مبيعات</span>
+              <span class="exp-company">| شركة الاخوة للكمبيوتر والإنترنت</span>
+            </div>
+            <span class="exp-date">06/2017 – 06/2018</span>
+          </div>
+          <div class="exp-desc">
+            <ul>
+              <li>صيانة وتشخيص أعطال أجهزة الكمبيوتر، وإدارة مبيعات الأجهزة والقطع الفنية للزبائن.</li>
+              <li>التنسيق الميداني لتركيب وتجهيز شبكات الحاسوب للشركات والمحلات المحلية وتأكيد تسليمها.</li>
+            </ul>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- Projects -->
+      <section>
+        <h2 class="section-title">مشاريع مختارة</h2>
+
+        <!-- Project 1 -->
+        <div class="project-item">
+          <div class="proj-title-row">
+            <span class="proj-name">نظام فحص اتصال الصرافات والكاميرات</span>
+            <span class="proj-org">بنك فلسطين</span>
+          </div>
+          <p class="proj-desc">
+            نظام برمجي متكامل قمت ببنائه لمراقبة وفحص اتصال أجهزة الصراف الآلي والكاميرات الأمنية الملحقة بها بشكل فوري في الضفة وغزة، مما ساهم في تسريع استجابة فرق الصيانة وضمان استمرارية الخدمة.
+          </p>
+        </div>
+
+        <!-- Project 2 -->
+        <div class="project-item">
+          <div class="proj-title-row">
+            <span class="proj-name">AutoSalePalestine – منصة بيع المركبات</span>
+            <span class="proj-org">أكاديمية أكسوس</span>
+          </div>
+          <p class="proj-desc">
+            تطبيق ويب متكامل يتيح للمستخدمين بيع وشراء السيارات المستعملة والجديدة، صمم بهيكل برمجي يدعم تصفح المركبات وتفعيل محركات البحث لتسهيل وصول الجمهور للسيارات المناسبة.
+          </p>
+        </div>
+
+        <!-- Project 3: Graduation Project -->
+        <div class="project-item" style="margin-bottom: 0;">
+          <div class="proj-title-row">
+            <span class="proj-name">SaleSYS – نظام إدارة المبيعات والمخازن</span>
+            <span class="proj-org">مشروع التخرج | جامعة خضوري</span>
+          </div>
+          <p class="proj-desc">
+            تصميم وبناء تطبيق مكتبي لإدارة المبيعات والمنتجات وإصدار الفواتير والتقارير المالية للمحلات التجارية، وقد حصل على تقييم امتياز (93/100).
+          </p>
+        </div>
+
+      </section>
+
+    </div>
+
+    <!-- RIGHT COLUMN: Professional Summary, Education, Skills, Languages -->
+    <div class="right-col">
+      
+      <!-- Summary -->
+      <section>
+        <h2 class="section-title">الملخص المهني</h2>
+        <p class="summary-text">
+          مطور ويب متكامل وصانع محتوى رقمي، أجمع بين الخلفية التجارية الأكاديمية والخبرة التقنية والعملية القوية لدى كبرى المؤسسات المالية. أمتلك قدرة فريدة على دمج التكنولوجيا بالتسويق، من خلال تصميم الهويات البصرية الجذابة، وإنتاج وتحرير الفيديوهات الترويجية، وإدارة المنصات الرقمية بشكل احترافي، بالإضافة إلى إدارة وتتبع الإعلانات الممولة وتحليل البيانات وإعداد تقارير الأداء.
+        </p>
+      </section>
+
+      <!-- Skills -->
+      <section>
+        <h2 class="section-title">المهارات</h2>
+        
+        <div class="skills-group">
+          <p class="skills-group-title">التسويق وصناعة المحتوى:</p>
+          <p class="skills-list">إدارة منصات التواصل، صناعة الريلز والفيديو، تصميم الهوية البصرية، إعلانات Meta الممولة، تحليل البيانات وتقارير الأداء.</p>
+        </div>
+
+        <div class="skills-group">
+          <p class="skills-group-title">البرامج والأدوات:</p>
+          <p class="skills-list">Photoshop, Illustrator, Canva, Premiere Pro, CapCut, MS Excel.</p>
+        </div>
+
+        <div class="skills-group" style="margin-bottom: 0;">
+          <p class="skills-group-title">التقنيات البرمجية:</p>
+          <p class="skills-list">HTML5, CSS3, JavaScript, React.js, Python, Django, SQL/SQLite, Git & GitHub, SEO.</p>
+        </div>
+      </section>
+
+      <!-- Education -->
+      <section>
+        <h2 class="section-title">التعليم</h2>
+
+        <div class="edu-item">
+          <h3 class="edu-degree">شهادة مطور الويب المتكامل</h3>
+          <p class="edu-school">أكاديمية أكسوس (Axsos Academy)</p>
+          <span class="edu-date">📅 2022 – 2023</span>
+        </div>
+
+        <div class="edu-item">
+          <h3 class="edu-degree">دبلوم برمجيات وقواعد البيانات</h3>
+          <p class="edu-school">جامعة فلسطين التقنية - خضوري</p>
+          <span class="edu-date">📅 2015 – 2018</span>
+        </div>
+
+        <div class="edu-item">
+          <h3 class="edu-degree">الفرع التجاري - الثانوية العامة</h3>
+          <p class="edu-school">مدرسة قفين الثانوية للبنين</p>
+          <span class="edu-date">📅 2009 – 2014</span>
+        </div>
+
+        <div class="edu-item" style="margin-bottom: 0;">
+          <h3 class="edu-degree">تمديدات كهربائية منزلية وصناعية(1 فاز و3 فاز)</h3>
+          <p class="edu-school">التقنية الهندسية للتدريب المهني والأكاديمي</p>
+          <span class="edu-date">📅 2020 – 2021</span>
+        </div>
+      </section>
+
+      <!-- Languages -->
+      <section>
+        <h2 class="section-title">اللغات</h2>
+        <div class="lang-row">
+          <span class="lang-name">العربية</span>
+          <span>اللغة الأم</span>
+        </div>
+        <div class="lang-row">
+          <span class="lang-name">الإنجليزية</span>
+          <span>مستوى متقدم</span>
+        </div>
+      </section>
+
+    </div>
+
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,1059 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" class="scroll-smooth dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>أحمد طعمة | مطور ويب ومصمم حلول رقمية</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Tailwind Configuration -->
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            cairo: ['Cairo', 'sans-serif'],
+            sans: ['Plus Jakarta Sans', 'Cairo', 'sans-serif'],
+          },
+          colors: {
+            dark: {
+              950: '#030712',
+              900: '#090d16',
+              800: '#111827',
+              700: '#1f2937',
+            },
+            brand: {
+              blue: '#3b82f6',
+              purple: '#8b5cf6',
+              emerald: '#10b981',
+            }
+          },
+          animation: {
+            'pulse-slow': 'pulse 8s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    /* Glassmorphism custom utilities */
+    .glass-nav {
+      background: rgba(3, 7, 18, 0.75);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    html:not(.dark) .glass-nav {
+      background: rgba(248, 250, 252, 0.8);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    }
+    .glass-card {
+      background: rgba(17, 24, 39, 0.7);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    html:not(.dark) .glass-card {
+      background: rgba(255, 255, 255, 0.85);
+      border: 1px solid rgba(0, 0, 0, 0.06);
+    }
+    .glass-card:hover {
+      border-color: rgba(59, 130, 246, 0.3);
+      box-shadow: 0 0 25px rgba(59, 130, 246, 0.15);
+    }
+    .text-gradient {
+      background: linear-gradient(135deg, #60a5fa 0%, #a78bfa 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    html:not(.dark) .text-gradient {
+      background: linear-gradient(135deg, #1d4ed8 0%, #7c3aed 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    
+    /* Hide scrollbar for clean UI but keep functionality */
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #030712;
+    }
+    html:not(.dark) ::-webkit-scrollbar-track {
+      background: #f1f5f9;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #1f2937;
+      border-radius: 3px;
+    }
+    html:not(.dark) ::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #3b82f6;
+    }
+  </style>
+</head>
+<body class="dark:bg-dark-950 bg-slate-50 dark:text-gray-100 text-slate-800 transition-colors duration-300 font-cairo overflow-x-hidden selection:bg-brand-blue/30">
+
+  <!-- Interactive Canvas Background (Constellation Effect) -->
+  <canvas id="particleCanvas" class="fixed inset-0 w-full h-full pointer-events-none z-0 opacity-40 dark:opacity-40 opacity-20"></canvas>
+
+  <!-- Ambient Glowing Blobs -->
+  <div class="fixed -top-40 -left-40 w-96 h-96 bg-brand-blue/10 rounded-full blur-[120px] pointer-events-none z-0 animate-pulse-slow"></div>
+  <div class="fixed top-1/2 -right-40 w-[450px] h-[450px] bg-brand-purple/10 rounded-full blur-[150px] pointer-events-none z-0 animate-pulse-slow" style="animation-delay: -3s;"></div>
+
+  <!-- Navigation Bar -->
+  <nav class="fixed top-0 left-0 right-0 z-50 glass-nav transition-all duration-300">
+    <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <a href="#" class="text-xl font-black text-gradient tracking-tight font-sans">Ahmad Tomeh</a>
+        <span class="text-[10px] font-bold bg-brand-blue/10 border border-brand-blue/30 text-brand-blue px-2.5 py-0.5 rounded-full">PORTFOLIO</span>
+      </div>
+      
+      <!-- Nav Links -->
+      <ul class="hidden md:flex items-center gap-8 text-sm font-semibold dark:text-gray-400 text-slate-600">
+        <li><a href="#about" class="hover:text-brand-blue transition-colors">من أنا</a></li>
+        <li><a href="#skills" class="hover:text-brand-blue transition-colors">المهارات</a></li>
+        <li><a href="#experience" class="hover:text-brand-blue transition-colors">الخبرات</a></li>
+        <li><a href="#projects" class="hover:text-brand-blue transition-colors">المشاريع</a></li>
+        <li><a href="#gallery" class="hover:text-brand-blue transition-colors">معرض التصاميم</a></li>
+        <li><a href="#contact" class="hover:text-brand-blue transition-colors">اتصال</a></li>
+      </ul>
+      
+      <div class="flex items-center gap-4">
+        <!-- Theme Toggle Switch -->
+        <button onclick="toggleTheme()" class="w-10 h-10 rounded-xl bg-gray-200/50 dark:bg-dark-900/50 border dark:border-gray-800 border-slate-200 flex items-center justify-center text-slate-700 dark:text-gray-300 hover:scale-105 transition-transform" title="تبديل المظهر">
+          <i id="theme-icon" data-lucide="sun" class="w-5 h-5"></i>
+        </button>
+
+        <!-- CTA button -->
+        <a href="#contact" class="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-bold bg-gradient-to-r from-brand-blue to-brand-purple hover:opacity-90 transition-all shadow-lg shadow-brand-blue/20 text-white">
+          <i data-lucide="send" class="w-3.5 h-3.5"></i> تواصل معي
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="min-h-screen flex items-center pt-24 pb-12 relative z-10">
+    <div class="max-w-6xl mx-auto px-6 w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+      
+      <!-- Intro text -->
+      <div class="lg:col-span-7 text-center lg:text-right space-y-6">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-blue/10 border border-brand-blue/20 text-brand-blue text-xs font-bold tracking-wider">
+          <span class="w-1.5 h-1.5 rounded-full bg-brand-blue animate-ping"></span> مطور ويب متكامل
+        </div>
+        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black dark:text-white text-slate-900 leading-tight">
+          مرحباً، أنا أحمد طعمة <br>
+          <span class="text-gradient" id="typewriter">مطور ويب</span>
+        </h1>
+        <p class="dark:text-gray-400 text-slate-600 text-sm sm:text-base max-w-xl mx-auto lg:mx-0 leading-relaxed">
+          أجمع بين الشغف البرمجي والذكاء التجاري لبناء منصات رقمية متكاملة وسلسة، وتصميم هويات بصرية جذابة، وصناعة المحتوى التفاعلي الذي يساهم في نمو الشركات والمشاريع.
+        </p>
+
+        <!-- CV Downloads -->
+        <div class="flex items-center justify-center lg:justify-start gap-3 flex-wrap pt-1.5">
+          <span class="text-xs font-bold dark:text-gray-400 text-slate-500">معاينة السيرة الذاتية (A4):</span>
+          <a href="cv_ar.html" target="_blank" class="px-3.5 py-1.5 rounded-lg text-xs font-bold bg-brand-blue/10 border border-brand-blue/30 text-brand-blue hover:bg-brand-blue hover:text-white transition-all flex items-center gap-1.5">
+            <i data-lucide="file-text" class="w-3.5 h-3.5"></i> نسخة عربية
+          </a>
+          <a href="cv.html" target="_blank" class="px-3.5 py-1.5 rounded-lg text-xs font-bold bg-brand-purple/10 border border-brand-purple/30 text-brand-purple hover:bg-brand-purple hover:text-white transition-all flex items-center gap-1.5">
+            <i data-lucide="file-text" class="w-3.5 h-3.5"></i> English CV
+          </a>
+        </div>
+
+        <div class="flex items-center justify-center lg:justify-start gap-4 flex-wrap pt-4">
+          <a href="#contact" class="btn bg-gradient-to-r from-brand-blue to-brand-purple text-white shadow-lg shadow-brand-purple/20">
+            ابدأ مشروعك <i data-lucide="arrow-left" class="w-4 h-4"></i>
+          </a>
+          <a href="#projects" class="btn border dark:border-gray-700 border-slate-300 dark:bg-dark-900/50 bg-white dark:text-gray-300 text-slate-700 hover:dark:text-white hover:text-slate-900 hover:dark:bg-dark-900 hover:bg-slate-100">
+            تصفح أعمالي
+          </a>
+        </div>
+      </div>
+
+      <!-- Glass Graphic Card -->
+      <div class="lg:col-span-5 flex justify-center">
+        <div class="glass-card p-8 rounded-3xl w-full max-w-sm space-y-6 shadow-2xl relative overflow-hidden group">
+          <div class="absolute -right-12 -top-12 w-24 h-24 bg-brand-blue/10 rounded-full blur-2xl group-hover:bg-brand-blue/20 transition-all"></div>
+          
+          <div class="flex items-center gap-4">
+            <div class="w-12 h-12 rounded-2xl bg-brand-blue/10 flex items-center justify-center text-brand-blue border border-brand-blue/20">
+              <i data-lucide="user" class="w-6 h-6"></i>
+            </div>
+            <div>
+              <h3 class="dark:text-white text-slate-900 font-bold text-base">بطاقة التعريف</h3>
+              <p class="text-xs dark:text-gray-400 text-slate-500">ملخص المؤشرات الفنية</p>
+            </div>
+          </div>
+          
+          <div class="space-y-4 text-xs font-semibold dark:text-gray-300 text-slate-700 pt-2">
+            <div class="flex justify-between items-center">
+              <span class="dark:text-gray-500 text-slate-400">الموقع الجغرافي</span>
+              <span>طولكرم، فلسطين</span>
+            </div>
+            <hr class="dark:border-gray-800 border-slate-200">
+            <div class="flex justify-between items-center">
+              <span class="dark:text-gray-500 text-slate-400">الخبرة المهنية</span>
+              <span class="text-brand-blue">3+ سنوات</span>
+            </div>
+            <hr class="dark:border-gray-800 border-slate-200">
+            <div class="flex justify-between items-center">
+              <span class="dark:text-gray-500 text-slate-400">آخر مشاريع البنوك</span>
+              <span class="text-brand-emerald">بنك فلسطين</span>
+            </div>
+            <hr class="dark:border-gray-800 border-slate-200">
+            <div class="flex justify-between items-center">
+              <span class="dark:text-gray-500 text-slate-400">الدوام المفضل</span>
+              <span>دوام كامل</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="py-24 relative z-10 border-t dark:border-gray-900 border-slate-200 dark:bg-dark-900/30 bg-slate-100/50">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="space-y-2 mb-12 text-center md:text-right">
+        <span class="text-xs font-bold text-brand-blue uppercase tracking-widest">نبذة عامة</span>
+        <h2 class="text-2xl sm:text-3xl font-extrabold dark:text-white text-slate-900">من أنا</h2>
+      </div>
+
+      <div class="glass-card p-8 md:p-10 rounded-3xl space-y-8">
+        <p class="dark:text-gray-400 text-slate-600 text-sm sm:text-base leading-loose text-justify font-medium">
+          أنا مطور ويب متخصص ومسؤول إدارة محتوى مقيم في طولكرم. بدأت رحلتي بالتركيز على دراسة إدارة الأعمال والجانب التجاري خلال الثانوية العامة (الفرع التجاري)، ليتطور هذا الاهتمام برمجياً من خلال الحصول على دبلوم البرمجة وقواعد البيانات من جامعة خضوري، وتطوير مهاراتي البرمجية الكاملة عبر أكاديمية أكسوس. أمتلك خبرة عملية قيمة في التحكم بالأنظمة ومراقبتها في بنك فلسطين، إلى جانب تقديم الدعم الفني في شركة مدى، مما منحني فهماً عميقاً لأهمية جودة الخدمة والتواصل مع العملاء. أسعى لتوظيف هذه المهارات المتكاملة لبناء استراتيجيات تسويقية وتطوير منصات رقمية وحلول برمجية تساهم في نمو الشركات والمشاريع.
+        </p>
+
+        <!-- Stats Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 pt-4">
+          <div class="dark:bg-dark-950/40 bg-slate-50 border dark:border-gray-800/80 border-slate-200 p-6 rounded-2xl text-center hover:border-brand-blue/30 transition-colors">
+            <div class="text-3xl font-black text-brand-blue">3+</div>
+            <div class="text-xs text-gray-500 font-bold mt-2">سنوات خبرة برمجية</div>
+          </div>
+          <div class="dark:bg-dark-950/40 bg-slate-50 border dark:border-gray-800/80 border-slate-200 p-6 rounded-2xl text-center hover:border-brand-purple/30 transition-colors">
+            <div class="text-3xl font-black text-brand-purple">10+</div>
+            <div class="text-xs text-gray-500 font-bold mt-2">مشاريع مطورة</div>
+          </div>
+          <div class="dark:bg-dark-950/40 bg-slate-50 border dark:border-gray-800/80 border-slate-200 p-6 rounded-2xl text-center hover:border-brand-emerald/30 transition-colors">
+            <div class="text-3xl font-black text-brand-emerald">100%</div>
+            <div class="text-xs text-gray-500 font-bold mt-2">التزام بمواعيد التسليم</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive Skills Section -->
+  <section id="skills" class="py-24 relative z-10 border-t dark:border-gray-900 border-slate-200">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="space-y-2 mb-12 text-center">
+        <span class="text-xs font-bold text-brand-blue uppercase tracking-widest">الكفاءات المهنية</span>
+        <h2 class="text-2xl sm:text-3xl font-extrabold dark:text-white text-slate-900">المهارات والخبرات</h2>
+      </div>
+
+      <!-- Tab Buttons -->
+      <div class="flex justify-center gap-3 mb-8 flex-wrap">
+        <button onclick="switchTab(event, 'tech')" class="tab-btn px-5 py-2.5 rounded-full text-xs sm:text-sm font-bold dark:bg-dark-900 bg-white border dark:border-gray-800 border-slate-200 dark:text-gray-400 text-slate-600 transition-all hover:text-white active">تطوير الويب وقواعد البيانات</button>
+        <button onclick="switchTab(event, 'marketing')" class="tab-btn px-5 py-2.5 rounded-full text-xs sm:text-sm font-bold dark:bg-dark-900 bg-white border dark:border-gray-800 border-slate-200 dark:text-gray-400 text-slate-600 transition-all hover:text-white">التسويق وصناعة المحتوى</button>
+        <button onclick="switchTab(event, 'tools')" class="tab-btn px-5 py-2.5 rounded-full text-xs sm:text-sm font-bold dark:bg-dark-900 bg-white border dark:border-gray-800 border-slate-200 dark:text-gray-400 text-slate-600 transition-all hover:text-white">البرامج والأدوات</button>
+      </div>
+
+      <!-- Tab Panes Container -->
+      <div class="glass-card p-8 md:p-10 rounded-3xl min-h-[250px]">
+        
+        <!-- Tab 1: Tech -->
+        <div id="tech" class="tab-pane grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 active">
+          <div class="flex items-center gap-3 dark:bg-dark-950/40 bg-slate-50 p-4 rounded-xl border dark:border-gray-800/80 border-slate-200 hover:border-brand-blue/30 transition-colors">
+            <span class="text-brand-blue text-lg">🌐</span>
+            <span class="text-xs font-bold dark:text-gray-200 text-slate-700">HTML5 / CSS3</span>
+          </div>
+          <div class="flex items-center gap-3 dark:bg-dark-950/40 bg-slate-50 p-4 rounded-xl border dark:border-gray-800/80 border-slate-200 hover:border-brand-blue/30 transition-colors">
+            <span class="text-brand-blue text-lg">⚡</span>
+            <span class="text-xs font-bold dark:text-gray-200 text-slate-700">JavaScript</span>
+          </div>
+          <div class="flex items-center gap-3 dark:bg-dark-950/40 bg-slate-50 p-4 rounded-xl border dark:border-gray-800/80 border-slate-200 hover:border-brand-blue/30 transition-colors">
+            <span class="text-brand-blue text-lg">⚛️</span>
+            <span class="text-xs font-bold dark:text-gray-200 text-slate-700">React.js</span>
+          </div>
+          <div class="flex items-center gap-3 dark:bg-dark-950/40 bg-slate-50 p-4 rounded-xl border dark:border-gray-800/80 border-slate-200 hover:border-brand-blue/30 transition-colors">
+            <span class="text-brand-blue text-lg">🎨</span>
+            <span class="text-xs font-bold dark:text-gray-200 text-slate-700">Bootstrap / Responsive</span>
+          </div>
+          <div class="flex items-center gap-3 dark:bg-dark-950/40 bg-slate-50 p-4 rounded-xl border dark:border-gray-800/80 border-slate-200 hover:border-brand-blue/30 transition-colors">
+            <span class="text-brand-blue text-lg">🐍</span>
+            <span class="text-xs font-bold dark:text-gray-200 text-slate-700">Python</span>
+          </div>
+          <div class="flex items-center gap-3 dark:bg-dark-950/40 bg-slate-50 p-4 rounded-xl border dark:border-gray-800/80 border-slate-200 hover:border-brand-blue/30 transition-colors">
+            <span class="text-brand-blue text-lg">🔥</span>
+            <span class="text-xs font-bold dark:text-gray-200 text-slate-700">Django</span>
+          </div>
+          <div class="flex items-center gap-3 dark:bg-dark-950/40 bg-slate-50 p-4 rounded-xl border dark:border-gray-800/80 border-slate-200 hover:border-brand-blue/30 transition-colors">
+            <span class="text-brand-blue text-lg">💾</span>
+            <span class="text-xs font-bold dark:text-gray-200 text-slate-700">SQL / SQLite</span>
+          </div>
+          <div class="flex items-center gap-3 dark:bg-dark-950/40 bg-slate-50 p-4 rounded-xl border dark:border-gray-800/80 border-slate-200 hover:border-brand-blue/30 transition-colors">
+            <span class="text-brand-blue text-lg">🐙</span>
+            <span class="text-xs font-bold dark:text-gray-200 text-slate-700">Git & GitHub</span>
+          </div>
+        </div>
+
+        <!-- Tab 2: Marketing -->
+        <div id="marketing" class="tab-pane hidden grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+          <div class="flex items-center gap-3 dark:bg-dark-950/40 bg-slate-50 p-4 rounded-xl border dark:border-gray-800/80 border-slate-200 hover:border-brand-purple/30 transition-colors">
+            <span class="text-brand-purple text-lg">📱</span>
+            <span class="text-xs font-bold dark:text-gray-200 text-slate-700">إدارة صفحات التواصل</span>
+          </div>
+          <div class="flex items-center gap-3 dark:bg-dark-950/40 bg-slate-50 p-4 rounded-xl border dark:border-gray-800/80 border-slate-200 hover:border-brand-purple/30 transition-colors">
+            <span class="text-brand-purple text-lg">🎬</span>
+            <span class="text-xs font-bold dark:text-gray-200 text-slate-700">صناعة الريلز والفيديو</span>
+          </div>
+          <div class="flex items-center gap-3 dark:bg-dark-950/40 bg-slate-50 p-4 rounded-xl border dark:border-gray-800/80 border-slate-200 hover:border-brand-purple/30 transition-colors">
+            <span class="text-brand-purple text-lg">📣</span>
+            <span class="text-xs font-bold dark:text-gray-200 text-slate-700">الإعلانات الممولة (Meta)</span>
+          </div>
+          <div class="flex items-center gap-3 dark:bg-dark-950/40 bg-slate-50 p-4 rounded-xl border dark:border-gray-800/80 border-slate-200 hover:border-brand-purple/30 transition-colors">
+            <span class="text-brand-purple text-lg">📊</span>
+            <span class="text-xs font-bold dark:text-gray-200 text-slate-700">تحليل البيانات والنمو</span>
+          </div>
+          <div class="flex items-center gap-3 dark:bg-dark-950/40 bg-slate-50 p-4 rounded-xl border dark:border-gray-800/80 border-slate-200 hover:border-brand-purple/30 transition-colors">
+            <span class="text-brand-purple text-lg">📝</span>
+            <span class="text-xs font-bold dark:text-gray-200 text-slate-700">إعداد تقارير الأداء</span>
+          </div>
+          <div class="flex items-center gap-3 dark:bg-dark-950/40 bg-slate-50 p-4 rounded-xl border dark:border-gray-800/80 border-slate-200 hover:border-brand-purple/30 transition-colors">
+            <span class="text-brand-purple text-lg">✨</span>
+            <span class="text-xs font-bold dark:text-gray-200 text-slate-700">تصميم الهوية البصرية</span>
+          </div>
+          <div class="flex items-center gap-3 dark:bg-dark-950/40 bg-slate-50 p-4 rounded-xl border dark:border-gray-800/80 border-slate-200 hover:border-brand-purple/30 transition-colors">
+            <span class="text-brand-purple text-lg">📞</span>
+            <span class="text-xs font-bold dark:text-gray-200 text-slate-700">دعم العملاء وحل المشاكل</span>
+          </div>
+          <div class="flex items-center gap-3 dark:bg-dark-950/40 bg-slate-50 p-4 rounded-xl border dark:border-gray-800/80 border-slate-200 hover:border-brand-purple/30 transition-colors">
+            <span class="text-brand-purple text-lg">💼</span>
+            <span class="text-xs font-bold dark:text-gray-200 text-slate-700">التسويق والمبيعات الميدانية</span>
+          </div>
+        </div>
+
+        <!-- Tab 3: Tools -->
+        <div id="tools" class="tab-pane hidden grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+          <div class="flex items-center gap-3 dark:bg-dark-950/40 bg-slate-50 p-4 rounded-xl border dark:border-gray-800/80 border-slate-200 hover:border-brand-emerald/30 transition-colors">
+            <span class="text-brand-emerald text-lg">🎨</span>
+            <span class="text-xs font-bold dark:text-gray-200 text-slate-700">Adobe Photoshop</span>
+          </div>
+          <div class="flex items-center gap-3 dark:bg-dark-950/40 bg-slate-50 p-4 rounded-xl border dark:border-gray-800/80 border-slate-200 hover:border-brand-emerald/30 transition-colors">
+            <span class="text-brand-emerald text-lg">🎞️</span>
+            <span class="text-xs font-bold dark:text-gray-200 text-slate-700">Adobe Premiere Pro</span>
+          </div>
+          <div class="flex items-center gap-3 dark:bg-dark-950/40 bg-slate-50 p-4 rounded-xl border dark:border-gray-800/80 border-slate-200 hover:border-brand-emerald/30 transition-colors">
+            <span class="text-brand-emerald text-lg">📐</span>
+            <span class="text-xs font-bold dark:text-gray-200 text-slate-700">Adobe Illustrator</span>
+          </div>
+          <div class="flex items-center gap-3 dark:bg-dark-950/40 bg-slate-50 p-4 rounded-xl border dark:border-gray-800/80 border-slate-200 hover:border-brand-emerald/30 transition-colors">
+            <span class="text-brand-emerald text-lg">⚡</span>
+            <span class="text-xs font-bold dark:text-gray-200 text-slate-700">Canva</span>
+          </div>
+          <div class="flex items-center gap-3 dark:bg-dark-950/40 bg-slate-50 p-4 rounded-xl border dark:border-gray-800/80 border-slate-200 hover:border-brand-emerald/30 transition-colors">
+            <span class="text-brand-emerald text-lg">✂️</span>
+            <span class="text-xs font-bold dark:text-gray-200 text-slate-700">CapCut</span>
+          </div>
+          <div class="flex items-center gap-3 dark:bg-dark-950/40 bg-slate-50 p-4 rounded-xl border dark:border-gray-800/80 border-slate-200 hover:border-brand-emerald/30 transition-colors">
+            <span class="text-brand-emerald text-lg">🎯</span>
+            <span class="text-xs font-bold dark:text-gray-200 text-slate-700">Meta Ads Manager</span>
+          </div>
+          <div class="flex items-center gap-3 dark:bg-dark-950/40 bg-slate-50 p-4 rounded-xl border dark:border-gray-800/80 border-slate-200 hover:border-brand-emerald/30 transition-colors">
+            <span class="text-brand-emerald text-lg">📊</span>
+            <span class="text-xs font-bold dark:text-gray-200 text-slate-700">MS Excel</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Work Experience Section -->
+  <section id="experience" class="py-24 relative z-10 border-t dark:border-gray-900 border-slate-200 dark:bg-dark-900/10 bg-slate-100/20">
+    <div class="max-w-4xl mx-auto px-6">
+      <div class="space-y-2 mb-12 text-center">
+        <span class="text-xs font-bold text-brand-blue uppercase tracking-widest">التسلسل الزمني</span>
+        <h2 class="text-2xl sm:text-3xl font-extrabold dark:text-white text-slate-900">الخبرة المهنية</h2>
+      </div>
+
+      <!-- Vertical Timeline -->
+      <div class="relative border-r-2 dark:border-gray-850 border-slate-200 mr-4 md:mr-8 space-y-12">
+        
+        <!-- Experience Card 1 -->
+        <div class="relative pr-8 group">
+          <div class="absolute -right-2 top-2.5 w-4 h-4 rounded-full bg-slate-50 dark:bg-dark-950 border-4 border-brand-blue group-hover:border-brand-purple transition-all z-10"></div>
+          <div class="glass-card p-6 rounded-2xl space-y-4">
+            <div class="flex flex-wrap justify-between items-center gap-2">
+              <span class="text-[11px] font-bold text-brand-blue bg-brand-blue/10 px-3 py-1 rounded-full">05/2024 – 07/2025</span>
+              <span class="text-xs font-bold text-brand-purple">بنك فلسطين – الفرع الرئيسي، رام الله</span>
+            </div>
+            <h3 class="text-base sm:text-lg font-bold dark:text-white text-slate-900">موظف غرفة التحكم (Control Room Operator)</h3>
+            <ul class="dark:text-gray-400 text-slate-600 text-xs sm:text-sm list-disc list-inside space-y-2">
+              <li>مراقبة الأنظمة الحيوية لشبكة البنك لضمان أعلى مستويات الأمان والجودة واستمرارية العمل.</li>
+              <li>تطوير وبرمجة نظام خاص لفحص حالة اتصال أجهزة الصراف الآلي والكاميرات الأمنية فوريًا في الضفة وغزة، مما ساهم في حل المشكلات التقنية والأمنية بسرعة قياسية.</li>
+              <li>صياغة تقارير دورية للإدارات العليا حول أداء البنية التحتية وحالة الصرافات.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Experience Card 2 -->
+        <div class="relative pr-8 group">
+          <div class="absolute -right-2 top-2.5 w-4 h-4 rounded-full bg-slate-50 dark:bg-dark-950 border-4 border-brand-blue group-hover:border-brand-purple transition-all z-10"></div>
+          <div class="glass-card p-6 rounded-2xl space-y-4">
+            <div class="flex flex-wrap justify-between items-center gap-2">
+              <span class="text-[11px] font-bold text-brand-blue bg-brand-blue/10 px-3 py-1 rounded-full">2021 – الآن</span>
+              <span class="text-xs font-bold text-brand-purple">طولكرم، فلسطين</span>
+            </div>
+            <h3 class="text-base sm:text-lg font-bold dark:text-white text-slate-900">إدارة حسابات وصناعة محتوى رقمي (عمل حر)</h3>
+            <ul class="dark:text-gray-400 text-slate-600 text-xs sm:text-sm list-disc list-inside space-y-2">
+              <li>إدارة حسابات التواصل الاجتماعي وصناعة المحتوى البصري ومقاطع الريلز للمشاريع التجارية.</li>
+              <li>تصميم وتطوير مواقع ويب متكاملة لتحسين حضور الشركات على محركات البحث وتسهيل تجربة عملائها.</li>
+              <li>بناء هويات بصرية فريدة للعلامات التجارية تشمل الشعارات وتصاميم السوشيال ميديا.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Experience Card 3 -->
+        <div class="relative pr-8 group">
+          <div class="absolute -right-2 top-2.5 w-4 h-4 rounded-full bg-slate-50 dark:bg-dark-950 border-4 border-brand-blue group-hover:border-brand-purple transition-all z-10"></div>
+          <div class="glass-card p-6 rounded-2xl space-y-4">
+            <div class="flex flex-wrap justify-between items-center gap-2">
+              <span class="text-[11px] font-bold text-brand-blue bg-brand-blue/10 px-3 py-1 rounded-full">12/2019 – 07/2020</span>
+              <span class="text-xs font-bold text-brand-purple">شركة مدى لخدمات الإنترنت – رام الله</span>
+            </div>
+            <h3 class="text-base sm:text-lg font-bold dark:text-white text-slate-900">موظف دعم فني وخدمة عملاء (Technical Support)</h3>
+            <ul class="dark:text-gray-400 text-slate-600 text-xs sm:text-sm list-disc list-inside space-y-2">
+              <li>تقديم المساعدة الفنية للعملاء وحل المشكلات المتعلقة بالاتصال والشبكات بكفاءة عالية.</li>
+              <li>بناء مهارات تواصل تفاعلية واحترافية أسهمت في رفع رضا الزبائن وإعداد تقارير الأعطال اليومية.</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects Section -->
+  <section id="projects" class="py-24 relative z-10 border-t dark:border-gray-900 border-slate-200">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="space-y-2 mb-12 text-center">
+        <span class="text-xs font-bold text-brand-blue uppercase tracking-widest">أبرز الأعمال التقنية</span>
+        <h2 class="text-2xl sm:text-3xl font-extrabold dark:text-white text-slate-900">المشاريع البرمجية</h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        
+        <!-- Card 1 -->
+        <div class="glass-card p-6 rounded-2xl flex flex-col justify-between group">
+          <div>
+            <span class="text-[10px] font-bold bg-brand-blue/10 text-brand-blue px-2.5 py-0.5 rounded-full border border-brand-blue/20">أنظمة ومراقبة</span>
+            <h3 class="text-base sm:text-lg font-bold dark:text-white text-slate-900 mt-3 mb-2 group-hover:text-brand-blue transition-colors">نظام فحص اتصال الصرافات والكاميرات</h3>
+            <p class="dark:text-gray-400 text-slate-600 text-xs sm:text-sm leading-relaxed mb-6">
+              نظام برمجي متكامل لمراقبة اتصال أجهزة الصراف الآلي والكاميرات الأمنية الملحقة بها بشكل فوري في الضفة وغزة، قمت ببنائه لصالح بنك فلسطين.
+            </p>
+          </div>
+          <div class="space-y-4">
+            <div class="flex flex-wrap gap-2">
+              <span class="text-[10px] bg-dark-950/80 px-2.5 py-1 rounded border border-gray-800 font-sans text-gray-400">Monitoring</span>
+              <span class="text-[10px] bg-dark-950/80 px-2.5 py-1 rounded border border-gray-800 font-sans text-gray-400">Realtime API</span>
+            </div>
+            <button onclick="openModal('modal-bop')" class="inline-flex items-center gap-1 text-xs font-bold dark:text-white text-slate-800 hover:text-brand-blue transition-colors">
+              تفاصيل المشروع <i data-lucide="chevron-left" class="w-3.5 h-3.5"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="glass-card p-6 rounded-2xl flex flex-col justify-between group">
+          <div>
+            <span class="text-[10px] font-bold bg-brand-purple/10 text-brand-purple px-2.5 py-0.5 rounded-full border border-brand-purple/20">ويب وتجارة إلكترونية</span>
+            <h3 class="text-base sm:text-lg font-bold dark:text-white text-slate-900 mt-3 mb-2 group-hover:text-brand-purple transition-colors">AutoSalePalestine - بيع السيارات</h3>
+            <p class="dark:text-gray-400 text-slate-600 text-xs sm:text-sm leading-relaxed mb-6">
+              تطبيق ويب متكامل يتيح للمستخدمين بيع وشراء السيارات المستعملة والجديدة، صمم بهيكل برمجي يدعم تصفح المركبات وتفعيل محركات البحث.
+            </p>
+          </div>
+          <div class="space-y-4">
+            <div class="flex flex-wrap gap-2">
+              <span class="text-[10px] bg-dark-950/80 px-2.5 py-1 rounded border border-gray-800 font-sans text-gray-400">Django</span>
+              <span class="text-[10px] bg-dark-950/80 px-2.5 py-1 rounded border border-gray-800 font-sans text-gray-400">SQLite</span>
+            </div>
+            <button onclick="openModal('modal-autoscale')" class="inline-flex items-center gap-1 text-xs font-bold dark:text-white text-slate-800 hover:text-brand-purple transition-colors">
+              تفاصيل المشروع <i data-lucide="chevron-left" class="w-3.5 h-3.5"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="glass-card p-6 rounded-2xl flex flex-col justify-between group">
+          <div>
+            <span class="text-[10px] font-bold bg-brand-emerald/10 text-brand-emerald px-2.5 py-0.5 rounded-full border border-brand-emerald/20">أنظمة مبيعات</span>
+            <h3 class="text-base sm:text-lg font-bold dark:text-white text-slate-900 mt-3 mb-2 group-hover:text-brand-emerald transition-colors">SaleSYS - إدارة المبيعات</h3>
+            <p class="dark:text-gray-400 text-slate-600 text-xs sm:text-sm leading-relaxed mb-6">
+              نظام مبيعات متكامل لتتبع المبيعات والمخزون وإصدار التقارير الموثقة للأرباح والأداء المالي، وحصل على تقييم امتياز (93/100) كمشروع تخرجي الأكاديمي.
+            </p>
+          </div>
+          <div class="space-y-4">
+            <div class="flex flex-wrap gap-2">
+              <span class="text-[10px] bg-dark-950/80 px-2.5 py-1 rounded border border-gray-800 font-sans text-gray-400">Database</span>
+              <span class="text-[10px] bg-dark-950/80 px-2.5 py-1 rounded border border-gray-800 font-sans text-gray-400">PTUK Project</span>
+            </div>
+            <button onclick="openModal('modal-salesys')" class="inline-flex items-center gap-1 text-xs font-bold dark:text-white text-slate-800 hover:text-brand-emerald transition-colors">
+              تفاصيل المشروع <i data-lucide="chevron-left" class="w-3.5 h-3.5"></i>
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Design Gallery Section -->
+  <section id="gallery" class="py-24 relative z-10 border-t dark:border-gray-900 border-slate-200 dark:bg-dark-900/30 bg-slate-100/50">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="space-y-2 mb-12 text-center md:text-right">
+        <span class="text-xs font-bold text-brand-purple uppercase tracking-widest">معرض الأعمال</span>
+        <h2 class="text-2xl sm:text-3xl font-extrabold dark:text-white text-slate-900">معرض التصميم وصناعة المحتوى</h2>
+        <p class="text-xs sm:text-sm dark:text-gray-400 text-slate-600 max-w-lg mt-2">نماذج حقيقية من مشاريع الهوية البصرية، منشورات التواصل الاجتماعي، والدعاية الإعلانية لشركات ومحلات تجارية محلية.</p>
+      </div>
+
+      <!-- Filter Tabs -->
+      <div class="flex justify-center md:justify-start gap-3 mb-8 flex-wrap">
+        <button onclick="filterGallery(event, 'all')" class="gallery-filter-btn px-4 py-2 rounded-lg text-xs font-bold bg-brand-blue text-white active">الكل</button>
+        <button onclick="filterGallery(event, 'branding')" class="gallery-filter-btn px-4 py-2 rounded-lg text-xs font-bold dark:bg-dark-900 bg-white border dark:border-gray-800 border-slate-200 dark:text-gray-400 text-slate-600 hover:text-white">الهوية البصرية والكرفانات</button>
+        <button onclick="filterGallery(event, 'social')" class="gallery-filter-btn px-4 py-2 rounded-lg text-xs font-bold dark:bg-dark-900 bg-white border dark:border-gray-800 border-slate-200 dark:text-gray-400 text-slate-600 hover:text-white">منشورات ومطاعم</button>
+        <button onclick="filterGallery(event, 'video')" class="gallery-filter-btn px-4 py-2 rounded-lg text-xs font-bold dark:bg-dark-900 bg-white border dark:border-gray-800 border-slate-200 dark:text-gray-400 text-slate-600 hover:text-white">حملات إعلانية</button>
+      </div>
+
+      <!-- Gallery Grid -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="galleryGrid">
+        
+        <!-- Item 1: Bistro Grand Opening -->
+        <div class="gallery-item social glass-card overflow-hidden group rounded-2xl border dark:border-gray-800 border-slate-200 hover:border-brand-blue/30 transition-all duration-300">
+          <div class="relative overflow-hidden aspect-[3/4] bg-dark-950">
+            <img src="images/art1.jpg" alt="افتتاح بيسترو بلس قفين" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-85 group-hover:opacity-100">
+            <div class="absolute inset-0 bg-gradient-to-t from-dark-950 via-dark-950/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+              <div>
+                <span class="text-[10px] font-bold bg-brand-blue text-white px-2.5 py-0.5 rounded-full">سوشيال ميديا</span>
+                <h4 class="text-sm font-bold text-white mt-2">بوستر إعلان افتتاح بيسترو بلس - قفين</h4>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Item 2: Al Huda Caravan 1 -->
+        <div class="gallery-item branding glass-card overflow-hidden group rounded-2xl border dark:border-gray-800 border-slate-200 hover:border-brand-purple/30 transition-all duration-300">
+          <div class="relative overflow-hidden aspect-[3/4] bg-dark-950">
+            <img src="images/art2.jpg" alt="كرفانات الهدى" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-85 group-hover:opacity-100">
+            <div class="absolute inset-0 bg-gradient-to-t from-dark-950 via-dark-950/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+              <div>
+                <span class="text-[10px] font-bold bg-brand-purple text-white px-2.5 py-0.5 rounded-full">الهوية البصرية</span>
+                <h4 class="text-sm font-bold text-white mt-2">حملة كرفانات الهدى - الجودة أهم من السعر</h4>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Item 3: Abu Shanab Restaurant 1 -->
+        <div class="gallery-item social glass-card overflow-hidden group rounded-2xl border dark:border-gray-800 border-slate-200 hover:border-brand-emerald/30 transition-all duration-300">
+          <div class="relative overflow-hidden aspect-[3/4] bg-dark-950">
+            <img src="images/art5.jpg" alt="مطعم ابو شنب" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-85 group-hover:opacity-100">
+            <div class="absolute inset-0 bg-gradient-to-t from-dark-950 via-dark-950/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+              <div>
+                <span class="text-[10px] font-bold bg-brand-emerald text-white px-2.5 py-0.5 rounded-full">منشورات ومطاعم</span>
+                <h4 class="text-sm font-bold text-white mt-2">إعلان شيش طاووق - مطعم أبو شنب طولكرم</h4>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Item 4: Al Huda Caravan 2 -->
+        <div class="gallery-item branding glass-card overflow-hidden group rounded-2xl border dark:border-gray-800 border-slate-200 hover:border-brand-blue/30 transition-all duration-300">
+          <div class="relative overflow-hidden aspect-[3/4] bg-dark-950">
+            <img src="images/art3.jpg" alt="كرفانات الهدى مقاس 5*3" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-85 group-hover:opacity-100">
+            <div class="absolute inset-0 bg-gradient-to-t from-dark-950 via-dark-950/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+              <div>
+                <span class="text-[10px] font-bold bg-brand-blue text-white px-2.5 py-0.5 rounded-full">الهوية البصرية</span>
+                <h4 class="text-sm font-bold text-white mt-2">مواصفات وميزات كرفانات الهدى 5*3</h4>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Item 5: Al Akaber Butcher 1 -->
+        <div class="gallery-item video glass-card overflow-hidden group rounded-2xl border dark:border-gray-800 border-slate-200 hover:border-brand-purple/30 transition-all duration-300">
+          <div class="relative overflow-hidden aspect-[3/4] bg-dark-950">
+            <img src="images/art8.jpg" alt="ملحمة الأكابر" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-85 group-hover:opacity-100">
+            <div class="absolute inset-0 bg-gradient-to-t from-dark-950 via-dark-950/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+              <div>
+                <span class="text-[10px] font-bold bg-brand-purple text-white px-2.5 py-0.5 rounded-full">حملات إعلانية</span>
+                <h4 class="text-sm font-bold text-white mt-2">تصاميم العروض الأسبوعية - ملحمة الأكابر</h4>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Item 6: Al Huda Caravan Detail -->
+        <div class="gallery-item branding glass-card overflow-hidden group rounded-2xl border dark:border-gray-800 border-slate-200 hover:border-brand-emerald/30 transition-all duration-300">
+          <div class="relative overflow-hidden aspect-[3/4] bg-dark-950">
+            <img src="images/art4.jpg" alt="كرفانات الهدى التفاصيل" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-85 group-hover:opacity-100">
+            <div class="absolute inset-0 bg-gradient-to-t from-dark-950 via-dark-950/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+              <div>
+                <span class="text-[10px] font-bold bg-brand-emerald text-white px-2.5 py-0.5 rounded-full">الهوية البصرية</span>
+                <h4 class="text-sm font-bold text-white mt-2">إعلان الديكورات والتفاصيل - كرفانات الهدى</h4>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Education Section -->
+  <section class="py-24 relative z-10 border-t dark:border-gray-900 border-slate-200 dark:bg-dark-900/10 bg-slate-100/10">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="space-y-2 mb-12 text-center">
+        <span class="text-xs font-bold text-brand-blue uppercase tracking-widest">المؤهلات الأكاديمية</span>
+        <h2 class="text-2xl sm:text-3xl font-extrabold dark:text-white text-slate-900">التعليم والدورات</h2>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="glass-card p-6 rounded-2xl hover:-translate-y-1 transition-all">
+          <span class="text-2xl">🏫</span>
+          <h3 class="font-bold text-sm sm:text-base dark:text-white text-slate-900 mt-4 mb-2">أكاديمية أكسوس</h3>
+          <p class="text-xs text-gray-400">مطور ويب متكامل (Full Stack)</p>
+          <span class="text-[10px] font-bold text-brand-blue block mt-3">2022 – 2023</span>
+        </div>
+        <div class="glass-card p-6 rounded-2xl hover:-translate-y-1 transition-all">
+          <span class="text-2xl">🎓</span>
+          <h3 class="font-bold text-sm sm:text-base dark:text-white text-slate-900 mt-4 mb-2">جامعة فلسطين خضوري</h3>
+          <p class="text-xs text-gray-400">دبلوم برمجة قواعد بيانات وكمبيوتر</p>
+          <span class="text-[10px] font-bold text-brand-blue block mt-3">2015 – 2018</span>
+        </div>
+        <div class="glass-card p-6 rounded-2xl hover:-translate-y-1 transition-all">
+          <span class="text-2xl">💼</span>
+          <h3 class="font-bold text-sm sm:text-base dark:text-white text-slate-900 mt-4 mb-2">مدرسة قفين الثانوية</h3>
+          <p class="text-xs text-gray-400">الفرع التجاري (Commercial)</p>
+          <span class="text-[10px] font-bold text-brand-blue block mt-3">2009 – 2014</span>
+        </div>
+        <div class="glass-card p-6 rounded-2xl hover:-translate-y-1 transition-all">
+          <span class="text-2xl">⚡</span>
+          <h3 class="font-bold text-sm sm:text-base dark:text-white text-slate-900 mt-4 mb-2">الهندسة الفنية</h3>
+          <p class="text-xs text-gray-400">التمديدات الكهربائية المنزلية والصناعية</p>
+          <span class="text-[10px] font-bold text-brand-blue block mt-3">2020 – 2021</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="py-24 relative z-10 border-t dark:border-gray-900 border-slate-200">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="space-y-2 mb-12 text-center">
+        <span class="text-xs font-bold text-brand-blue uppercase tracking-widest">تواصل معي</span>
+        <h2 class="text-2xl sm:text-3xl font-extrabold dark:text-white text-slate-900">لنبدأ عملاً مميزاً</h2>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+        
+        <!-- Contact channels -->
+        <div class="lg:col-span-5 glass-card p-8 rounded-3xl flex flex-col justify-between gap-8">
+          <div class="space-y-6">
+            <div class="flex items-center gap-4">
+              <div class="w-10 h-10 rounded-xl bg-brand-blue/10 flex items-center justify-center text-brand-blue border border-brand-blue/20">
+                <i data-lucide="phone" class="w-5 h-5"></i>
+              </div>
+              <div>
+                <h4 class="text-xs text-gray-500 font-bold">الهاتف المحمول</h4>
+                <a href="tel:+970569922257" class="text-sm font-bold dark:text-white text-slate-800 hover:text-brand-blue transition-colors">+970 569 922 257</a>
+              </div>
+            </div>
+
+            <div class="flex items-center gap-4">
+              <div class="w-10 h-10 rounded-xl bg-brand-blue/10 flex items-center justify-center text-brand-blue border border-brand-blue/20">
+                <i data-lucide="mail" class="w-5 h-5"></i>
+              </div>
+              <div>
+                <h4 class="text-xs text-gray-500 font-bold">البريد الإلكتروني</h4>
+                <a href="mailto:ahmad.r.tomeh@gmail.com" class="text-sm font-bold dark:text-white text-slate-800 hover:text-brand-blue transition-colors">ahmad.r.tomeh@gmail.com</a>
+              </div>
+            </div>
+
+            <div class="flex items-center gap-4">
+              <div class="w-10 h-10 rounded-xl bg-brand-blue/10 flex items-center justify-center text-brand-blue border border-brand-blue/20">
+                <i data-lucide="map-pin" class="w-5 h-5"></i>
+              </div>
+              <div>
+                <h4 class="text-xs text-gray-500 font-bold">المقر</h4>
+                <p class="text-sm font-bold dark:text-white text-slate-800">طولكرم، فلسطين</p>
+              </div>
+            </div>
+          </div>
+          <div class="text-[11px] text-gray-500 leading-relaxed font-bold">
+            مستعد للعمل الميداني والكامل في مدينة طولكرم وقراها وضواحيها.
+          </div>
+        </div>
+
+        <!-- Contact form -->
+        <div class="lg:col-span-7 glass-card p-8 rounded-3xl">
+          <form action="https://formspree.io/f/xlgylrlv" method="POST" class="space-y-4">
+            <div>
+              <label class="block text-xs font-bold text-gray-500 mb-2">الاسم بالكامل</label>
+              <input type="text" name="name" class="input-field mb-0 w-full dark:bg-dark-950/40 bg-white border dark:border-gray-800 border-slate-200 rounded-xl p-3.5 text-sm outline-none focus:border-brand-blue transition-colors text-slate-900 dark:text-white" placeholder="اسمك الكريم" required>
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-gray-500 mb-2">البريد الإلكتروني</label>
+              <input type="email" name="_replyto" class="input-field mb-0 w-full dark:bg-dark-950/40 bg-white border dark:border-gray-800 border-slate-200 rounded-xl p-3.5 text-sm outline-none focus:border-brand-blue transition-colors text-slate-900 dark:text-white" placeholder="بريدك الإلكتروني" required>
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-gray-500 mb-2">تفاصيل الرسالة</label>
+              <textarea name="message" class="input-field mb-0 w-full dark:bg-dark-950/40 bg-white border dark:border-gray-800 border-slate-200 rounded-xl p-3.5 text-sm outline-none focus:border-brand-blue transition-colors text-slate-900 dark:text-white" rows="4" placeholder="اكتب تفاصيل مشروعك أو استفسارك هنا..." required></textarea>
+            </div>
+            <button type="submit" class="w-full bg-gradient-to-r from-brand-blue to-brand-purple py-3.5 rounded-xl text-xs font-bold shadow-lg shadow-brand-blue/25 hover:opacity-90 transition-all text-white">
+              إرسال الرسالة
+            </button>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="py-12 border-t dark:border-gray-900 border-slate-200 text-center text-xs text-gray-500 font-bold relative z-10">
+    <div class="max-w-6xl mx-auto px-6">
+      <p>&copy; 2026 أحمد طعمة. جميع الحقوق محفوظة.</p>
+    </div>
+  </footer>
+
+  <!-- ==================== MODALS SECTION ==================== -->
+  
+  <!-- Modal 1: Bank of Palestine -->
+  <div id="modal-bop" class="hidden fixed inset-0 z-[200] flex items-center justify-center p-4">
+    <div class="absolute inset-0 bg-black/75 backdrop-blur-sm" onclick="closeModal('modal-bop')"></div>
+    <div class="glass-card max-w-2xl w-full rounded-3xl p-8 relative z-10 max-h-[85vh] overflow-y-auto shadow-2xl border dark:border-gray-800 border-slate-200">
+      <button onclick="closeModal('modal-bop')" class="absolute top-6 left-6 dark:text-gray-400 text-slate-500 hover:text-white">
+        <i data-lucide="x" class="w-6 h-6"></i>
+      </button>
+      
+      <div class="space-y-4">
+        <span class="text-xs font-bold bg-brand-blue/10 text-brand-blue px-3 py-1 rounded-full border border-brand-blue/20">بنك فلسطين</span>
+        <h3 class="text-xl font-bold dark:text-white text-slate-900">نظام فحص اتصال الصرافات والكاميرات الأمنية</h3>
+        <p class="dark:text-gray-400 text-slate-600 text-sm leading-relaxed text-justify">
+          بصفتي موظف غرفة تحكم في بنك فلسطين، قمت بتطوير وبناء هذا النظام لمراقبة حالة الاتصال بالشبكة لجميع أجهزة الصراف الآلي (ATMs) والكاميرات الأمنية الملحقة بها لحظياً عبر كافة محافظات الضفة وغزة. 
+        </p>
+        <div class="space-y-2">
+          <h4 class="text-xs font-bold dark:text-gray-300 text-slate-800">الأثر والنتائج للمشروع:</h4>
+          <ul class="list-disc list-inside text-xs dark:text-gray-400 text-slate-600 space-y-1">
+            <li>تقليل وقت تعطل الصرافات بفضل الكشف التلقائي عن انقطاع الاتصال (Ping Checker).</li>
+            <li>إصدار إنذارات فورية لفرق الصيانة في حال تعطل الكاميرات لضمان المعايير الأمنية.</li>
+            <li>إنشاء لوحة تحكم إحصائية تعرض حالة الأجهزة بشكل منظم لمساعدة مدراء الأنظمة.</li>
+          </ul>
+        </div>
+        <div class="flex flex-wrap gap-2 pt-2">
+          <span class="text-[10px] bg-dark-950/80 px-2.5 py-1 rounded border border-gray-800 text-gray-400">Python</span>
+          <span class="text-[10px] bg-dark-950/80 px-2.5 py-1 rounded border border-gray-800 text-gray-400">Networking Check</span>
+          <span class="text-[10px] bg-dark-950/80 px-2.5 py-1 rounded border border-gray-800 text-gray-400">Realtime Dashboards</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 2: AutoSalePalestine -->
+  <div id="modal-autoscale" class="hidden fixed inset-0 z-[200] flex items-center justify-center p-4">
+    <div class="absolute inset-0 bg-black/75 backdrop-blur-sm" onclick="closeModal('modal-autoscale')"></div>
+    <div class="glass-card max-w-2xl w-full rounded-3xl p-8 relative z-10 max-h-[85vh] overflow-y-auto shadow-2xl border dark:border-gray-800 border-slate-200">
+      <button onclick="closeModal('modal-autoscale')" class="absolute top-6 left-6 dark:text-gray-400 text-slate-500 hover:text-white">
+        <i data-lucide="x" class="w-6 h-6"></i>
+      </button>
+      
+      <div class="space-y-4">
+        <span class="text-xs font-bold bg-brand-purple/10 text-brand-purple px-3 py-1 rounded-full border border-brand-purple/20">ويب وتجارة إلكترونية</span>
+        <h3 class="text-xl font-bold dark:text-white text-slate-900">AutoSalePalestine - منصة تسويق وبيع السيارات</h3>
+        <p class="dark:text-gray-400 text-slate-600 text-sm leading-relaxed text-justify">
+          تطبيق ويب متكامل يهدف لخدمة سوق السيارات الفلسطيني، يتيح للمستخدمين والمعارض إدراج سياراتهم وتصفح العروض للسيارات الجديدة والمستعملة بميزات بحث وتصفية متقدمة.
+        </p>
+        <div class="space-y-2">
+          <h4 class="text-xs font-bold dark:text-gray-300 text-slate-800">الميزات الفنية للمنصة:</h4>
+          <ul class="list-disc list-inside text-xs dark:text-gray-400 text-slate-600 space-y-1">
+            <li>بناء الهيكل البرمجي بالكامل بالاعتماد على إطار العمل Django (MTV).</li>
+            <li>نظام بحث مرن بالاعتماد على خوارزميات تصفية قواعد البيانات SQL لتسهيل وصول المشتري.</li>
+            <li>تشفير كلمات المرور وحماية بيانات حسابات المستخدمين باستخدام خوارزمية Bcrypt.</li>
+            <li>تصميم واجهة متوافقة بالكامل مع الأجهزة الذكية لتعزيز تجربة التصفح للمستخدم.</li>
+          </ul>
+        </div>
+        <div class="flex flex-wrap gap-2 pt-2">
+          <span class="text-[10px] bg-dark-950/80 px-2.5 py-1 rounded border border-gray-800 text-gray-400">Python</span>
+          <span class="text-[10px] bg-dark-950/80 px-2.5 py-1 rounded border border-gray-800 text-gray-400">Django Framework</span>
+          <span class="text-[10px] bg-dark-950/80 px-2.5 py-1 rounded border border-gray-800 text-gray-400">SQLite</span>
+          <span class="text-[10px] bg-dark-950/80 px-2.5 py-1 rounded border border-gray-800 text-gray-400">Bcrypt Hashing</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 3: SaleSYS -->
+  <div id="modal-salesys" class="hidden fixed inset-0 z-[200] flex items-center justify-center p-4">
+    <div class="absolute inset-0 bg-black/75 backdrop-blur-sm" onclick="closeModal('modal-salesys')"></div>
+    <div class="glass-card max-w-2xl w-full rounded-3xl p-8 relative z-10 max-h-[85vh] overflow-y-auto shadow-2xl border dark:border-gray-800 border-slate-200">
+      <button onclick="closeModal('modal-salesys')" class="absolute top-6 left-6 dark:text-gray-400 text-slate-500 hover:text-white">
+        <i data-lucide="x" class="w-6 h-6"></i>
+      </button>
+      
+      <div class="space-y-4">
+        <span class="text-xs font-bold bg-brand-emerald/10 text-brand-emerald px-3 py-1 rounded-full border border-brand-emerald/20">أنظمة مبيعات ومخازن</span>
+        <h3 class="text-xl font-bold dark:text-white text-slate-900">SaleSYS - نظام إدارة مبيعات المحلات التجارية</h3>
+        <p class="dark:text-gray-400 text-slate-600 text-sm leading-relaxed text-justify">
+          برنامج مكتبي متكامل لإدارة نقاط البيع والمبيعات والمخازن، صممته ليكون مشروع تخرجي الأكاديمي في جامعة خضوري، وحصل على تقييم امتياز (93/100) لإثبات كفاءته.
+        </p>
+        <div class="space-y-2">
+          <h4 class="text-xs font-bold dark:text-gray-300 text-slate-800">الميزات والوظائف:</h4>
+          <ul class="list-disc list-inside text-xs dark:text-gray-400 text-slate-600 space-y-1">
+            <li>تسجيل الفواتير وحساب المجموع والضرائب التلقائية لعمليات الشراء والبيع اليومية.</li>
+            <li>تتبع كميات المخزون وإصدار تنبيهات تلقائية عندما تشارف كمية السلع على النفاد.</li>
+            <li>إصدار تقارير مالية دورية دقيقة (أسبوعية وسنوية) لحجم الأرباح والخسائر والمنتجات الأكثر طلباً.</li>
+          </ul>
+        </div>
+        <div class="flex flex-wrap gap-2 pt-2">
+          <span class="text-[10px] bg-dark-950/80 px-2.5 py-1 rounded border border-gray-800 text-gray-400">Desktop App</span>
+          <span class="text-[10px] bg-dark-950/80 px-2.5 py-1 rounded border border-gray-800 text-gray-400">C# / Java</span>
+          <span class="text-[10px] bg-dark-950/80 px-2.5 py-1 rounded border border-gray-800 text-gray-400">SQL Server</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Floating WhatsApp Button -->
+  <a href="https://wa.me/970569922257?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%20%D8%A3%D8%AD%D9%85%D8%AF%D8%8C%20%D8%A7%D8%B7%D9%84%D8%B9%D8%AA%20%D8%B9%D9%84%D9%89%20%D9%85%D9%88%D9%82%D8%B9%D9%83%20%D8%A7%D9%84%D8%B4%D8%AE%D8%B5%D9%8A%20%D9%8...%20%D8%A7%D9%84%D8%AA%D9%88%D8%A7%D8%B5%D9%84%20%D9%85%D8%B9%D9%83." target="_blank" class="fixed bottom-6 right-6 z-50 w-14 h-14 bg-[#25D366] hover:bg-[#20ba5a] rounded-full flex items-center justify-center shadow-lg shadow-[#25D366]/30 hover:scale-110 transition-transform duration-300 animate-bounce" style="animation-duration: 3s;" title="تواصل عبر واتساب">
+    <svg class="w-7 h-7 text-white fill-current" viewBox="0 0 24 24">
+      <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.724-1.455L0 24zm6.59-4.846c1.665.989 3.3 1.472 5.358 1.473 5.514 0 10.002-4.487 10.005-10 0-2.673-1.04-5.186-2.93-7.078-1.89-1.891-4.4-2.93-7.072-2.93-5.524 0-10.014 4.489-10.017 10-.001 1.953.5 3.85 1.5 5.568l-.98 3.578 3.666-.962zm9.646-6.84c-.267-.134-1.58-.78-1.822-.867-.243-.088-.419-.133-.596.134-.176.265-.681.866-.835 1.043-.154.177-.308.199-.575.065-.267-.134-1.13-.417-2.153-1.331-.795-.71-1.332-1.587-1.488-1.854-.154-.267-.017-.411.117-.544.12-.12.267-.31.4-.464.133-.155.177-.266.266-.443.089-.177.044-.332-.022-.465-.067-.133-.596-1.436-.816-1.966-.215-.518-.452-.449-.623-.458-.16-.008-.344-.01-.529-.01-.186 0-.489.07-.745.348-.256.278-.979.957-.979 2.332 0 1.375 1.002 2.702 1.142 2.89.14.188 1.973 3.012 4.779 4.22.667.288 1.188.46 1.594.59.67.213 1.28.183 1.762.11.537-.08 1.58-.646 1.802-1.238.223-.592.223-1.1.157-1.206-.067-.107-.243-.177-.51-.31z"/>
+    </svg>
+  </a>
+
+  <!-- Script tags for interactive elements -->
+  <script>
+    // Initialize Lucide Icons
+    lucide.createIcons();
+
+    // Typewriter Animation
+    const typewriter = document.getElementById('typewriter');
+    const words = ["مطور ويب متكامل", "أخصائي تسويق رقمي", "صانع محتوى إبداعي"];
+    let wordIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+
+    function type() {
+      const currentWord = words[wordIndex];
+      if (isDeleting) {
+        typewriter.textContent = currentWord.substring(0, charIndex - 1);
+        charIndex--;
+      } else {
+        typewriter.textContent = currentWord.substring(0, charIndex + 1);
+        charIndex++;
+      }
+
+      let typeSpeed = isDeleting ? 75 : 150;
+
+      if (!isDeleting && charIndex === currentWord.length) {
+        isDeleting = true;
+        typeSpeed = 1500;
+      } else if (isDeleting && charIndex === 0) {
+        isDeleting = false;
+        wordIndex = (wordIndex + 1) % words.length;
+        typeSpeed = 500;
+      }
+
+      setTimeout(type, typeSpeed);
+    }
+
+    // Switch Tabs
+    function switchTab(event, tabId) {
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('active', 'bg-brand-blue', 'text-white');
+        btn.classList.add('bg-dark-900', 'text-gray-400');
+      });
+      document.querySelectorAll('.tab-pane').forEach(pane => {
+        pane.classList.remove('active');
+        pane.classList.add('hidden');
+      });
+
+      event.currentTarget.classList.add('active', 'bg-brand-blue', 'text-white');
+      event.currentTarget.classList.remove('bg-dark-900', 'text-gray-400');
+      
+      const activePane = document.getElementById(tabId);
+      activePane.classList.remove('hidden');
+      activePane.classList.add('active');
+    }
+
+    // Filter Design Gallery
+    function filterGallery(event, category) {
+      document.querySelectorAll('.gallery-filter-btn').forEach(btn => {
+        btn.classList.remove('active', 'bg-brand-blue', 'text-white');
+        btn.classList.add('bg-dark-900', 'text-gray-400');
+      });
+
+      event.currentTarget.classList.add('active', 'bg-brand-blue', 'text-white');
+      event.currentTarget.classList.remove('bg-dark-900', 'text-gray-400');
+
+      const items = document.querySelectorAll('.gallery-item');
+      items.forEach(item => {
+        if (category === 'all' || item.classList.contains(category)) {
+          item.style.display = 'block';
+          setTimeout(() => { item.style.opacity = '1'; item.style.transform = 'scale(1)'; }, 10);
+        } else {
+          item.style.opacity = '0';
+          item.style.transform = 'scale(0.9)';
+          setTimeout(() => { item.style.display = 'none'; }, 300);
+        }
+      });
+    }
+
+    // Theme Switcher Logic
+    function toggleTheme() {
+      const html = document.documentElement;
+      const themeIcon = document.getElementById('theme-icon');
+      if (html.classList.contains('dark')) {
+        html.classList.remove('dark');
+        localStorage.setItem('theme', 'light');
+        themeIcon.setAttribute('data-lucide', 'moon');
+      } else {
+        html.classList.add('dark');
+        localStorage.setItem('theme', 'dark');
+        themeIcon.setAttribute('data-lucide', 'sun');
+      }
+      lucide.createIcons();
+    }
+
+    // Set initial theme based on localStorage
+    if (localStorage.getItem('theme') === 'light') {
+      document.documentElement.classList.remove('dark');
+      document.getElementById('theme-icon').setAttribute('data-lucide', 'moon');
+    } else {
+      document.documentElement.classList.add('dark');
+      document.getElementById('theme-icon').setAttribute('data-lucide', 'sun');
+    }
+
+    // Project Modals Logic
+    function openModal(modalId) {
+      const modal = document.getElementById(modalId);
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      document.body.classList.add('overflow-hidden');
+    }
+
+    function closeModal(modalId) {
+      const modal = document.getElementById(modalId);
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+      document.body.classList.remove('overflow-hidden');
+    }
+
+    // Interactive Canvas Particles Network
+    const canvas = document.getElementById('particleCanvas');
+    const ctx = canvas.getContext('2d');
+
+    let particles = [];
+    const maxParticles = 60;
+
+    class Particle {
+      constructor() {
+        this.reset();
+      }
+
+      reset() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.vx = (Math.random() - 0.5) * 0.4;
+        this.vy = (Math.random() - 0.5) * 0.4;
+        this.radius = Math.random() * 1.5 + 0.5;
+        this.alpha = Math.random() * 0.5 + 0.2;
+      }
+
+      update() {
+        this.x += this.vx;
+        this.y += this.vy;
+
+        if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) {
+          this.reset();
+        }
+      }
+
+      draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+        const particleColor = document.documentElement.classList.contains('dark') ? '59, 130, 246' : '30, 64, 175';
+        ctx.fillStyle = `rgba(${particleColor}, ${this.alpha})`;
+        ctx.fill();
+      }
+    }
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      initParticles();
+    }
+
+    function initParticles() {
+      particles = [];
+      for (let i = 0; i < maxParticles; i++) {
+        particles.push(new Particle());
+      }
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      
+      particles.forEach(p => {
+        p.update();
+        p.draw();
+      });
+
+      for (let i = 0; i < particles.length; i++) {
+        for (let j = i + 1; j < particles.length; j++) {
+          const dx = particles[i].x - particles[j].x;
+          const dy = particles[i].y - particles[j].y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+
+          if (dist < 100) {
+            ctx.beginPath();
+            ctx.moveTo(particles[i].x, particles[i].y);
+            ctx.lineTo(particles[j].x, particles[j].y);
+            const lineColor = document.documentElement.classList.contains('dark') ? '139, 92, 246' : '124, 58, 237';
+            ctx.strokeStyle = `rgba(${lineColor}, ${0.1 * (1 - dist / 100)})`;
+            ctx.lineWidth = 0.5;
+            ctx.stroke();
+          }
+        }
+      }
+
+      requestAnimationFrame(animate);
+    }
+
+    window.addEventListener('resize', resizeCanvas);
+    document.addEventListener('DOMContentLoaded', () => {
+      type();
+      resizeCanvas();
+      animate();
+    });
+  </script>
+
+</body>
+</html>
