@@ -89,11 +89,28 @@
     }
     
     .glass-card {
+      position: relative;
+      overflow: hidden;
       background: rgba(17, 24, 39, 0.7);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
       border: 1px solid rgba(255, 255, 255, 0.06);
       transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .glass-card::after, .gallery-item::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      pointer-events: none;
+      background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255, 255, 255, 0.08) 0%, transparent 60%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: 5;
+    }
+    .glass-card:hover::after, .gallery-item:hover::after {
+      opacity: 1;
     }
     html:not(.dark) .glass-card {
       background: rgba(255, 255, 255, 0.85);
@@ -264,6 +281,11 @@
       </ul>
       
       <div class="flex items-center gap-3">
+        <!-- Headphones Ambient Synth Toggle -->
+        <button id="synth-music-btn" onclick="toggleSynthMusic()" class="w-10 h-10 rounded-xl bg-gray-200/50 dark:bg-dark-900/50 border dark:border-gray-800 border-slate-200 flex items-center justify-center text-slate-700 dark:text-gray-300 hover:scale-105 transition-transform" title="تشغيل موسيقى الترميز الهادئة">
+          <i id="synth-music-icon" data-lucide="headphones" class="w-5 h-5"></i>
+        </button>
+
         <!-- Sound Toggle Switch -->
         <button id="sound-btn" onclick="toggleSound()" class="w-10 h-10 rounded-xl bg-gray-200/50 dark:bg-dark-900/50 border dark:border-gray-800 border-slate-200 flex items-center justify-center text-slate-700 dark:text-gray-300 hover:scale-105 transition-transform" title="كتم/تفعيل الأصوات">
           <i id="sound-icon" data-lucide="volume-2" class="w-5 h-5"></i>
@@ -2272,6 +2294,104 @@
       lucide.createIcons();
     }
 
+    // Cyber Lo-Fi Ambient Synthesizer using Web Audio API
+    let synthAudioCtx = null;
+    let synthGain = null;
+    let synthChordsInterval = null;
+    let synthNoiseNode = null;
+    let isSynthPlaying = false;
+
+    function toggleSynthMusic() {
+      const btn = document.getElementById('synth-music-btn');
+      
+      if (!isSynthPlaying) {
+        try {
+          synthAudioCtx = new (window.AudioContext || window.webkitAudioContext)();
+          
+          synthGain = synthAudioCtx.createGain();
+          synthGain.gain.setValueAtTime(0.04, synthAudioCtx.currentTime);
+          synthGain.connect(synthAudioCtx.destination);
+          
+          isSynthPlaying = true;
+          btn.classList.add('border-brand-blue', 'text-brand-blue', 'animate-pulse');
+          btn.title = "إيقاف موسيقى الترميز الهادئة";
+          
+          const chords = [
+            [110, 165, 220, 330],
+            [130.81, 196, 261.63, 392],
+            [146.83, 220, 293.66, 440],
+            [98.00, 146.83, 196, 293.66]
+          ];
+          let chordIndex = 0;
+          
+          function playNextChord() {
+            if (!isSynthPlaying || !synthAudioCtx) return;
+            const now = synthAudioCtx.currentTime;
+            const freqList = chords[chordIndex];
+            chordIndex = (chordIndex + 1) % chords.length;
+            
+            freqList.forEach(freq => {
+              const osc = synthAudioCtx.createOscillator();
+              const oscGain = synthAudioCtx.createGain();
+              
+              osc.type = 'sine';
+              osc.frequency.setValueAtTime(freq, now);
+              
+              oscGain.gain.setValueAtTime(0, now);
+              oscGain.gain.linearRampToValueAtTime(0.015, now + 2);
+              oscGain.gain.exponentialRampToValueAtTime(0.0001, now + 7.5);
+              
+              osc.connect(oscGain);
+              oscGain.connect(synthGain);
+              
+              osc.start(now);
+              osc.stop(now + 8);
+            });
+            
+            synthChordsInterval = setTimeout(playNextChord, 6000);
+          }
+          
+          playNextChord();
+          
+          const bufferSize = synthAudioCtx.sampleRate * 2;
+          const noiseBuffer = synthAudioCtx.createBuffer(1, bufferSize, synthAudioCtx.sampleRate);
+          const output = noiseBuffer.getChannelData(0);
+          for (let i = 0; i < bufferSize; i++) {
+            let white = Math.random() * 2 - 1;
+            let crackle = Math.random() > 0.998 ? (Math.random() * 0.5) : 0;
+            output[i] = white * 0.003 + crackle * 0.012; 
+          }
+          
+          synthNoiseNode = synthAudioCtx.createBufferSource();
+          synthNoiseNode.buffer = noiseBuffer;
+          synthNoiseNode.loop = true;
+          
+          const noiseGain = synthAudioCtx.createGain();
+          noiseGain.gain.value = 0.4;
+          
+          synthNoiseNode.connect(noiseGain);
+          noiseGain.connect(synthGain);
+          synthNoiseNode.start(0);
+          
+        } catch (e) {
+          isSynthPlaying = false;
+        }
+      } else {
+        isSynthPlaying = false;
+        btn.classList.remove('border-brand-blue', 'text-brand-blue', 'animate-pulse');
+        btn.title = "تشغيل موسيقى الترميز الهادئة";
+        
+        if (synthChordsInterval) clearTimeout(synthChordsInterval);
+        
+        try {
+          if (synthNoiseNode) synthNoiseNode.stop();
+          if (synthAudioCtx) synthAudioCtx.close();
+        } catch (err) {}
+        
+        synthAudioCtx = null;
+      }
+    }
+
     // Cyber Terminal Easter Egg Logic
     let keyboardBuffer = '';
     
@@ -2750,11 +2870,14 @@ Canva/CapCut  [====================] 98%
       card.style.transition = 'transform 0.1s ease-out, box-shadow 0.1s ease-out, border-color 0.1s ease-out';
       
       card.addEventListener('mousemove', (e) => {
-        if (window.innerWidth < 768) return;
-        
         const rect = card.getBoundingClientRect();
         const x = e.clientX - rect.left;
         const y = e.clientY - rect.top;
+        
+        card.style.setProperty('--mouse-x', `${(x / rect.width) * 100}%`);
+        card.style.setProperty('--mouse-y', `${(y / rect.height) * 100}%`);
+        
+        if (window.innerWidth < 768) return;
         
         const centerX = rect.width / 2;
         const centerY = rect.height / 2;
