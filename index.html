@@ -1283,11 +1283,14 @@
 
     function type() {
       const currentWord = words[wordIndex];
+      let text = isDeleting ? currentWord.substring(0, charIndex - 1) : currentWord.substring(0, charIndex + 1);
+      
+      // Prevent layout shift/height collapse when string is empty by rendering &nbsp;
+      typewriter.innerHTML = text === "" ? "&nbsp;" : text;
+
       if (isDeleting) {
-        typewriter.textContent = currentWord.substring(0, charIndex - 1);
         charIndex--;
       } else {
-        typewriter.textContent = currentWord.substring(0, charIndex + 1);
         charIndex++;
       }
 
