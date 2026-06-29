@@ -48,6 +48,27 @@
   <script src="https://unpkg.com/lucide@latest"></script>
 
   <style>
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #030712;
+    }
+    html:not(.dark) ::-webkit-scrollbar-track {
+      background: #f8fafc;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #1f2937;
+      border-radius: 4px;
+    }
+    html:not(.dark) ::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #3b82f6;
+    }
+
     /* Glassmorphism custom utilities */
     .glass-nav {
       background: rgba(3, 7, 18, 0.75);
@@ -56,24 +77,34 @@
       border-bottom: 1px solid rgba(255, 255, 255, 0.05);
     }
     html:not(.dark) .glass-nav {
-      background: rgba(248, 250, 252, 0.8);
-      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+      background: rgba(248, 250, 252, 0.85);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.06);
     }
+    
     .glass-card {
       background: rgba(17, 24, 39, 0.7);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
       border: 1px solid rgba(255, 255, 255, 0.06);
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     }
     html:not(.dark) .glass-card {
       background: rgba(255, 255, 255, 0.85);
-      border: 1px solid rgba(0, 0, 0, 0.06);
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
     }
+    
+    /* Neon Glow Effects on Hover */
     .glass-card:hover {
-      border-color: rgba(59, 130, 246, 0.3);
-      box-shadow: 0 0 25px rgba(59, 130, 246, 0.15);
+      border-color: rgba(59, 130, 246, 0.4);
+      box-shadow: 0 0 30px rgba(59, 130, 246, 0.15);
+      transform: translateY(-4px);
     }
+    html:not(.dark) .glass-card:hover {
+      border-color: rgba(37, 99, 235, 0.3);
+      box-shadow: 0 10px 25px rgba(37, 99, 235, 0.08);
+    }
+
     .text-gradient {
       background: linear-gradient(135deg, #60a5fa 0%, #a78bfa 100%);
       -webkit-background-clip: text;
@@ -84,26 +115,31 @@
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
-    
-    /* Hide scrollbar for clean UI but keep functionality */
-    ::-webkit-scrollbar {
-      width: 6px;
+
+    /* Scroll Reveal Initial State */
+    .reveal {
+      opacity: 0;
+      transform: translateY(25px);
+      transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
     }
-    ::-webkit-scrollbar-track {
-      background: #030712;
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
     }
-    html:not(.dark) ::-webkit-scrollbar-track {
-      background: #f1f5f9;
+
+    /* Copy Tooltip Animation */
+    .tooltip {
+      position: absolute;
+      bottom: 125%;
+      left: 50%;
+      transform: translateX(-50%) translateY(5px);
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.2s ease;
     }
-    ::-webkit-scrollbar-thumb {
-      background: #1f2937;
-      border-radius: 3px;
-    }
-    html:not(.dark) ::-webkit-scrollbar-thumb {
-      background: #cbd5e1;
-    }
-    ::-webkit-scrollbar-thumb:hover {
-      background: #3b82f6;
+    .show-tooltip {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
     }
   </style>
 </head>
@@ -230,7 +266,7 @@
 
   <!-- About Section -->
   <section id="about" class="py-24 relative z-10 border-t dark:border-gray-900 border-slate-200 dark:bg-dark-900/30 bg-slate-100/50">
-    <div class="max-w-6xl mx-auto px-6">
+    <div class="max-w-6xl mx-auto px-6 reveal">
       <div class="space-y-2 mb-12 text-center md:text-right">
         <span class="text-xs font-bold text-brand-blue uppercase tracking-widest">نبذة عامة</span>
         <h2 class="text-2xl sm:text-3xl font-extrabold dark:text-white text-slate-900">من أنا</h2>
@@ -262,7 +298,7 @@
 
   <!-- Interactive Skills Section -->
   <section id="skills" class="py-24 relative z-10 border-t dark:border-gray-900 border-slate-200">
-    <div class="max-w-6xl mx-auto px-6">
+    <div class="max-w-6xl mx-auto px-6 reveal">
       <div class="space-y-2 mb-12 text-center">
         <span class="text-xs font-bold text-brand-blue uppercase tracking-widest">الكفاءات المهنية</span>
         <h2 class="text-2xl sm:text-3xl font-extrabold dark:text-white text-slate-900">المهارات والخبرات</h2>
@@ -388,7 +424,7 @@
 
   <!-- Work Experience Section -->
   <section id="experience" class="py-24 relative z-10 border-t dark:border-gray-900 border-slate-200 dark:bg-dark-900/10 bg-slate-100/20">
-    <div class="max-w-4xl mx-auto px-6">
+    <div class="max-w-4xl mx-auto px-6 reveal">
       <div class="space-y-2 mb-12 text-center">
         <span class="text-xs font-bold text-brand-blue uppercase tracking-widest">التسلسل الزمني</span>
         <h2 class="text-2xl sm:text-3xl font-extrabold dark:text-white text-slate-900">الخبرة المهنية</h2>
@@ -453,7 +489,7 @@
 
   <!-- Projects Section -->
   <section id="projects" class="py-24 relative z-10 border-t dark:border-gray-900 border-slate-200">
-    <div class="max-w-6xl mx-auto px-6">
+    <div class="max-w-6xl mx-auto px-6 reveal">
       <div class="space-y-2 mb-12 text-center">
         <span class="text-xs font-bold text-brand-blue uppercase tracking-widest">أبرز الأعمال التقنية</span>
         <h2 class="text-2xl sm:text-3xl font-extrabold dark:text-white text-slate-900">المشاريع البرمجية</h2>
@@ -472,8 +508,8 @@
           </div>
           <div class="space-y-4">
             <div class="flex flex-wrap gap-2">
-              <span class="text-[10px] bg-dark-950/80 px-2.5 py-1 rounded border border-gray-800 font-sans text-gray-400">Monitoring</span>
-              <span class="text-[10px] bg-dark-950/80 px-2.5 py-1 rounded border border-gray-800 font-sans text-gray-400">Realtime API</span>
+              <span class="text-[10px] bg-dark-950/80 px-2.5 py-1 rounded border border-gray-800 text-gray-400">Monitoring</span>
+              <span class="text-[10px] bg-dark-950/80 px-2.5 py-1 rounded border border-gray-800 text-gray-400">Realtime API</span>
             </div>
             <button onclick="openModal('modal-bop')" class="inline-flex items-center gap-1 text-xs font-bold dark:text-white text-slate-800 hover:text-brand-blue transition-colors">
               تفاصيل المشروع <i data-lucide="chevron-left" class="w-3.5 h-3.5"></i>
@@ -492,8 +528,8 @@
           </div>
           <div class="space-y-4">
             <div class="flex flex-wrap gap-2">
-              <span class="text-[10px] bg-dark-950/80 px-2.5 py-1 rounded border border-gray-800 font-sans text-gray-400">Django</span>
-              <span class="text-[10px] bg-dark-950/80 px-2.5 py-1 rounded border border-gray-800 font-sans text-gray-400">SQLite</span>
+              <span class="text-[10px] bg-dark-950/80 px-2.5 py-1 rounded border border-gray-800 text-gray-400">Django</span>
+              <span class="text-[10px] bg-dark-950/80 px-2.5 py-1 rounded border border-gray-800 text-gray-400">SQLite</span>
             </div>
             <button onclick="openModal('modal-autoscale')" class="inline-flex items-center gap-1 text-xs font-bold dark:text-white text-slate-800 hover:text-brand-purple transition-colors">
               تفاصيل المشروع <i data-lucide="chevron-left" class="w-3.5 h-3.5"></i>
@@ -512,8 +548,8 @@
           </div>
           <div class="space-y-4">
             <div class="flex flex-wrap gap-2">
-              <span class="text-[10px] bg-dark-950/80 px-2.5 py-1 rounded border border-gray-800 font-sans text-gray-400">Database</span>
-              <span class="text-[10px] bg-dark-950/80 px-2.5 py-1 rounded border border-gray-800 font-sans text-gray-400">PTUK Project</span>
+              <span class="text-[10px] bg-dark-950/80 px-2.5 py-1 rounded border border-gray-800 text-gray-400">Database</span>
+              <span class="text-[10px] bg-dark-950/80 px-2.5 py-1 rounded border border-gray-800 text-gray-400">PTUK Project</span>
             </div>
             <button onclick="openModal('modal-salesys')" class="inline-flex items-center gap-1 text-xs font-bold dark:text-white text-slate-800 hover:text-brand-emerald transition-colors">
               تفاصيل المشروع <i data-lucide="chevron-left" class="w-3.5 h-3.5"></i>
@@ -527,11 +563,11 @@
 
   <!-- Design Gallery Section -->
   <section id="gallery" class="py-24 relative z-10 border-t dark:border-gray-900 border-slate-200 dark:bg-dark-900/30 bg-slate-100/50">
-    <div class="max-w-6xl mx-auto px-6">
+    <div class="max-w-6xl mx-auto px-6 reveal">
       <div class="space-y-2 mb-12 text-center md:text-right">
         <span class="text-xs font-bold text-brand-purple uppercase tracking-widest">معرض الأعمال</span>
         <h2 class="text-2xl sm:text-3xl font-extrabold dark:text-white text-slate-900">معرض التصميم وصناعة المحتوى</h2>
-        <p class="text-xs sm:text-sm dark:text-gray-400 text-slate-600 max-w-lg mt-2">نماذج حقيقية من مشاريع الهوية البصرية، منشورات التواصل الاجتماعي، والدعاية الإعلانية لشركات ومحلات تجارية محلية.</p>
+        <p class="text-xs sm:text-sm dark:text-gray-400 text-slate-600 max-w-lg mt-2">نماذج حقيقية من مشاريع الهوية البصرية، منشورات التواصل الاجتماعي، والدعاية الإعلانية لشركات ومحلات تجارية محلية (اضغط لتكبير الصور).</p>
       </div>
 
       <!-- Filter Tabs -->
@@ -546,7 +582,7 @@
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="galleryGrid">
         
         <!-- Item 1: Bistro Grand Opening -->
-        <div class="gallery-item social glass-card overflow-hidden group rounded-2xl border dark:border-gray-800 border-slate-200 hover:border-brand-blue/30 transition-all duration-300">
+        <div onclick="openLightbox('images/art1.jpg', 'بوستر إعلان افتتاح بيسترو بلس - قفين')" class="gallery-item social glass-card overflow-hidden group rounded-2xl border dark:border-gray-800 border-slate-200 hover:border-brand-blue/30 transition-all duration-300 cursor-pointer">
           <div class="relative overflow-hidden aspect-[3/4] bg-dark-950">
             <img src="images/art1.jpg" alt="افتتاح بيسترو بلس قفين" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-85 group-hover:opacity-100">
             <div class="absolute inset-0 bg-gradient-to-t from-dark-950 via-dark-950/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
@@ -559,7 +595,7 @@
         </div>
         
         <!-- Item 2: Al Huda Caravan 1 -->
-        <div class="gallery-item branding glass-card overflow-hidden group rounded-2xl border dark:border-gray-800 border-slate-200 hover:border-brand-purple/30 transition-all duration-300">
+        <div onclick="openLightbox('images/art2.jpg', 'حملة كرفانات الهدى - الجودة أهم من السعر')" class="gallery-item branding glass-card overflow-hidden group rounded-2xl border dark:border-gray-800 border-slate-200 hover:border-brand-purple/30 transition-all duration-300 cursor-pointer">
           <div class="relative overflow-hidden aspect-[3/4] bg-dark-950">
             <img src="images/art2.jpg" alt="كرفانات الهدى" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-85 group-hover:opacity-100">
             <div class="absolute inset-0 bg-gradient-to-t from-dark-950 via-dark-950/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
@@ -572,7 +608,7 @@
         </div>
         
         <!-- Item 3: Abu Shanab Restaurant 1 -->
-        <div class="gallery-item social glass-card overflow-hidden group rounded-2xl border dark:border-gray-800 border-slate-200 hover:border-brand-emerald/30 transition-all duration-300">
+        <div onclick="openLightbox('images/art5.jpg', 'إعلان شيش طاووق - مطعم أبو شنب طولكرم')" class="gallery-item social glass-card overflow-hidden group rounded-2xl border dark:border-gray-800 border-slate-200 hover:border-brand-emerald/30 transition-all duration-300 cursor-pointer">
           <div class="relative overflow-hidden aspect-[3/4] bg-dark-950">
             <img src="images/art5.jpg" alt="مطعم ابو شنب" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-85 group-hover:opacity-100">
             <div class="absolute inset-0 bg-gradient-to-t from-dark-950 via-dark-950/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
@@ -585,7 +621,7 @@
         </div>
         
         <!-- Item 4: Al Huda Caravan 2 -->
-        <div class="gallery-item branding glass-card overflow-hidden group rounded-2xl border dark:border-gray-800 border-slate-200 hover:border-brand-blue/30 transition-all duration-300">
+        <div onclick="openLightbox('images/art3.jpg', 'مواصفات وميزات كرفانات الهدى 5*3')" class="gallery-item branding glass-card overflow-hidden group rounded-2xl border dark:border-gray-800 border-slate-200 hover:border-brand-blue/30 transition-all duration-300 cursor-pointer">
           <div class="relative overflow-hidden aspect-[3/4] bg-dark-950">
             <img src="images/art3.jpg" alt="كرفانات الهدى مقاس 5*3" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-85 group-hover:opacity-100">
             <div class="absolute inset-0 bg-gradient-to-t from-dark-950 via-dark-950/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
@@ -598,7 +634,7 @@
         </div>
 
         <!-- Item 5: Al Akaber Butcher 1 -->
-        <div class="gallery-item video glass-card overflow-hidden group rounded-2xl border dark:border-gray-800 border-slate-200 hover:border-brand-purple/30 transition-all duration-300">
+        <div onclick="openLightbox('images/art8.jpg', 'تصاميم العروض الأسبوعية - ملحمة الأكابر')" class="gallery-item video glass-card overflow-hidden group rounded-2xl border dark:border-gray-800 border-slate-200 hover:border-brand-purple/30 transition-all duration-300 cursor-pointer">
           <div class="relative overflow-hidden aspect-[3/4] bg-dark-950">
             <img src="images/art8.jpg" alt="ملحمة الأكابر" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-85 group-hover:opacity-100">
             <div class="absolute inset-0 bg-gradient-to-t from-dark-950 via-dark-950/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
@@ -611,7 +647,7 @@
         </div>
 
         <!-- Item 6: Al Huda Caravan Detail -->
-        <div class="gallery-item branding glass-card overflow-hidden group rounded-2xl border dark:border-gray-800 border-slate-200 hover:border-brand-emerald/30 transition-all duration-300">
+        <div onclick="openLightbox('images/art4.jpg', 'إعلان الديكورات والتفاصيل - كرفانات الهدى')" class="gallery-item branding glass-card overflow-hidden group rounded-2xl border dark:border-gray-800 border-slate-200 hover:border-brand-emerald/30 transition-all duration-300 cursor-pointer">
           <div class="relative overflow-hidden aspect-[3/4] bg-dark-950">
             <img src="images/art4.jpg" alt="كرفانات الهدى التفاصيل" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-85 group-hover:opacity-100">
             <div class="absolute inset-0 bg-gradient-to-t from-dark-950 via-dark-950/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
@@ -629,7 +665,7 @@
 
   <!-- Education Section -->
   <section class="py-24 relative z-10 border-t dark:border-gray-900 border-slate-200 dark:bg-dark-900/10 bg-slate-100/10">
-    <div class="max-w-6xl mx-auto px-6">
+    <div class="max-w-6xl mx-auto px-6 reveal">
       <div class="space-y-2 mb-12 text-center">
         <span class="text-xs font-bold text-brand-blue uppercase tracking-widest">المؤهلات الأكاديمية</span>
         <h2 class="text-2xl sm:text-3xl font-extrabold dark:text-white text-slate-900">التعليم والدورات</h2>
@@ -639,25 +675,25 @@
         <div class="glass-card p-6 rounded-2xl hover:-translate-y-1 transition-all">
           <span class="text-2xl">🏫</span>
           <h3 class="font-bold text-sm sm:text-base dark:text-white text-slate-900 mt-4 mb-2">أكاديمية أكسوس</h3>
-          <p class="text-xs text-gray-400">مطور ويب متكامل (Full Stack)</p>
+          <p class="text-xs text-gray-400 font-semibold">مطور ويب متكامل (Full Stack)</p>
           <span class="text-[10px] font-bold text-brand-blue block mt-3">2022 – 2023</span>
         </div>
         <div class="glass-card p-6 rounded-2xl hover:-translate-y-1 transition-all">
           <span class="text-2xl">🎓</span>
           <h3 class="font-bold text-sm sm:text-base dark:text-white text-slate-900 mt-4 mb-2">جامعة فلسطين خضوري</h3>
-          <p class="text-xs text-gray-400">دبلوم برمجيات وقواعد بيانات</p>
+          <p class="text-xs text-gray-400 font-semibold">دبلوم برمجيات وقواعد بيانات</p>
           <span class="text-[10px] font-bold text-brand-blue block mt-3">2015 – 2018</span>
         </div>
         <div class="glass-card p-6 rounded-2xl hover:-translate-y-1 transition-all">
           <span class="text-2xl">💼</span>
           <h3 class="font-bold text-sm sm:text-base dark:text-white text-slate-900 mt-4 mb-2">مدرسة قفين الثانوية</h3>
-          <p class="text-xs text-gray-400">الفرع التجاري (Commercial)</p>
+          <p class="text-xs text-gray-400 font-semibold">الفرع التجاري (Commercial)</p>
           <span class="text-[10px] font-bold text-brand-blue block mt-3">2009 – 2014</span>
         </div>
         <div class="glass-card p-6 rounded-2xl hover:-translate-y-1 transition-all">
           <span class="text-2xl">⚡</span>
           <h3 class="font-bold text-sm sm:text-base dark:text-white text-slate-900 mt-4 mb-2">التقنية الهندسية للتدريب المهني والأكاديمي</h3>
-          <p class="text-xs text-gray-400">تمديدات كهربائية منزلية وصناعية (1فاز و3 فاز)</p>
+          <p class="text-xs text-gray-400 font-semibold">تمديدات كهربائية منزلية وصناعية (1فاز و3 فاز)</p>
           <span class="text-[10px] font-bold text-brand-blue block mt-3">2020 – 2021</span>
         </div>
       </div>
@@ -666,7 +702,7 @@
 
   <!-- Contact Section -->
   <section id="contact" class="py-24 relative z-10 border-t dark:border-gray-900 border-slate-200">
-    <div class="max-w-6xl mx-auto px-6">
+    <div class="max-w-6xl mx-auto px-6 reveal">
       <div class="space-y-2 mb-12 text-center">
         <span class="text-xs font-bold text-brand-blue uppercase tracking-widest">تواصل معي</span>
         <h2 class="text-2xl sm:text-3xl font-extrabold dark:text-white text-slate-900">لنبدأ عملاً مميزاً</h2>
@@ -677,24 +713,33 @@
         <!-- Contact channels -->
         <div class="lg:col-span-5 glass-card p-8 rounded-3xl flex flex-col justify-between gap-8">
           <div class="space-y-6">
-            <div class="flex items-center gap-4">
+            
+            <div class="flex items-center gap-4 relative group">
               <div class="w-10 h-10 rounded-xl bg-brand-blue/10 flex items-center justify-center text-brand-blue border border-brand-blue/20">
                 <i data-lucide="phone" class="w-5 h-5"></i>
               </div>
-              <div>
+              <div class="flex-1">
                 <h4 class="text-xs text-gray-500 font-bold">الهاتف المحمول</h4>
-                <a href="tel:+970569922257" class="text-sm font-bold dark:text-white text-slate-800 hover:text-brand-blue transition-colors">+970 569 922 257</a>
+                <a href="tel:+970569922257" class="text-sm font-bold dark:text-white text-slate-800 hover:text-brand-blue transition-colors" style="direction: ltr; display: inline-block;">+970 569 922 257</a>
               </div>
+              <button onclick="copyToClipboard('+970569922257', 'phone-tooltip')" class="w-8 h-8 rounded-lg bg-gray-200/50 dark:bg-dark-900/50 flex items-center justify-center text-gray-400 hover:text-brand-blue transition-colors relative" title="نسخ الرقم">
+                <i data-lucide="copy" class="w-4 h-4"></i>
+                <span id="phone-tooltip" class="tooltip text-[10px] bg-brand-blue text-white px-2 py-0.5 rounded shadow">تم النسخ! 📋</span>
+              </button>
             </div>
 
-            <div class="flex items-center gap-4">
+            <div class="flex items-center gap-4 relative group">
               <div class="w-10 h-10 rounded-xl bg-brand-blue/10 flex items-center justify-center text-brand-blue border border-brand-blue/20">
                 <i data-lucide="mail" class="w-5 h-5"></i>
               </div>
-              <div>
+              <div class="flex-1">
                 <h4 class="text-xs text-gray-500 font-bold">البريد الإلكتروني</h4>
                 <a href="mailto:ahmad.r.tomeh@gmail.com" class="text-sm font-bold dark:text-white text-slate-800 hover:text-brand-blue transition-colors">ahmad.r.tomeh@gmail.com</a>
               </div>
+              <button onclick="copyToClipboard('ahmad.r.tomeh@gmail.com', 'email-tooltip')" class="w-8 h-8 rounded-lg bg-gray-200/50 dark:bg-dark-900/50 flex items-center justify-center text-gray-400 hover:text-brand-blue transition-colors relative" title="نسخ البريد">
+                <i data-lucide="copy" class="w-4 h-4"></i>
+                <span id="email-tooltip" class="tooltip text-[10px] bg-brand-blue text-white px-2 py-0.5 rounded shadow">تم النسخ! 📋</span>
+              </button>
             </div>
 
             <div class="flex items-center gap-4">
@@ -717,15 +762,15 @@
           <form action="https://formspree.io/f/xlgylrlv" method="POST" class="space-y-4">
             <div>
               <label class="block text-xs font-bold text-gray-500 mb-2">الاسم بالكامل</label>
-              <input type="text" name="name" class="input-field mb-0 w-full dark:bg-dark-950/40 bg-white border dark:border-gray-800 border-slate-200 rounded-xl p-3.5 text-sm outline-none focus:border-brand-blue transition-colors text-slate-900 dark:text-white" placeholder="اسمك الكريم" required>
+              <input type="text" name="name" class="input-field mb-0 w-full dark:bg-dark-950/40 bg-white border dark:border-gray-800 border-slate-200 rounded-xl p-3.5 text-sm outline-none focus:border-brand-blue transition-colors text-slate-900 dark:text-white font-medium" placeholder="اسمك الكريم" required>
             </div>
             <div>
               <label class="block text-xs font-bold text-gray-500 mb-2">البريد الإلكتروني</label>
-              <input type="email" name="_replyto" class="input-field mb-0 w-full dark:bg-dark-950/40 bg-white border dark:border-gray-800 border-slate-200 rounded-xl p-3.5 text-sm outline-none focus:border-brand-blue transition-colors text-slate-900 dark:text-white" placeholder="بريدك الإلكتروني" required>
+              <input type="email" name="_replyto" class="input-field mb-0 w-full dark:bg-dark-950/40 bg-white border dark:border-gray-800 border-slate-200 rounded-xl p-3.5 text-sm outline-none focus:border-brand-blue transition-colors text-slate-900 dark:text-white font-medium" placeholder="بريدك الإلكتروني" required>
             </div>
             <div>
               <label class="block text-xs font-bold text-gray-500 mb-2">تفاصيل الرسالة</label>
-              <textarea name="message" class="input-field mb-0 w-full dark:bg-dark-950/40 bg-white border dark:border-gray-800 border-slate-200 rounded-xl p-3.5 text-sm outline-none focus:border-brand-blue transition-colors text-slate-900 dark:text-white" rows="4" placeholder="اكتب تفاصيل مشروعك أو استفسارك هنا..." required></textarea>
+              <textarea name="message" class="input-field mb-0 w-full dark:bg-dark-950/40 bg-white border dark:border-gray-800 border-slate-200 rounded-xl p-3.5 text-sm outline-none focus:border-brand-blue transition-colors text-slate-900 dark:text-white font-medium" rows="4" placeholder="اكتب تفاصيل مشروعك أو استفسارك هنا..." required></textarea>
             </div>
             <button type="submit" class="w-full bg-gradient-to-r from-brand-blue to-brand-purple py-3.5 rounded-xl text-xs font-bold shadow-lg shadow-brand-blue/25 hover:opacity-90 transition-all text-white">
               إرسال الرسالة
@@ -746,6 +791,18 @@
 
   <!-- ==================== MODALS SECTION ==================== -->
   
+  <!-- Lightbox Modal -->
+  <div id="lightbox-modal" class="hidden fixed inset-0 z-[250] flex items-center justify-center p-4">
+    <div class="absolute inset-0 bg-black/90 backdrop-blur-md" onclick="closeLightbox()"></div>
+    <div class="relative z-10 max-w-4xl w-full flex flex-col items-center gap-4">
+      <button onclick="closeLightbox()" class="absolute -top-12 left-0 text-white hover:text-brand-blue flex items-center gap-1.5 text-xs font-bold bg-white/10 px-3 py-1.5 rounded-lg backdrop-blur">
+        <i data-lucide="x" class="w-4 h-4"></i> إغلاق المعاينة
+      </button>
+      <img id="lightbox-img" src="" alt="" class="max-h-[75vh] w-auto max-w-full rounded-2xl shadow-2xl object-contain border border-white/10">
+      <p id="lightbox-caption" class="text-xs font-bold text-gray-300 text-center bg-black/60 px-4 py-2 rounded-full backdrop-blur"></p>
+    </div>
+  </div>
+
   <!-- Modal 1: Bank of Palestine -->
   <div id="modal-bop" class="hidden fixed inset-0 z-[200] flex items-center justify-center p-4">
     <div class="absolute inset-0 bg-black/75 backdrop-blur-sm" onclick="closeModal('modal-bop')"></div>
@@ -842,7 +899,7 @@
   </div>
 
   <!-- Floating WhatsApp Button -->
-  <a href="https://wa.me/970569922257?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%20%D8%A3%D8%AD%D9%85%D8%AF%D8%8C%20%D8%A7%D8%B7%D9%84%D8%B9%D8%AA%20%D8%B9%D9%84%D9%89%20%D9%85%D9%88%D9%82%D8%B9%D9%83%20%D8%A7%D9%84%D8%B4%D8%AE%D8%B5%D9%8A%20%D9%8...%20%D8%A7%D9%84%D8%AA%D9%88%D8%A7%D8%B5%D9%84%20%D9%85%D8%B9%D9%83." target="_blank" class="fixed bottom-6 right-6 z-50 w-14 h-14 bg-[#25D366] hover:bg-[#20ba5a] rounded-full flex items-center justify-center shadow-lg shadow-[#25D366]/30 hover:scale-110 transition-transform duration-300 animate-bounce" style="animation-duration: 3s;" title="تواصل عبر واتساب">
+  <a href="https://wa.me/970569922257?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%20%D8%A3%D8%AD%D9%85%D8%AF%D8%8C%20%D8%A7%D8%B7%D9%84%D8%B9%D8%AA%20%D8%B9%D9%84%D9%89%20%D9%85%D9%88%D9%82%D8%B9%D9%83%20%D8%A7%D9%84%D8%B4%D8%AE%D8%B5%D9%8I%20%D9%88%D8%A3%D8%B1%D8%BA%D8%A8%20%D9%81%D9%8A%20%D8%A7%D9%84%D8%AA%D9%88%D8%A7%D8%B5%D9%84%20%D9%85%D8%B9%D9%83." target="_blank" class="fixed bottom-6 right-6 z-50 w-14 h-14 bg-[#25D366] hover:bg-[#20ba5a] rounded-full flex items-center justify-center shadow-lg shadow-[#25D366]/30 hover:scale-110 transition-transform duration-300 animate-bounce" style="animation-duration: 3s;" title="تواصل عبر واتساب">
     <svg class="w-7 h-7 text-white fill-current" viewBox="0 0 24 24">
       <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.724-1.455L0 24zm6.59-4.846c1.665.989 3.3 1.472 5.358 1.473 5.514 0 10.002-4.487 10.005-10 0-2.673-1.04-5.186-2.93-7.078-1.89-1.891-4.4-2.93-7.072-2.93-5.524 0-10.014 4.489-10.017 10-.001 1.953.5 3.85 1.5 5.568l-.98 3.578 3.666-.962zm9.646-6.84c-.267-.134-1.58-.78-1.822-.867-.243-.088-.419-.133-.596.134-.176.265-.681.866-.835 1.043-.154.177-.308.199-.575.065-.267-.134-1.13-.417-2.153-1.331-.795-.71-1.332-1.587-1.488-1.854-.154-.267-.017-.411.117-.544.12-.12.267-.31.4-.464.133-.155.177-.266.266-.443.089-.177.044-.332-.022-.465-.067-.133-.596-1.436-.816-1.966-.215-.518-.452-.449-.623-.458-.16-.008-.344-.01-.529-.01-.186 0-.489.07-.745.348-.256.278-.979.957-.979 2.332 0 1.375 1.002 2.702 1.142 2.89.14.188 1.973 3.012 4.779 4.22.667.288 1.188.46 1.594.59.67.213 1.28.183 1.762.11.537-.08 1.58-.646 1.802-1.238.223-.592.223-1.1.157-1.206-.067-.107-.243-.177-.51-.31z"/>
     </svg>
@@ -965,6 +1022,55 @@
       modal.classList.remove('flex');
       document.body.classList.remove('overflow-hidden');
     }
+
+    // Lightbox Logic for Design Gallery
+    function openLightbox(imgSrc, captionText) {
+      const modal = document.getElementById('lightbox-modal');
+      const img = document.getElementById('lightbox-img');
+      const caption = document.getElementById('lightbox-caption');
+      
+      img.src = imgSrc;
+      caption.textContent = captionText;
+      
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      document.body.classList.add('overflow-hidden');
+    }
+
+    function closeLightbox() {
+      const modal = document.getElementById('lightbox-modal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+      document.body.classList.remove('overflow-hidden');
+    }
+
+    // Copy to Clipboard with Animated Tooltip
+    function copyToClipboard(text, tooltipId) {
+      navigator.clipboard.writeText(text).then(() => {
+        const tooltip = document.getElementById(tooltipId);
+        tooltip.classList.add('show-tooltip');
+        setTimeout(() => {
+          tooltip.classList.remove('show-tooltip');
+        }, 2000);
+      });
+    }
+
+    // Scroll Reveal (Intersection Observer)
+    const revealCallback = (entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+        }
+      });
+    };
+
+    const revealObserver = new IntersectionObserver(revealCallback, {
+      threshold: 0.15
+    });
+
+    document.querySelectorAll('.reveal').forEach(el => {
+      revealObserver.observe(el);
+    });
 
     // Interactive Canvas Particles Network
     const canvas = document.getElementById('particleCanvas');
