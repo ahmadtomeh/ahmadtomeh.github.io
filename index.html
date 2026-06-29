@@ -141,6 +141,21 @@
       opacity: 1;
       transform: translateX(-50%) translateY(0);
     }
+
+    /* FAQ accordion custom animation */
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease-out, padding 0.3s ease;
+    }
+    .faq-item.active .faq-answer {
+      max-height: 200px;
+      padding-top: 1rem;
+    }
+    .faq-item.active .faq-icon {
+      transform: rotate(180deg);
+      color: #3b82f6;
+    }
   </style>
 </head>
 <body class="dark:bg-dark-950 bg-slate-50 dark:text-gray-100 text-slate-800 transition-colors duration-300 font-cairo overflow-x-hidden selection:bg-brand-blue/30">
@@ -163,8 +178,9 @@
       <!-- Nav Links -->
       <ul class="hidden md:flex items-center gap-8 text-sm font-semibold dark:text-gray-400 text-slate-600">
         <li><a href="#about" class="hover:text-brand-blue transition-colors">من أنا</a></li>
+        <li><a href="#workflow" class="hover:text-brand-blue transition-colors">منهجيتي</a></li>
         <li><a href="#skills" class="hover:text-brand-blue transition-colors">المهارات</a></li>
-        <li><a href="#experience" class="hover:text-brand-blue transition-colors">الخبرات</a></li>
+        <li><a href="#services" class="hover:text-brand-blue transition-colors">الخدمات</a></li>
         <li><a href="#projects" class="hover:text-brand-blue transition-colors">المشاريع</a></li>
         <li><a href="#testimonials" class="hover:text-brand-blue transition-colors">شركاء النجاح</a></li>
         <li><a href="#gallery" class="hover:text-brand-blue transition-colors">معرض التصاميم</a></li>
@@ -194,8 +210,9 @@
   <div id="mobileMenu" class="hidden fixed inset-0 z-40 bg-dark-950/95 dark:bg-dark-950/95 bg-slate-50/95 backdrop-blur-lg pt-24 px-6 flex flex-col gap-6 text-center transition-all duration-300">
     <ul class="flex flex-col gap-6 text-lg font-bold dark:text-gray-300 text-slate-700">
       <li><a href="#about" onclick="toggleMobileMenu()" class="hover:text-brand-blue transition-colors">من أنا</a></li>
+      <li><a href="#workflow" onclick="toggleMobileMenu()" class="hover:text-brand-blue transition-colors">منهجيتي</a></li>
       <li><a href="#skills" onclick="toggleMobileMenu()" class="hover:text-brand-blue transition-colors">المهارات</a></li>
-      <li><a href="#experience" onclick="toggleMobileMenu()" class="hover:text-brand-blue transition-colors">الخبرات</a></li>
+      <li><a href="#services" onclick="toggleMobileMenu()" class="hover:text-brand-blue transition-colors">الخدمات</a></li>
       <li><a href="#projects" onclick="toggleMobileMenu()" class="hover:text-brand-blue transition-colors">المشاريع</a></li>
       <li><a href="#testimonials" onclick="toggleMobileMenu()" class="hover:text-brand-blue transition-colors">شركاء النجاح</a></li>
       <li><a href="#gallery" onclick="toggleMobileMenu()" class="hover:text-brand-blue transition-colors">معرض التصاميم</a></li>
@@ -212,16 +229,33 @@
       
       <!-- Intro text -->
       <div class="lg:col-span-7 text-center lg:text-right space-y-6">
-        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-blue/10 border border-brand-blue/20 text-brand-blue text-xs font-bold tracking-wider">
-          <span class="w-1.5 h-1.5 rounded-full bg-brand-blue animate-ping"></span> مطور ويب متكامل
+        <!-- Dynamic Greeting Tag -->
+        <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-brand-blue/10 border border-brand-blue/20 text-brand-blue text-xs font-bold">
+          <span class="w-1.5 h-1.5 rounded-full bg-brand-blue animate-ping"></span>
+          <span id="time-greeting">مرحباً بك</span>
         </div>
+        
         <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black dark:text-white text-slate-900 leading-tight">
-          مرحباً، أنا أحمد طعمة <br>
+          أنا أحمد طعمة <br>
           <span class="text-gradient" id="typewriter">مطور ويب</span>
         </h1>
         <p class="dark:text-gray-400 text-slate-600 text-sm sm:text-base max-w-xl mx-auto lg:mx-0 leading-relaxed">
           أجمع بين الشغف البرمجي والذكاء التجاري لبناء منصات رقمية متكاملة وسلسة، وتصميم هويات بصرية جذابة، وصناعة المحتوى التفاعلي الذي يساهم في نمو الشركات والمشاريع.
         </p>
+
+        <!-- Interactive Voice Mockup -->
+        <div class="glass-card p-3 rounded-xl max-w-sm mx-auto lg:mx-0 flex items-center gap-3 border border-brand-blue/10 bg-brand-blue/5">
+          <button onclick="playVoiceIntro()" class="w-10 h-10 rounded-full bg-brand-blue text-white flex items-center justify-center hover:scale-105 active:scale-95 transition-all shadow-md shadow-brand-blue/20" title="استمع لرسالة ترحيبية">
+            <i id="voice-play-icon" data-lucide="play" class="w-4 h-4 fill-white"></i>
+          </button>
+          <div class="flex-1">
+            <h4 class="text-xs font-bold dark:text-white text-slate-800">رسالة ترحيبية صوتية 🎙️</h4>
+            <div class="w-full bg-gray-200 dark:bg-gray-800 h-1 rounded-full overflow-hidden mt-1.5">
+              <div id="voice-progress" class="bg-brand-blue h-full w-0 transition-all duration-300"></div>
+            </div>
+          </div>
+          <span id="voice-time" class="text-[10px] text-gray-500 font-semibold">0:07</span>
+        </div>
 
         <!-- CV Downloads -->
         <div class="flex items-center justify-center lg:justify-start gap-3 flex-wrap pt-1.5">
@@ -318,8 +352,61 @@
     </div>
   </section>
 
+  <!-- Workflow Steps Section -->
+  <section id="workflow" class="py-24 relative z-10 border-t dark:border-gray-900 border-slate-200">
+    <div class="max-w-6xl mx-auto px-6 reveal">
+      <div class="space-y-2 mb-12 text-center">
+        <span class="text-xs font-bold text-brand-blue uppercase tracking-widest">كيف أعمل؟</span>
+        <h2 class="text-2xl sm:text-3xl font-extrabold dark:text-white text-slate-900">منهجية العمل وإدارة المشاريع</h2>
+        <p class="text-xs sm:text-sm dark:text-gray-400 text-slate-600 mt-2">خطوات منظمة وموثوقة أتبعها لضمان خروج مشروعك بأفضل صورة وأسرع وقت.</p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- Step 1 -->
+        <div class="glass-card p-6 rounded-3xl space-y-4 relative overflow-hidden group">
+          <div class="absolute -right-6 -top-6 w-16 h-16 bg-brand-blue/5 rounded-full flex items-center justify-center text-3xl font-black text-brand-blue/20">1</div>
+          <div class="w-10 h-10 rounded-xl bg-brand-blue/10 flex items-center justify-center text-brand-blue border border-brand-blue/20">
+            <i data-lucide="message-square" class="w-5 h-5"></i>
+          </div>
+          <h3 class="font-bold text-sm sm:text-base dark:text-white text-slate-900">1. الاستشارة والتخطيط</h3>
+          <p class="text-xs dark:text-gray-400 text-slate-500 leading-relaxed">نجلس معاً لدراسة فكرة المشروع، تحديد أهدافك التجارية، وكتابة ورقة المتطلبات البرمجية بدقة.</p>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="glass-card p-6 rounded-3xl space-y-4 relative overflow-hidden group">
+          <div class="absolute -right-6 -top-6 w-16 h-16 bg-brand-purple/5 rounded-full flex items-center justify-center text-3xl font-black text-brand-purple/20">2</div>
+          <div class="w-10 h-10 rounded-xl bg-brand-purple/10 flex items-center justify-center text-brand-purple border border-brand-purple/20">
+            <i data-lucide="palette" class="w-5 h-5"></i>
+          </div>
+          <h3 class="font-bold text-sm sm:text-base dark:text-white text-slate-900">2. تصميم الواجهات والهوية</h3>
+          <p class="text-xs dark:text-gray-400 text-slate-500 leading-relaxed">أقوم بتصميم الهوية البصرية، وتوزيع العناصر البصرية لضمان تجربة مستخدم (UI/UX) سلسلة وجذابة.</p>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="glass-card p-6 rounded-3xl space-y-4 relative overflow-hidden group">
+          <div class="absolute -right-6 -top-6 w-16 h-16 bg-brand-emerald/5 rounded-full flex items-center justify-center text-3xl font-black text-brand-emerald/20">3</div>
+          <div class="w-10 h-10 rounded-xl bg-brand-emerald/10 flex items-center justify-center text-brand-emerald border border-brand-emerald/20">
+            <i data-lucide="code" class="w-5 h-5"></i>
+          </div>
+          <h3 class="font-bold text-sm sm:text-base dark:text-white text-slate-900">3. التطوير وكتابة الأكواد</h3>
+          <p class="text-xs dark:text-gray-400 text-slate-500 leading-relaxed">أشرع ببرمجة النظام، بناء قواعد البيانات وتكاملها بالواجهات مع التركيز على سرعة الموقع والحماية العالية.</p>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="glass-card p-6 rounded-3xl space-y-4 relative overflow-hidden group">
+          <div class="absolute -right-6 -top-6 w-16 h-16 bg-brand-blue/5 rounded-full flex items-center justify-center text-3xl font-black text-brand-blue/20">4</div>
+          <div class="w-10 h-10 rounded-xl bg-brand-emerald/10 flex items-center justify-center text-brand-emerald border border-brand-emerald/20 animate-pulse">
+            <i data-lucide="rocket" class="w-5 h-5"></i>
+          </div>
+          <h3 class="font-bold text-sm sm:text-base dark:text-white text-slate-900">4. الفحص والإطلاق الحي</h3>
+          <p class="text-xs dark:text-gray-400 text-slate-500 leading-relaxed">فحص الموقع عبر الهواتف والمتصفحات للتأكد من خلوه من المشاكل، ثم ربطه بالاستضافة ونطاقك الخاص.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- Interactive Skills Section -->
-  <section id="skills" class="py-24 relative z-10 border-t dark:border-gray-900 border-slate-200">
+  <section id="skills" class="py-24 relative z-10 border-t dark:border-gray-900 border-slate-200 dark:bg-dark-900/20 bg-slate-100/30">
     <div class="max-w-6xl mx-auto px-6 reveal">
       <div class="space-y-2 mb-12 text-center">
         <span class="text-xs font-bold text-brand-blue uppercase tracking-widest">الكفاءات المهنية</span>
@@ -414,7 +501,7 @@
             <span class="text-brand-emerald text-lg">🎨</span>
             <span class="text-xs font-bold dark:text-gray-200 text-slate-700">Adobe Photoshop</span>
           </div>
-          <div class="flex items-center gap-3 dark:bg-dark-950/40 bg-slate-50 p-4 rounded-xl border dark:border-gray-800/80 border-slate-200 hover:border-slate-200 hover:border-brand-emerald/30 transition-colors">
+          <div class="flex items-center gap-3 dark:bg-dark-950/40 bg-slate-50 p-4 rounded-xl border dark:border-gray-800/80 border-slate-200 hover:border-brand-emerald/30 transition-colors">
             <span class="text-brand-emerald text-lg">🎞️</span>
             <span class="text-xs font-bold dark:text-gray-200 text-slate-700">Adobe Premiere Pro</span>
           </div>
@@ -438,6 +525,67 @@
             <span class="text-brand-emerald text-lg">📊</span>
             <span class="text-xs font-bold dark:text-gray-200 text-slate-700">MS Excel</span>
           </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Services & Estimated Pricing -->
+  <section id="services" class="py-24 relative z-10 border-t dark:border-gray-900 border-slate-200">
+    <div class="max-w-6xl mx-auto px-6 reveal">
+      <div class="space-y-2 mb-12 text-center">
+        <span class="text-xs font-bold text-brand-blue uppercase tracking-widest">خدماتي البرمجية والإبداعية</span>
+        <h2 class="text-2xl sm:text-3xl font-extrabold dark:text-white text-slate-900">الخدمات وباقات العمل</h2>
+        <p class="text-xs sm:text-sm dark:text-gray-400 text-slate-600 mt-2">باقات تقديرية مخصصة لتلبية احتياجات مشروعك وتحقيق انتشار ملموس لأعمالك.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        
+        <!-- Package 1: Branding & Social -->
+        <div class="glass-card p-8 rounded-3xl flex flex-col justify-between border border-brand-purple/10 hover:border-brand-purple/40 relative group">
+          <div class="space-y-4">
+            <span class="text-xs font-bold text-brand-purple bg-brand-purple/10 px-3 py-1 rounded-full border border-brand-purple/20">باقة التصميم</span>
+            <h3 class="text-lg font-bold dark:text-white text-slate-900">الهوية البصرية والسوشيال ميديا</h3>
+            <p class="text-xs dark:text-gray-400 text-slate-500 leading-relaxed">بناء هوية بصرية جذابة لعلامتك التجارية وتهيئتها للنشر المباشر عبر المنصات الاجتماعية.</p>
+            <ul class="text-xs dark:text-gray-300 text-slate-600 space-y-2 pt-2">
+              <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-purple"></i> تصميم شعار احترافي ومميز</li>
+              <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-purple"></i> تصميم 10 منشورات سوشيال ميديا</li>
+              <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-purple"></i> تصميم بنرات وغلاف للصفحات</li>
+            </ul>
+          </div>
+          <button onclick="requestService('باقة الهوية البصرية والسوشيال ميديا')" class="w-full mt-8 py-3 rounded-xl text-xs font-bold border border-brand-purple/35 text-brand-purple hover:bg-brand-purple hover:text-white transition-all">اطلب الباقة الآن</button>
+        </div>
+
+        <!-- Package 2: Company Website -->
+        <div class="glass-card p-8 rounded-3xl flex flex-col justify-between border border-brand-blue/30 hover:border-brand-blue/60 relative group shadow-lg shadow-brand-blue/5 scale-105">
+          <div class="absolute top-4 left-4 text-[9px] font-bold bg-brand-blue text-white px-2 py-0.5 rounded-full animate-pulse">الأكثر طلباً</div>
+          <div class="space-y-4">
+            <span class="text-xs font-bold text-brand-blue bg-brand-blue/10 px-3 py-1 rounded-full border border-brand-blue/20">باقة الويب</span>
+            <h3 class="text-lg font-bold dark:text-white text-slate-900">الموقع التعريفي للشركات</h3>
+            <p class="text-xs dark:text-gray-400 text-slate-500 leading-relaxed">تصميم وبرمجة موقع ويب عصري متوافق تماماً مع الهواتف الذكية وسريع التحميل لعرض خدماتك.</p>
+            <ul class="text-xs dark:text-gray-300 text-slate-600 space-y-2 pt-2">
+              <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-blue"></i> تصميم متجاوب (Responsive UI/UX)</li>
+              <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-blue"></i> سرعة تحميل فائقة وأمان ممتاز</li>
+              <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-blue"></i> ربط نموذج الاتصال ببريدك المباشر</li>
+            </ul>
+          </div>
+          <button onclick="requestService('باقة الموقع التعريفي للشركات')" class="w-full mt-8 py-3 rounded-xl text-xs font-bold bg-brand-blue text-white hover:opacity-90 transition-all shadow-md shadow-brand-blue/20">اطلب الباقة الآن</button>
+        </div>
+
+        <!-- Package 3: Dynamic System -->
+        <div class="glass-card p-8 rounded-3xl flex flex-col justify-between border border-brand-emerald/10 hover:border-brand-emerald/40 relative group">
+          <div class="space-y-4">
+            <span class="text-xs font-bold text-brand-emerald bg-brand-emerald/10 px-3 py-1 rounded-full border border-brand-emerald/20">باقة المطور الشامل</span>
+            <h3 class="text-lg font-bold dark:text-white text-slate-900">الأنظمة وتطبيقات الويب الخاصة</h3>
+            <p class="text-xs dark:text-gray-400 text-slate-500 leading-relaxed">بناء أنظمة متكاملة ولوحات تحكم قوية لإدارة البيانات، المبيعات، والسيارات باستخدام Django.</p>
+            <ul class="text-xs dark:text-gray-300 text-slate-600 space-y-2 pt-2">
+              <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-emerald"></i> ربط وتكامل بقواعد البيانات (SQL)</li>
+              <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-emerald"></i> لوحة تحكم كاملة للمدراء (Admin Panel)</li>
+              <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-emerald"></i> تشفير البيانات وحماية الجلسات</li>
+            </ul>
+          </div>
+          <button onclick="requestService('باقة الأنظمة وتطبيقات الويب الخاصة - Django')" class="w-full mt-8 py-3 rounded-xl text-xs font-bold border border-brand-emerald/35 text-brand-emerald hover:bg-brand-emerald hover:text-white transition-all">اطلب الباقة الآن</button>
         </div>
 
       </div>
@@ -588,7 +736,7 @@
     <div class="max-w-6xl mx-auto px-6 reveal">
       <div class="space-y-2 mb-12 text-center">
         <span class="text-xs font-bold text-brand-purple uppercase tracking-widest">شركاء النجاح</span>
-        <h2 class="text-2xl sm:text-3xl font-extrabold dark:text-white text-slate-900">ماذا يقول العملاء عن أحمد؟</h2>
+        <h2 class="text-2xl sm:text-3xl font-extrabold dark:text-white text-slate-900">ماذا يقول العملاء عن أحمد?</h2>
         <p class="text-xs sm:text-sm dark:text-gray-400 text-slate-600 mt-2">آراء حقيقية من أصحاب المشاريع والشركات المحلية التي تعاملت مع أحمد لتطوير أعمالهم وهويتهم البصرية.</p>
       </div>
 
@@ -745,6 +893,62 @@
     </div>
   </section>
 
+  <!-- FAQ Accordion Section -->
+  <section class="py-24 relative z-10 border-t dark:border-gray-900 border-slate-200 dark:bg-dark-900/10 bg-slate-100/10">
+    <div class="max-w-4xl mx-auto px-6 reveal">
+      <div class="space-y-2 mb-12 text-center">
+        <span class="text-xs font-bold text-brand-blue uppercase tracking-widest">الأسئلة الشائعة</span>
+        <h2 class="text-2xl sm:text-3xl font-extrabold dark:text-white text-slate-900">إجابات عن استفساراتك</h2>
+      </div>
+
+      <div class="space-y-4">
+        <!-- FAQ 1 -->
+        <div class="faq-item glass-card p-6 rounded-2xl cursor-pointer" onclick="toggleFaq(this)">
+          <div class="flex justify-between items-center gap-4">
+            <h3 class="text-sm sm:text-base font-bold dark:text-white text-slate-900">هل تقدم خدمات البرمجة والتصميم معاً؟</h3>
+            <i data-lucide="chevron-down" class="faq-icon w-5 h-5 text-gray-500 transition-transform"></i>
+          </div>
+          <div class="faq-answer text-xs sm:text-sm dark:text-gray-400 text-slate-650 leading-relaxed">
+            نعم بالتأكيد! أجمع بين الجانب البرمجي والجانب التسويقي والتصميمي. يمكنني تصميم الشعار والهوية البصرية للمشروع وبناء الموقع وتطوير الأنظمة الخلفية وإعلانات السوشيال ميديا بشكل متكامل ومترابط.
+          </div>
+        </div>
+
+        <!-- FAQ 2 -->
+        <div class="faq-item glass-card p-6 rounded-2xl cursor-pointer" onclick="toggleFaq(this)">
+          <div class="flex justify-between items-center gap-4">
+            <h3 class="text-sm sm:text-base font-bold dark:text-white text-slate-900">كم يستغرق بناء موقع ويب تعريفي؟</h3>
+            <i data-lucide="chevron-down" class="faq-icon w-5 h-5 text-gray-500 transition-transform"></i>
+          </div>
+          <div class="faq-answer text-xs sm:text-sm dark:text-gray-400 text-slate-650 leading-relaxed">
+            يستغرق العمل على موقع تعريفي للشركات أو صفحة شخصية متكاملة عادةً بين 3 إلى 7 أيام عمل، ويشمل ذلك مراحل التخطيط والتصميم والبرمجة وفحص الأداء على الجوالات وتأمين البيانات.
+          </div>
+        </div>
+
+        <!-- FAQ 3 -->
+        <div class="faq-item glass-card p-6 rounded-2xl cursor-pointer" onclick="toggleFaq(this)">
+          <div class="flex justify-between items-center gap-4">
+            <h3 class="text-sm sm:text-base font-bold dark:text-white text-slate-900">هل تعمل المواقع بشكل متوافق وسريع على الهواتف؟</h3>
+            <i data-lucide="chevron-down" class="faq-icon w-5 h-5 text-gray-500 transition-transform"></i>
+          </div>
+          <div class="faq-answer text-xs sm:text-sm dark:text-gray-400 text-slate-650 leading-relaxed">
+            بكل تأكيد، أهتم جداً بمبدأ "الهاتف أولاً" (Mobile First)، حيث يتم تهيئة الموقع والتصاميم لتتناسب مع كافة أحجام الجوالات والأجهزة اللوحية، مع ضغط وضبط الصور لضمان سرعة فائقة في التحميل والاستجابة.
+          </div>
+        </div>
+
+        <!-- FAQ 4 -->
+        <div class="faq-item glass-card p-6 rounded-2xl cursor-pointer" onclick="toggleFaq(this)">
+          <div class="flex justify-between items-center gap-4">
+            <h3 class="text-sm sm:text-base font-bold dark:text-white text-slate-900">كيف يمكننا بدء العمل على مشروعي؟</h3>
+            <i data-lucide="chevron-down" class="faq-icon w-5 h-5 text-gray-500 transition-transform"></i>
+          </div>
+          <div class="faq-answer text-xs sm:text-sm dark:text-gray-400 text-slate-650 leading-relaxed">
+            يمكنك التواصل معي مباشرة بملء نموذج الاتصال أدناه، أو مراسلتي فوراً على الواتساب بالضغط على الأيقونة الخضراء العائمة. سنرتب مكالمة لمناقشة التفاصيل والبدء بالتخطيط فوراً!
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- Education Section -->
   <section class="py-24 relative z-10 border-t dark:border-gray-900 border-slate-200 dark:bg-dark-900/10 bg-slate-100/10">
     <div class="max-w-6xl mx-auto px-6 reveal">
@@ -852,7 +1056,7 @@
             </div>
             <div>
               <label class="block text-xs font-bold text-gray-500 mb-2">تفاصيل الرسالة</label>
-              <textarea name="message" class="input-field mb-0 w-full dark:bg-dark-950/40 bg-white border dark:border-gray-800 border-slate-200 rounded-xl p-3.5 text-sm outline-none focus:border-brand-blue transition-colors text-slate-900 dark:text-white font-medium" rows="4" placeholder="اكتب تفاصيل مشروعك أو استفسارك هنا..." required></textarea>
+              <textarea id="contact-message" name="message" class="input-field mb-0 w-full dark:bg-dark-950/40 bg-white border dark:border-gray-800 border-slate-200 rounded-xl p-3.5 text-sm outline-none focus:border-brand-blue transition-colors text-slate-900 dark:text-white font-medium" rows="4" placeholder="اكتب تفاصيل مشروعك أو استفسارك هنا..." required></textarea>
             </div>
             <button type="submit" class="w-full bg-gradient-to-r from-brand-blue to-brand-purple py-3.5 rounded-xl text-xs font-bold shadow-lg shadow-brand-blue/25 hover:opacity-90 transition-all text-white">
               إرسال الرسالة
@@ -904,7 +1108,7 @@
           <ul class="list-disc list-inside text-xs dark:text-gray-400 text-slate-600 space-y-1">
             <li>تقليل وقت تعطل الصرافات بفضل الكشف التلقائي عن انقطاع الاتصال (Ping Checker).</li>
             <li>إصدار إنذارات فورية لفرق الصيانة في حال تعطل الكاميرات لضمان المعايير الأمنية.</li>
-            <li>إنشاء لوحة تحكم إحصائية تعرض حالة الأجهزة بشكل منظم لمساعدة مدراء الأنظمة.</li>
+            <li>إنشاء لوحة تحهم إحصائية تعرض حالة الأجهزة بشكل منظم لمساعدة مدراء الأنظمة.</li>
           </ul>
         </div>
         <div class="flex flex-wrap gap-2 pt-2">
@@ -986,7 +1190,7 @@
   </button>
 
   <!-- Floating WhatsApp Button -->
-  <a href="https://wa.me/970569922257?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%20%D8%A3%D8%AD%D9%85%D8%AF%D8%8C%20%D8%A7%D8%B7%D9%84%D8%B9%D8%AA%20%D8%B9%D9%84%D9%89%20%D9%85%D9%88%D9%82%D8%B9%D9%83%20%D8%A7%D9%84%D8%B4%D8%AE%D8%B5%D9%8I%20%D9%8...%20%D8%A7%D9%84%D8%AA%D9%88%D8%A7%D8%B5%D9%84%20%D9%85%D8%B9%D9%83." target="_blank" class="fixed bottom-6 right-6 z-50 w-14 h-14 bg-[#25D366] hover:bg-[#20ba5a] rounded-full flex items-center justify-center shadow-lg shadow-[#25D366]/30 hover:scale-110 transition-transform duration-300 animate-bounce" style="animation-duration: 3s;" title="تواصل عبر واتساب">
+  <a href="https://wa.me/970569922257?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%20%D8%A3%D8%AD%D9%85%D8%AF%D8%8C%20%D8%A7%D8%B7%D9%84%D8%B9%D8%AA%20%D8%B9%D9%84%D9%89%20%D9%85%D9%88%D9%82%D8%B9%D9%83%20%D8%A7%D9%84%D8%B4%D8%AE%D8%B5%D9%8I%20%D9%88%D8%A3%D8%B1%D8%BA%D8%A8%20%D9%81%D9%8A%20%D8%A7%D9%84%D8%AA%D9%88%D8%A7%D8%B5%D9%84%20%D9%85%D8%B9%D9%83." target="_blank" class="fixed bottom-6 right-6 z-50 w-14 h-14 bg-[#25D366] hover:bg-[#20ba5a] rounded-full flex items-center justify-center shadow-lg shadow-[#25D366]/30 hover:scale-110 transition-transform duration-300 animate-bounce" style="animation-duration: 3s;" title="تواصل عبر واتساب">
     <svg class="w-7 h-7 text-white fill-current" viewBox="0 0 24 24">
       <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.724-1.455L0 24zm6.59-4.846c1.665.989 3.3 1.472 5.358 1.473 5.514 0 10.002-4.487 10.005-10 0-2.673-1.04-5.186-2.93-7.078-1.89-1.891-4.4-2.93-7.072-2.93-5.524 0-10.014 4.489-10.017 10-.001 1.953.5 3.85 1.5 5.568l-.98 3.578 3.666-.962zm9.646-6.84c-.267-.134-1.58-.78-1.822-.867-.243-.088-.419-.133-.596.134-.176.265-.681.866-.835 1.043-.154.177-.308.199-.575.065-.267-.134-1.13-.417-2.153-1.331-.795-.71-1.332-1.587-1.488-1.854-.154-.267-.017-.411.117-.544.12-.12.267-.31.4-.464.133-.155.177-.266.266-.443.089-.177.044-.332-.022-.465-.067-.133-.596-1.436-.816-1.966-.215-.518-.452-.449-.623-.458-.16-.008-.344-.01-.529-.01-.186 0-.489.07-.745.348-.256.278-.979.957-.979 2.332 0 1.375 1.002 2.702 1.142 2.89.14.188 1.973 3.012 4.779 4.22.667.288 1.188.46 1.594.59.67.213 1.28.183 1.762.11.537-.08 1.58-.646 1.802-1.238.223-.592.223-1.1.157-1.206-.067-.107-.243-.177-.51-.31z"/>
     </svg>
@@ -996,6 +1200,79 @@
   <script>
     // Initialize Lucide Icons
     lucide.createIcons();
+
+    // Set Dynamic Greeting based on time of day
+    function setDynamicGreeting() {
+      const greetingEl = document.getElementById('time-greeting');
+      const hours = new Date().getHours();
+      let greetingText = '';
+
+      if (hours >= 5 && hours < 12) {
+        greetingText = 'صباح الخير ☀️ أهلاً بك في موقعي';
+      } else if (hours >= 12 && hours < 18) {
+        greetingText = 'أهلاً بك ☕ يومك سعيد';
+      } else {
+        greetingText = 'مساء الخير 🌙 مرحباً بك في موقعي';
+      }
+      greetingEl.textContent = greetingText;
+    }
+    setDynamicGreeting();
+
+    // Voice Intro Mockup Action
+    let voicePlaying = false;
+    function playVoiceIntro() {
+      const playIcon = document.getElementById('voice-play-icon');
+      const progressBar = document.getElementById('voice-progress');
+      const voiceTime = document.getElementById('voice-time');
+
+      if (!voicePlaying) {
+        voicePlaying = true;
+        playIcon.setAttribute('data-lucide', 'square');
+        lucide.createIcons();
+        progressBar.style.width = '100%';
+        progressBar.style.transition = 'width 7s linear';
+
+        let count = 7;
+        const interval = setInterval(() => {
+          count--;
+          voiceTime.textContent = `0:0${count}`;
+          if (count === 0) {
+            clearInterval(interval);
+            resetVoiceIntro();
+          }
+        }, 1000);
+        
+        window.activeVoiceInterval = interval;
+      } else {
+        resetVoiceIntro();
+      }
+    }
+
+    function resetVoiceIntro() {
+      voicePlaying = false;
+      const playIcon = document.getElementById('voice-play-icon');
+      const progressBar = document.getElementById('voice-progress');
+      const voiceTime = document.getElementById('voice-time');
+
+      if (window.activeVoiceInterval) {
+        clearInterval(window.activeVoiceInterval);
+      }
+
+      playIcon.setAttribute('data-lucide', 'play');
+      lucide.createIcons();
+      progressBar.style.transition = 'none';
+      progressBar.style.width = '0%';
+      voiceTime.textContent = '0:07';
+    }
+
+    // Services request filler
+    function requestService(packageName) {
+      const messageField = document.getElementById('contact-message');
+      messageField.value = `مرحباً أحمد، أرغب في الاستفسار عن تفاصيل وطلب "${packageName}" والعمل معك عليها.`;
+      
+      const contactSection = document.getElementById('contact');
+      contactSection.scrollIntoView({ behavior: 'smooth' });
+    }
 
     // Typewriter Animation
     const typewriter = document.getElementById('typewriter');
@@ -1145,6 +1422,20 @@
       modal.classList.add('hidden');
       modal.classList.remove('flex');
       document.body.classList.remove('overflow-hidden');
+    }
+
+    // FAQ Accordion Logic
+    function toggleFaq(element) {
+      const isActive = element.classList.contains('active');
+      
+      // Close all first
+      document.querySelectorAll('.faq-item').forEach(item => {
+        item.classList.remove('active');
+      });
+      
+      if (!isActive) {
+        element.classList.add('active');
+      }
     }
 
     // Copy to Clipboard with Animated Tooltip
