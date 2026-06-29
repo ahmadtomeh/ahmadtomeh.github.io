@@ -2244,41 +2244,57 @@
       });
     }
 
-    // Synthesized Audio Controller using Web Audio API
+    // Synthesized Audio Controller using Web Audio API (Singleton Pattern)
     let audioEnabled = true;
+    let globalAudioCtx = null;
+
+    function getAudioContext() {
+      try {
+        if (!globalAudioCtx) {
+          globalAudioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+        if (globalAudioCtx.state === 'suspended') {
+          globalAudioCtx.resume();
+        }
+        return globalAudioCtx;
+      } catch (e) {
+        return null;
+      }
+    }
 
     function playSound(type) {
       if (!audioEnabled) return;
       try {
-        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        const audioCtx = getAudioContext();
+        if (!audioCtx) return;
+
         const osc = audioCtx.createOscillator();
         const gain = audioCtx.createGain();
         
         osc.connect(gain);
         gain.connect(audioCtx.destination);
         
+        const now = audioCtx.currentTime;
         if (type === 'click') {
-          // Soft tech click sound
           osc.type = 'sine';
-          osc.frequency.setValueAtTime(800, audioCtx.currentTime);
-          osc.frequency.exponentialRampToValueAtTime(300, audioCtx.currentTime + 0.08);
-          gain.gain.setValueAtTime(0.04, audioCtx.currentTime);
-          gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.08);
-          osc.start();
-          osc.stop(audioCtx.currentTime + 0.08);
+          osc.frequency.setValueAtTime(800, now);
+          osc.frequency.exponentialRampToValueAtTime(300, now + 0.08);
+          gain.gain.setValueAtTime(0.04, now);
+          gain.gain.exponentialRampToValueAtTime(0.01, now + 0.08);
+          osc.start(now);
+          osc.stop(now + 0.08);
         } else if (type === 'toggle') {
-          // Soft double beep
           osc.type = 'sine';
           const isLight = !document.documentElement.classList.contains('dark');
-          osc.frequency.setValueAtTime(isLight ? 400 : 600, audioCtx.currentTime);
-          osc.frequency.exponentialRampToValueAtTime(isLight ? 800 : 300, audioCtx.currentTime + 0.15);
-          gain.gain.setValueAtTime(0.03, audioCtx.currentTime);
-          gain.gain.exponentialRampToValueAtTime(0.005, audioCtx.currentTime + 0.15);
-          osc.start();
-          osc.stop(audioCtx.currentTime + 0.15);
+          osc.frequency.setValueAtTime(isLight ? 400 : 600, now);
+          osc.frequency.exponentialRampToValueAtTime(isLight ? 800 : 300, now + 0.15);
+          gain.gain.setValueAtTime(0.03, now);
+          gain.gain.exponentialRampToValueAtTime(0.005, now + 0.15);
+          osc.start(now);
+          osc.stop(now + 0.15);
         }
       } catch (err) {
-        // Silently fail if audio context blocked or not supported
+        // Silently fail
       }
     }
 
