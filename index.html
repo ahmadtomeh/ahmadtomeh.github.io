@@ -2396,6 +2396,7 @@
               <p>  <span class="text-white">about</span>   - Prints bio summary of Ahmad Tomeh</p>
               <p>  <span class="text-white">skills</span>  - Displays an ASCII skills chart</p>
               <p>  <span class="text-white">hack</span>    - Toggles falling matrix digital code rain on the background</p>
+              <p>  <span class="text-white">play</span>    - Launches a secret retro cyberpunk Breakout minigame</p>
               <p>  <span class="text-white">cv</span>      - Opens Arabic CV in a new tab</p>
               <p>  <span class="text-white">clear</span>   - Clears console output history</p>
               <p>  <span class="text-white">exit</span>    - Closes secure cyber console</p>
@@ -2442,6 +2443,11 @@ Canva/CapCut  [====================] 98%
           }
           break;
           
+        case 'play':
+        case 'game':
+          startCyberGame();
+          break;
+          
         case 'cv':
           window.open('cv_ar.html', '_blank');
           appendToHistory(cmdText, "Opening Arabic Curriculum Vitae in a new tab...", false);
@@ -2478,6 +2484,261 @@ Canva/CapCut  [====================] 98%
     function stopMatrixRain() {
       matrixRainActive = false;
       resizeCanvas();
+    }
+
+    // Atari Breakout Secure Coding Game
+    let gameInterval = null;
+    let gameCanvas = null;
+    let gameCtx = null;
+    let gameLoopActive = false;
+
+    function startCyberGame() {
+      const termBody = document.getElementById('terminal-body');
+      const termHistory = document.getElementById('terminal-history');
+      const termInputRow = terminalInput.parentElement;
+      
+      if (!termBody) return;
+      
+      playSound('toggle');
+      
+      if (termHistory) termHistory.style.display = 'none';
+      if (termInputRow) termInputRow.style.display = 'none';
+      
+      const launchMsg = document.createElement('div');
+      launchMsg.id = 'game-launch-msg';
+      launchMsg.className = 'text-center text-green-500 font-bold space-y-2 mb-4';
+      launchMsg.innerHTML = `
+        <p class="animate-pulse">LAUNCHING CYBER DEBUGGER BREAKOUT v1.0...</p>
+        <p class="text-[10px] text-gray-500">Move Paddle with MOUSE or ARROWS. Destroy the red BUG blocks!</p>
+        <p class="text-[10px] text-red-500">Press 'Q' to quit and return to secure console.</p>
+      `;
+      termBody.appendChild(launchMsg);
+      
+      gameCanvas = document.createElement('canvas');
+      gameCanvas.id = 'cyberGameCanvas';
+      gameCanvas.width = 560;
+      gameCanvas.height = 300;
+      gameCanvas.className = 'mx-auto block border border-green-500/30 bg-black rounded-xl shadow-[0_0_30px_rgba(34,197,94,0.1)] cursor-none max-w-full';
+      termBody.appendChild(gameCanvas);
+      
+      gameCtx = gameCanvas.getContext('2d');
+      
+      let x = gameCanvas.width / 2;
+      let y = gameCanvas.height - 30;
+      let dx = 3;
+      let dy = -3;
+      const ballRadius = 6;
+      const paddleHeight = 10;
+      const paddleWidth = 75;
+      let paddleX = (gameCanvas.width - paddleWidth) / 2;
+      let rightPressed = false;
+      let leftPressed = false;
+      
+      const brickRowCount = 4;
+      const brickColumnCount = 7;
+      const brickWidth = 65;
+      const brickHeight = 15;
+      const brickPadding = 7;
+      const brickOffsetTop = 25;
+      const brickOffsetLeft = 32;
+      
+      let bricks = [];
+      for (let c = 0; c < brickColumnCount; c++) {
+        bricks[c] = [];
+        for (let r = 0; r < brickRowCount; r++) {
+          bricks[c][r] = { x: 0, y: 0, status: 1 };
+        }
+      }
+      
+      let score = 0;
+      gameLoopActive = true;
+      
+      function keyDownHandler(e) {
+        if (e.key === 'Right' || e.key === 'ArrowRight') {
+          rightPressed = true;
+        } else if (e.key === 'Left' || e.key === 'ArrowLeft') {
+          leftPressed = true;
+        } else if (e.key === 'q' || e.key === 'Q') {
+          e.preventDefault();
+          endCyberGame('quit');
+        }
+      }
+      
+      function keyUpHandler(e) {
+        if (e.key === 'Right' || e.key === 'ArrowRight') {
+          rightPressed = false;
+        } else if (e.key === 'Left' || e.key === 'ArrowLeft') {
+          leftPressed = false;
+        }
+      }
+      
+      function mouseMoveHandler(e) {
+        const rect = gameCanvas.getBoundingClientRect();
+        const relativeX = e.clientX - rect.left;
+        if (relativeX > 0 && relativeX < gameCanvas.width) {
+          paddleX = relativeX - paddleWidth / 2;
+        }
+      }
+      
+      document.addEventListener('keydown', keyDownHandler);
+      document.addEventListener('keyup', keyUpHandler);
+      document.addEventListener('mousemove', mouseMoveHandler);
+      
+      function collisionDetection() {
+        for (let c = 0; c < brickColumnCount; c++) {
+          for (let r = 0; r < brickRowCount; r++) {
+            const b = bricks[c][r];
+            if (b.status === 1) {
+              if (x > b.x && x < b.x + brickWidth && y > b.y && y < b.y + brickHeight) {
+                dy = -dy;
+                b.status = 0;
+                score++;
+                playSound('click');
+                if (score === brickRowCount * brickColumnCount) {
+                  endCyberGame('win');
+                }
+              }
+            }
+          }
+        }
+      }
+      
+      function drawBall() {
+        gameCtx.beginPath();
+        gameCtx.arc(x, y, ballRadius, 0, Math.PI * 2);
+        gameCtx.fillStyle = 'var(--brand-blue)';
+        gameCtx.shadowBlur = 10;
+        gameCtx.shadowColor = 'var(--brand-blue)';
+        gameCtx.fill();
+        gameCtx.closePath();
+        gameCtx.shadowBlur = 0;
+      }
+      
+      function drawPaddle() {
+        gameCtx.beginPath();
+        gameCtx.rect(paddleX, gameCanvas.height - paddleHeight - 5, paddleWidth, paddleHeight);
+        gameCtx.fillStyle = 'var(--brand-purple)';
+        gameCtx.shadowBlur = 10;
+        gameCtx.shadowColor = 'var(--brand-purple)';
+        gameCtx.fill();
+        gameCtx.closePath();
+        gameCtx.shadowBlur = 0;
+      }
+      
+      function drawBricks() {
+        for (let c = 0; c < brickColumnCount; c++) {
+          for (let r = 0; r < brickRowCount; r++) {
+            if (bricks[c][r].status === 1) {
+              const brickX = (c * (brickWidth + brickPadding)) + brickOffsetLeft;
+              const brickY = (r * (brickHeight + brickPadding)) + brickOffsetTop;
+              bricks[c][r].x = brickX;
+              bricks[c][r].y = brickY;
+              gameCtx.beginPath();
+              gameCtx.rect(brickX, brickY, brickWidth, brickHeight);
+              gameCtx.fillStyle = '#ef4444';
+              gameCtx.shadowBlur = 5;
+              gameCtx.shadowColor = '#ef4444';
+              gameCtx.fill();
+              gameCtx.closePath();
+              gameCtx.shadowBlur = 0;
+            }
+          }
+        }
+      }
+      
+      function drawScore() {
+        gameCtx.font = '10px monospace';
+        gameCtx.fillStyle = '#22c55e';
+        gameCtx.fillText(`BUGS DESTROYED: ${score}/${brickRowCount * brickColumnCount}`, 8, 15);
+      }
+      
+      function draw() {
+        if (!gameLoopActive) return;
+        
+        gameCtx.clearRect(0, 0, gameCanvas.width, gameCanvas.height);
+        drawBricks();
+        drawBall();
+        drawPaddle();
+        drawScore();
+        collisionDetection();
+        
+        if (x + dx > gameCanvas.width - ballRadius || x + dx < ballRadius) {
+          dx = -dx;
+        }
+        if (y + dy < ballRadius) {
+          dy = -dy;
+        } else if (y + dy > gameCanvas.height - ballRadius - 5) {
+          if (x > paddleX && x < paddleX + paddleWidth) {
+            dy = -dy;
+            playSound('click');
+            const hitPoint = x - (paddleX + paddleWidth / 2);
+            dx = hitPoint * 0.15;
+          } else {
+            endCyberGame('lose');
+            return;
+          }
+        }
+        
+        if (rightPressed && paddleX < gameCanvas.width - paddleWidth) {
+          paddleX += 7;
+        } else if (leftPressed && paddleX > 0) {
+          paddleX -= 7;
+        }
+        
+        x += dx;
+        y += dy;
+        
+        gameInterval = requestAnimationFrame(draw);
+      }
+      
+      gameInterval = requestAnimationFrame(draw);
+      
+      function endCyberGame(status) {
+        gameLoopActive = false;
+        cancelAnimationFrame(gameInterval);
+        
+        document.removeEventListener('keydown', keyDownHandler);
+        document.removeEventListener('keyup', keyUpHandler);
+        document.removeEventListener('mousemove', mouseMoveHandler);
+        
+        if (gameCanvas) gameCanvas.remove();
+        const lMsg = document.getElementById('game-launch-msg');
+        if (lMsg) lMsg.remove();
+        
+        if (termHistory) termHistory.style.display = 'block';
+        if (termInputRow) termInputRow.style.display = 'flex';
+        
+        playSound('toggle');
+        
+        setTimeout(() => {
+          if (terminalInput) terminalInput.focus();
+        }, 100);
+        
+        let outcomeText = '';
+        if (status === 'win') {
+          outcomeText = `
+            <div class="space-y-1 text-center border border-green-500/30 p-4 rounded-xl bg-green-500/5 my-2">
+              <p class="text-green-500 font-bold text-sm">🎉 CONGRATULATIONS! YOU WON! 🎉</p>
+              <p class="text-[10px] text-green-400">All bugs successfully resolved. System status: SECURED.</p>
+              <p class="text-[10px] text-white font-bold font-sans">Ahmad Tomeh is officially hired! 💼⚡</p>
+            </div>
+          `;
+        } else if (status === 'lose') {
+          outcomeText = `
+            <div class="space-y-1 text-center border border-red-500/30 p-4 rounded-xl bg-red-500/5 my-2">
+              <p class="text-red-500 font-bold text-sm">💀 GAME OVER 💀</p>
+              <p class="text-[10px] text-red-400">COMPILATION ERROR: Too many bugs remain. System unstable.</p>
+              <p class="text-[10px] text-white">Type 'play' or 'game' to compile and try again!</p>
+            </div>
+          `;
+        } else {
+          outcomeText = `
+            <p class="text-gray-500">Debugger session terminated. Returned to command terminal.</p>
+          `;
+        }
+        
+        appendToHistory('game', outcomeText, true);
+      }
     }
 
     // 3D Perspective Tilt Hover Effect
