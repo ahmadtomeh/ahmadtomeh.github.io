@@ -166,6 +166,7 @@
         <li><a href="#skills" class="hover:text-brand-blue transition-colors">المهارات</a></li>
         <li><a href="#experience" class="hover:text-brand-blue transition-colors">الخبرات</a></li>
         <li><a href="#projects" class="hover:text-brand-blue transition-colors">المشاريع</a></li>
+        <li><a href="#testimonials" class="hover:text-brand-blue transition-colors">شركاء النجاح</a></li>
         <li><a href="#gallery" class="hover:text-brand-blue transition-colors">معرض التصاميم</a></li>
         <li><a href="#contact" class="hover:text-brand-blue transition-colors">اتصال</a></li>
       </ul>
@@ -278,17 +279,17 @@
         </p>
 
         <!-- Stats Grid -->
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 pt-4">
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 pt-4 stats-grid">
           <div class="dark:bg-dark-950/40 bg-slate-50 border dark:border-gray-800/80 border-slate-200 p-6 rounded-2xl text-center hover:border-brand-blue/30 transition-colors">
-            <div class="text-3xl font-black text-brand-blue">3+</div>
+            <div class="text-3xl font-black text-brand-blue stat-number" data-target="3">0</div>
             <div class="text-xs text-gray-500 font-bold mt-2">سنوات خبرة برمجية</div>
           </div>
           <div class="dark:bg-dark-950/40 bg-slate-50 border dark:border-gray-800/80 border-slate-200 p-6 rounded-2xl text-center hover:border-brand-purple/30 transition-colors">
-            <div class="text-3xl font-black text-brand-purple">10+</div>
+            <div class="text-3xl font-black text-brand-purple stat-number" data-target="10">0</div>
             <div class="text-xs text-gray-500 font-bold mt-2">مشاريع مطورة</div>
           </div>
           <div class="dark:bg-dark-950/40 bg-slate-50 border dark:border-gray-800/80 border-slate-200 p-6 rounded-2xl text-center hover:border-brand-emerald/30 transition-colors">
-            <div class="text-3xl font-black text-brand-emerald">100%</div>
+            <div class="text-3xl font-black text-brand-emerald stat-number" data-target="100">0</div>
             <div class="text-xs text-gray-500 font-bold mt-2">التزام بمواعيد التسليم</div>
           </div>
         </div>
@@ -392,7 +393,7 @@
             <span class="text-brand-emerald text-lg">🎨</span>
             <span class="text-xs font-bold dark:text-gray-200 text-slate-700">Adobe Photoshop</span>
           </div>
-          <div class="flex items-center gap-3 dark:bg-dark-950/40 bg-slate-50 p-4 rounded-xl border dark:border-gray-800/80 border-slate-200 hover:border-brand-emerald/30 transition-colors">
+          <div class="flex items-center gap-3 dark:bg-dark-950/40 bg-slate-50 p-4 rounded-xl border dark:border-gray-800/80 border-slate-200 hover:border-slate-200 hover:border-brand-emerald/30 transition-colors">
             <span class="text-brand-emerald text-lg">🎞️</span>
             <span class="text-xs font-bold dark:text-gray-200 text-slate-700">Adobe Premiere Pro</span>
           </div>
@@ -554,6 +555,66 @@
             <button onclick="openModal('modal-salesys')" class="inline-flex items-center gap-1 text-xs font-bold dark:text-white text-slate-800 hover:text-brand-emerald transition-colors">
               تفاصيل المشروع <i data-lucide="chevron-left" class="w-3.5 h-3.5"></i>
             </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials Section -->
+  <section id="testimonials" class="py-24 relative z-10 border-t dark:border-gray-900 border-slate-200 dark:bg-dark-900/10 bg-slate-100/20">
+    <div class="max-w-6xl mx-auto px-6 reveal">
+      <div class="space-y-2 mb-12 text-center">
+        <span class="text-xs font-bold text-brand-purple uppercase tracking-widest">شركاء النجاح</span>
+        <h2 class="text-2xl sm:text-3xl font-extrabold dark:text-white text-slate-900">ماذا يقول العملاء عن أحمد؟</h2>
+        <p class="text-xs sm:text-sm dark:text-gray-400 text-slate-600 mt-2">آراء حقيقية من أصحاب المشاريع والشركات المحلية التي تعاملت مع أحمد لتطوير أعمالهم وهويتهم البصرية.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        
+        <!-- Testimonial 1 -->
+        <div class="glass-card p-8 rounded-3xl relative flex flex-col justify-between group">
+          <span class="text-6xl text-brand-blue/15 absolute right-6 top-4 font-serif">“</span>
+          <p class="dark:text-gray-300 text-slate-700 text-xs sm:text-sm leading-relaxed mb-6 italic relative z-10 font-medium">
+            "أحمد مبرمج مبدع ومصمم تسويقي رائع. إعلانات وحملة الافتتاح التي صممها لفرعنا الجديد في قفين حققت نجاحاً باهراً وجذبت جمهوراً كبيراً للمطعم في وقت قياسي."
+          </p>
+          <div class="flex items-center gap-3 border-t dark:border-gray-800 border-slate-200 pt-4">
+            <div class="w-10 h-10 rounded-full bg-brand-blue/10 flex items-center justify-center font-bold text-brand-blue">BP</div>
+            <div>
+              <h4 class="text-xs font-bold dark:text-white text-slate-900">مطعم بيسترو بلس</h4>
+              <p class="text-[10px] text-gray-500 font-semibold">إدارة المطعم | قفين</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Testimonial 2 -->
+        <div class="glass-card p-8 rounded-3xl relative flex flex-col justify-between group">
+          <span class="text-6xl text-brand-purple/15 absolute right-6 top-4 font-serif">“</span>
+          <p class="dark:text-gray-300 text-slate-700 text-xs sm:text-sm leading-relaxed mb-6 italic relative z-10 font-medium">
+            "التزام تام بالمواعيد ودقة متناهية في إبراز تفاصيل الكرفانات والهوية البصرية. تصاميمه نالت إعجاب عملائنا في طولكرم وساعدتنا في ترويج ميزاتنا بوضوح واحترافية."
+          </p>
+          <div class="flex items-center gap-3 border-t dark:border-gray-800 border-slate-200 pt-4">
+            <div class="w-10 h-10 rounded-full bg-brand-purple/10 flex items-center justify-center font-bold text-brand-purple">HC</div>
+            <div>
+              <h4 class="text-xs font-bold dark:text-white text-slate-900">كرفانات الهدى</h4>
+              <p class="text-[10px] text-gray-500 font-semibold">المدير العام | طولكرم</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Testimonial 3 -->
+        <div class="glass-card p-8 rounded-3xl relative flex flex-col justify-between group">
+          <span class="text-6xl text-brand-emerald/15 absolute right-6 top-4 font-serif">“</span>
+          <p class="dark:text-gray-300 text-slate-700 text-xs sm:text-sm leading-relaxed mb-6 italic relative z-10 font-medium">
+            "أحمد مبدع جداً في فهم الهوية التجارية للمطاعم. إعلان الشيش طاووق الذي صممه حقق تفاعلاً غير مسبوق على منصاتنا وزاد من الطلبات الخارجية بشكل ملحوظ."
+          </p>
+          <div class="flex items-center gap-3 border-t dark:border-gray-800 border-slate-200 pt-4">
+            <div class="w-10 h-10 rounded-full bg-brand-emerald/10 flex items-center justify-center font-bold text-brand-emerald">AS</div>
+            <div>
+              <h4 class="text-xs font-bold dark:text-white text-slate-900">مطعم أبو شنب</h4>
+              <p class="text-[10px] text-gray-500 font-semibold">إدارة المبيعات | سوق الذهب، طولكرم</p>
+            </div>
           </div>
         </div>
 
@@ -898,8 +959,13 @@
     </div>
   </div>
 
+  <!-- Smart Back to Top Button -->
+  <button id="backToTop" onclick="scrollToTop()" class="hidden fixed bottom-6 left-6 z-50 w-12 h-12 rounded-xl bg-brand-blue hover:bg-brand-blue/80 text-white flex items-center justify-center shadow-lg shadow-brand-blue/30 transition-all hover:scale-105" title="العودة للأعلى">
+    <i data-lucide="arrow-up" class="w-5 h-5"></i>
+  </button>
+
   <!-- Floating WhatsApp Button -->
-  <a href="https://wa.me/970569922257?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%20%D8%A3%D8%AD%D9%85%D8%AF%D8%8C%20%D8%A7%D8%B7%D9%84%D8%B9%D8%AA%20%D8%B9%D9%84%D9%89%20%D9%85%D9%88%D9%82%D8%B9%D9%83%20%D8%A7%D9%84%D8%B4%D8%AE%D8%B5%D9%8I%20%D9%88%D8%A3%D8%B1%D8%BA%D8%A8%20%D9%81%D9%8A%20%D8%A7%D9%84%D8%AA%D9%88%D8%A7%D8%B5%D9%84%20%D9%85%D8%B9%D9%83." target="_blank" class="fixed bottom-6 right-6 z-50 w-14 h-14 bg-[#25D366] hover:bg-[#20ba5a] rounded-full flex items-center justify-center shadow-lg shadow-[#25D366]/30 hover:scale-110 transition-transform duration-300 animate-bounce" style="animation-duration: 3s;" title="تواصل عبر واتساب">
+  <a href="https://wa.me/970569922257?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%20%D8%A3%D8%AD%D9%85%D8%AF%D8%8C%20%D8%A7%D8%B7%D9%84%D8%B9%D8%AA%20%D8%B9%D9%84%D9%89%20%D9%85%D9%88%D9%82%D8%B9%D9%83%20%D8%A7%D9%84%D8%B4%D8%AE%D8%B5%D9%8I%20%D9%8...%20%D8%A7%D9%84%D8%AA%D9%88%D8%A7%D8%B5%D9%84%20%D9%85%D8%B9%D9%83." target="_blank" class="fixed bottom-6 right-6 z-50 w-14 h-14 bg-[#25D366] hover:bg-[#20ba5a] rounded-full flex items-center justify-center shadow-lg shadow-[#25D366]/30 hover:scale-110 transition-transform duration-300 animate-bounce" style="animation-duration: 3s;" title="تواصل عبر واتساب">
     <svg class="w-7 h-7 text-white fill-current" viewBox="0 0 24 24">
       <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.724-1.455L0 24zm6.59-4.846c1.665.989 3.3 1.472 5.358 1.473 5.514 0 10.002-4.487 10.005-10 0-2.673-1.04-5.186-2.93-7.078-1.89-1.891-4.4-2.93-7.072-2.93-5.524 0-10.014 4.489-10.017 10-.001 1.953.5 3.85 1.5 5.568l-.98 3.578 3.666-.962zm9.646-6.84c-.267-.134-1.58-.78-1.822-.867-.243-.088-.419-.133-.596.134-.176.265-.681.866-.835 1.043-.154.177-.308.199-.575.065-.267-.134-1.13-.417-2.153-1.331-.795-.71-1.332-1.587-1.488-1.854-.154-.267-.017-.411.117-.544.12-.12.267-.31.4-.464.133-.155.177-.266.266-.443.089-.177.044-.332-.022-.465-.067-.133-.596-1.436-.816-1.966-.215-.518-.452-.449-.623-.458-.16-.008-.344-.01-.529-.01-.186 0-.489.07-.745.348-.256.278-.979.957-.979 2.332 0 1.375 1.002 2.702 1.142 2.89.14.188 1.973 3.012 4.779 4.22.667.288 1.188.46 1.594.59.67.213 1.28.183 1.762.11.537-.08 1.58-.646 1.802-1.238.223-.592.223-1.1.157-1.206-.067-.107-.243-.177-.51-.31z"/>
     </svg>
@@ -1072,12 +1138,79 @@
       revealObserver.observe(el);
     });
 
-    // Interactive Canvas Particles Network
+    // Back to Top Button Logic
+    window.addEventListener('scroll', () => {
+      const btn = document.getElementById('backToTop');
+      if (window.scrollY > 400) {
+        btn.classList.remove('hidden');
+      } else {
+        btn.classList.add('hidden');
+      }
+    });
+
+    function scrollToTop() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Stats Counter Animation (Triggered on Scroll)
+    const counterCallback = (entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const stats = entry.target.querySelectorAll('.stat-number');
+          stats.forEach(stat => {
+            const target = parseInt(stat.getAttribute('data-target'));
+            let count = 0;
+            const duration = 2000; // 2 seconds animation
+            const increment = target / (duration / 16); // 60 FPS approx
+            
+            function updateCount() {
+              count += increment;
+              if (count < target) {
+                stat.textContent = Math.ceil(count);
+                requestAnimationFrame(updateCount);
+              } else {
+                stat.textContent = target;
+                if(target === 3 || target === 10) stat.textContent += '+';
+                if(target === 100) stat.textContent += '%';
+              }
+            }
+            updateCount();
+          });
+          observer.unobserve(entry.target); // trigger animation only once
+        }
+      });
+    };
+
+    const counterObserver = new IntersectionObserver(counterCallback, {
+      threshold: 0.2
+    });
+
+    const statsGrid = document.querySelector('.stats-grid');
+    if (statsGrid) counterObserver.observe(statsGrid);
+
+    // Interactive Canvas Particles Network with Mouse Interaction
     const canvas = document.getElementById('particleCanvas');
     const ctx = canvas.getContext('2d');
 
     let particles = [];
-    const maxParticles = 60;
+    const maxParticles = 65;
+    
+    // Mouse state
+    let mouse = {
+      x: null,
+      y: null,
+      radius: 120
+    };
+
+    window.addEventListener('mousemove', (e) => {
+      mouse.x = e.x;
+      mouse.y = e.y;
+    });
+
+    window.addEventListener('mouseleave', () => {
+      mouse.x = null;
+      mouse.y = null;
+    });
 
     class Particle {
       constructor() {
@@ -1127,12 +1260,27 @@
     function animate() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       
-      particles.forEach(p => {
-        p.update();
-        p.draw();
-      });
-
+      // Update, interact and draw particles
       for (let i = 0; i < particles.length; i++) {
+        // Interactivity with mouse
+        if (mouse.x && mouse.y) {
+          const dx = particles[i].x - mouse.x;
+          const dy = particles[i].y - mouse.y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < mouse.radius) {
+            // Smooth attraction to cursor
+            particles[i].x -= dx * 0.02;
+            particles[i].y -= dy * 0.02;
+          }
+        }
+        
+        particles[i].update();
+        particles[i].draw();
+      }
+
+      // Draw connections
+      for (let i = 0; i < particles.length; i++) {
+        // Connect nearby particles
         for (let j = i + 1; j < particles.length; j++) {
           const dx = particles[i].x - particles[j].x;
           const dy = particles[i].y - particles[j].y;
@@ -1145,6 +1293,22 @@
             const lineColor = document.documentElement.classList.contains('dark') ? '139, 92, 246' : '124, 58, 237';
             ctx.strokeStyle = `rgba(${lineColor}, ${0.1 * (1 - dist / 100)})`;
             ctx.lineWidth = 0.5;
+            ctx.stroke();
+          }
+        }
+
+        // Connect particles to mouse cursor
+        if (mouse.x && mouse.y) {
+          const mdx = particles[i].x - mouse.x;
+          const mdy = particles[i].y - mouse.y;
+          const mdist = Math.sqrt(mdx * mdx + mdy * mdy);
+          if (mdist < mouse.radius) {
+            ctx.beginPath();
+            ctx.moveTo(particles[i].x, particles[i].y);
+            ctx.lineTo(mouse.x, mouse.y);
+            const mouseLineColor = document.documentElement.classList.contains('dark') ? '59, 130, 246' : '37, 99, 235';
+            ctx.strokeStyle = `rgba(${mouseLineColor}, ${0.15 * (1 - mdist / mouse.radius)})`;
+            ctx.lineWidth = 0.8;
             ctx.stroke();
           }
         }
