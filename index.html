@@ -171,10 +171,15 @@
         <li><a href="#contact" class="hover:text-brand-blue transition-colors">اتصال</a></li>
       </ul>
       
-      <div class="flex items-center gap-4">
+      <div class="flex items-center gap-3">
         <!-- Theme Toggle Switch -->
         <button onclick="toggleTheme()" class="w-10 h-10 rounded-xl bg-gray-200/50 dark:bg-dark-900/50 border dark:border-gray-800 border-slate-200 flex items-center justify-center text-slate-700 dark:text-gray-300 hover:scale-105 transition-transform" title="تبديل المظهر">
           <i id="theme-icon" data-lucide="sun" class="w-5 h-5"></i>
+        </button>
+
+        <!-- Mobile Menu Toggle -->
+        <button onclick="toggleMobileMenu()" class="md:hidden w-10 h-10 rounded-xl bg-gray-200/50 dark:bg-dark-900/50 border dark:border-gray-800 border-slate-200 flex items-center justify-center text-slate-700 dark:text-gray-300 hover:scale-105 transition-transform" title="القائمة">
+          <i id="mobile-menu-icon" data-lucide="menu" class="w-5 h-5"></i>
         </button>
 
         <!-- CTA button -->
@@ -184,6 +189,22 @@
       </div>
     </div>
   </nav>
+
+  <!-- Mobile Menu Drawer -->
+  <div id="mobileMenu" class="hidden fixed inset-0 z-40 bg-dark-950/95 dark:bg-dark-950/95 bg-slate-50/95 backdrop-blur-lg pt-24 px-6 flex flex-col gap-6 text-center transition-all duration-300">
+    <ul class="flex flex-col gap-6 text-lg font-bold dark:text-gray-300 text-slate-700">
+      <li><a href="#about" onclick="toggleMobileMenu()" class="hover:text-brand-blue transition-colors">من أنا</a></li>
+      <li><a href="#skills" onclick="toggleMobileMenu()" class="hover:text-brand-blue transition-colors">المهارات</a></li>
+      <li><a href="#experience" onclick="toggleMobileMenu()" class="hover:text-brand-blue transition-colors">الخبرات</a></li>
+      <li><a href="#projects" onclick="toggleMobileMenu()" class="hover:text-brand-blue transition-colors">المشاريع</a></li>
+      <li><a href="#testimonials" onclick="toggleMobileMenu()" class="hover:text-brand-blue transition-colors">شركاء النجاح</a></li>
+      <li><a href="#gallery" onclick="toggleMobileMenu()" class="hover:text-brand-blue transition-colors">معرض التصاميم</a></li>
+      <li><a href="#contact" onclick="toggleMobileMenu()" class="hover:text-brand-blue transition-colors">اتصال</a></li>
+    </ul>
+    <a href="#contact" onclick="toggleMobileMenu()" class="w-full py-3.5 rounded-xl text-sm font-bold bg-gradient-to-r from-brand-blue to-brand-purple text-white shadow-lg flex items-center justify-center gap-2">
+      <i data-lucide="send" class="w-4 h-4"></i> تواصل معي
+    </a>
+  </div>
 
   <!-- Hero Section -->
   <section class="min-h-screen flex items-center pt-24 pb-12 relative z-10">
@@ -1072,6 +1093,22 @@
     } else {
       document.documentElement.classList.add('dark');
       document.getElementById('theme-icon').setAttribute('data-lucide', 'sun');
+    }
+
+    // Mobile Menu Toggle Logic
+    function toggleMobileMenu() {
+      const menu = document.getElementById('mobileMenu');
+      const icon = document.getElementById('mobile-menu-icon');
+      if (menu.classList.contains('hidden')) {
+        menu.classList.remove('hidden');
+        icon.setAttribute('data-lucide', 'x');
+        document.body.classList.add('overflow-hidden');
+      } else {
+        menu.classList.add('hidden');
+        icon.setAttribute('data-lucide', 'menu');
+        document.body.classList.remove('overflow-hidden');
+      }
+      lucide.createIcons();
     }
 
     // Project Modals Logic
