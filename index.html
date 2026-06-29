@@ -493,128 +493,222 @@
           <p class="text-xs dark:text-gray-400 text-slate-500 leading-relaxed">فحص الموقع عبر الهواتف والمتصفحات للتأكد من خلوه من المشاكل، ثم ربطه بالاستضافة ونطاقك الخاص.</p>
         </div>
       </div>
-    </div>
-  </section>
-
-  <!-- Interactive Skills Section -->
-  <section id="skills" class="py-24 relative z-10 border-t dark:border-gray-900 border-slate-200 dark:bg-dark-900/20 bg-slate-100/30">
-    <div class="max-w-6xl mx-auto px-6 reveal">
-      <div class="space-y-2 mb-12 text-center">
-        <span class="text-xs font-bold text-brand-blue uppercase tracking-widest">الكفاءات المهنية</span>
-        <h2 class="text-2xl sm:text-3xl font-extrabold dark:text-white text-slate-900">المهارات والخبرات</h2>
-      </div>
-
-      <!-- Tab Buttons -->
-      <div class="flex justify-center gap-3 mb-8 flex-wrap">
-        <button onclick="switchTab(event, 'tech')" class="tab-btn px-5 py-2.5 rounded-full text-xs sm:text-sm font-bold dark:bg-dark-900 bg-white border dark:border-gray-800 border-slate-200 dark:text-gray-400 text-slate-600 transition-all hover:text-white active">تطوير الويب وقواعد البيانات</button>
-        <button onclick="switchTab(event, 'marketing')" class="tab-btn px-5 py-2.5 rounded-full text-xs sm:text-sm font-bold dark:bg-dark-900 bg-white border dark:border-gray-800 border-slate-200 dark:text-gray-400 text-slate-600 transition-all hover:text-white">التسويق وصناعة المحتوى</button>
-        <button onclick="switchTab(event, 'tools')" class="tab-btn px-5 py-2.5 rounded-full text-xs sm:text-sm font-bold dark:bg-dark-900 bg-white border dark:border-gray-800 border-slate-200 dark:text-gray-400 text-slate-600 transition-all hover:text-white">البرامج والأدوات</button>
-      </div>
-
-      <!-- Tab Panes Container -->
-      <div class="glass-card hover-blue p-8 md:p-10 rounded-3xl min-h-[250px]">
-        
         <!-- Tab 1: Tech -->
         <div id="tech" class="tab-pane grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 active">
-          <div class="flex items-center gap-3 dark:bg-dark-950/40 bg-slate-50 p-4 rounded-xl border dark:border-gray-800/80 border-slate-200 hover:border-brand-blue/30 transition-colors">
-            <span class="text-brand-blue text-lg">🌐</span>
-            <span class="text-xs font-bold dark:text-gray-200 text-slate-700">HTML5 / CSS3</span>
+          <div class="flex flex-col gap-3 dark:bg-dark-950/40 bg-slate-50 p-4 rounded-xl border dark:border-gray-800/80 border-slate-200 hover:border-brand-blue/30 transition-all hover-blue group">
+            <div class="flex items-center gap-2.5">
+              <span class="text-brand-blue text-lg">🌐</span>
+              <span class="text-xs font-bold dark:text-gray-200 text-slate-700">HTML5 / CSS3</span>
+            </div>
+            <div class="w-full bg-gray-200 dark:bg-gray-850 h-1.5 rounded-full overflow-hidden mt-1 relative">
+              <div class="bg-gradient-to-r from-brand-blue to-brand-purple h-full rounded-full transition-all duration-1000 w-[95%]"></div>
+            </div>
           </div>
-          <div class="flex items-center gap-3 dark:bg-dark-950/40 bg-slate-50 p-4 rounded-xl border dark:border-gray-800/80 border-slate-200 hover:border-brand-blue/30 transition-colors">
-            <span class="text-brand-blue text-lg">⚡</span>
-            <span class="text-xs font-bold dark:text-gray-200 text-slate-700">JavaScript</span>
+          <div class="flex flex-col gap-3 dark:bg-dark-950/40 bg-slate-50 p-4 rounded-xl border dark:border-gray-800/80 border-slate-200 hover:border-brand-blue/30 transition-all hover-blue group">
+            <div class="flex items-center gap-2.5">
+              <span class="text-brand-blue text-lg">⚡</span>
+              <span class="text-xs font-bold dark:text-gray-200 text-slate-700">JavaScript</span>
+            </div>
+            <div class="w-full bg-gray-200 dark:bg-gray-855 h-1.5 rounded-full overflow-hidden mt-1 relative">
+              <div class="bg-gradient-to-r from-brand-blue to-brand-purple h-full rounded-full transition-all duration-1000 w-[90%]"></div>
+            </div>
           </div>
-          <div class="flex items-center gap-3 dark:bg-dark-950/40 bg-slate-50 p-4 rounded-xl border dark:border-gray-800/80 border-slate-200 hover:border-brand-blue/30 transition-colors">
-            <span class="text-brand-blue text-lg">⚛️</span>
-            <span class="text-xs font-bold dark:text-gray-200 text-slate-700">React.js</span>
+          <div class="flex flex-col gap-3 dark:bg-dark-950/40 bg-slate-50 p-4 rounded-xl border dark:border-gray-800/80 border-slate-200 hover:border-brand-blue/30 transition-all hover-blue group">
+            <div class="flex items-center gap-2.5">
+              <span class="text-brand-blue text-lg">⚛️</span>
+              <span class="text-xs font-bold dark:text-gray-200 text-slate-700">React.js</span>
+            </div>
+            <div class="w-full bg-gray-200 dark:bg-gray-855 h-1.5 rounded-full overflow-hidden mt-1 relative">
+              <div class="bg-gradient-to-r from-brand-blue to-brand-purple h-full rounded-full transition-all duration-1000 w-[85%]"></div>
+            </div>
           </div>
-          <div class="flex items-center gap-3 dark:bg-dark-950/40 bg-slate-50 p-4 rounded-xl border dark:border-gray-800/80 border-slate-200 hover:border-brand-blue/30 transition-colors">
-            <span class="text-brand-blue text-lg">🎨</span>
-            <span class="text-xs font-bold dark:text-gray-200 text-slate-700">Bootstrap / Responsive</span>
+          <div class="flex flex-col gap-3 dark:bg-dark-950/40 bg-slate-50 p-4 rounded-xl border dark:border-gray-800/80 border-slate-200 hover:border-brand-blue/30 transition-all hover-blue group">
+            <div class="flex items-center gap-2.5">
+              <span class="text-brand-blue text-lg">🎨</span>
+              <span class="text-xs font-bold dark:text-gray-200 text-slate-700">Bootstrap / Responsive</span>
+            </div>
+            <div class="w-full bg-gray-200 dark:bg-gray-855 h-1.5 rounded-full overflow-hidden mt-1 relative">
+              <div class="bg-gradient-to-r from-brand-blue to-brand-purple h-full rounded-full transition-all duration-1000 w-[90%]"></div>
+            </div>
           </div>
-          <div class="flex items-center gap-3 dark:bg-dark-950/40 bg-slate-50 p-4 rounded-xl border dark:border-gray-800/80 border-slate-200 hover:border-brand-blue/30 transition-colors">
-            <span class="text-brand-blue text-lg">🐍</span>
-            <span class="text-xs font-bold dark:text-gray-200 text-slate-700">Python</span>
+          <div class="flex flex-col gap-3 dark:bg-dark-950/40 bg-slate-50 p-4 rounded-xl border dark:border-gray-800/80 border-slate-200 hover:border-brand-blue/30 transition-all hover-blue group">
+            <div class="flex items-center gap-2.5">
+              <span class="text-brand-blue text-lg">🐍</span>
+              <span class="text-xs font-bold dark:text-gray-200 text-slate-700">Python</span>
+            </div>
+            <div class="w-full bg-gray-200 dark:bg-gray-855 h-1.5 rounded-full overflow-hidden mt-1 relative">
+              <div class="bg-gradient-to-r from-brand-blue to-brand-purple h-full rounded-full transition-all duration-1000 w-[85%]"></div>
+            </div>
           </div>
-          <div class="flex items-center gap-3 dark:bg-dark-950/40 bg-slate-50 p-4 rounded-xl border dark:border-gray-800/80 border-slate-200 hover:border-brand-blue/30 transition-colors">
-            <span class="text-brand-blue text-lg">🔥</span>
-            <span class="text-xs font-bold dark:text-gray-200 text-slate-700">Django</span>
+          <div class="flex flex-col gap-3 dark:bg-dark-950/40 bg-slate-50 p-4 rounded-xl border dark:border-gray-800/80 border-slate-200 hover:border-brand-blue/30 transition-all hover-blue group">
+            <div class="flex items-center gap-2.5">
+              <span class="text-brand-blue text-lg">🔥</span>
+              <span class="text-xs font-bold dark:text-gray-200 text-slate-700">Django</span>
+            </div>
+            <div class="w-full bg-gray-200 dark:bg-gray-855 h-1.5 rounded-full overflow-hidden mt-1 relative">
+              <div class="bg-gradient-to-r from-brand-blue to-brand-purple h-full rounded-full transition-all duration-1000 w-[85%]"></div>
+            </div>
           </div>
-          <div class="flex items-center gap-3 dark:bg-dark-950/40 bg-slate-50 p-4 rounded-xl border dark:border-gray-800/80 border-slate-200 hover:border-brand-blue/30 transition-colors">
-            <span class="text-brand-blue text-lg">💾</span>
-            <span class="text-xs font-bold dark:text-gray-200 text-slate-700">SQL / SQLite</span>
+          <div class="flex flex-col gap-3 dark:bg-dark-950/40 bg-slate-50 p-4 rounded-xl border dark:border-gray-800/80 border-slate-200 hover:border-brand-blue/30 transition-all hover-blue group">
+            <div class="flex items-center gap-2.5">
+              <span class="text-brand-blue text-lg">💾</span>
+              <span class="text-xs font-bold dark:text-gray-200 text-slate-700">SQL / SQLite</span>
+            </div>
+            <div class="w-full bg-gray-200 dark:bg-gray-855 h-1.5 rounded-full overflow-hidden mt-1 relative">
+              <div class="bg-gradient-to-r from-brand-blue to-brand-purple h-full rounded-full transition-all duration-1000 w-[90%]"></div>
+            </div>
           </div>
-          <div class="flex items-center gap-3 dark:bg-dark-950/40 bg-slate-50 p-4 rounded-xl border dark:border-gray-800/80 border-slate-200 hover:border-brand-blue/30 transition-colors">
-            <span class="text-brand-blue text-lg">🐙</span>
-            <span class="text-xs font-bold dark:text-gray-200 text-slate-700">Git & GitHub</span>
+          <div class="flex flex-col gap-3 dark:bg-dark-950/40 bg-slate-50 p-4 rounded-xl border dark:border-gray-800/80 border-slate-200 hover:border-brand-blue/30 transition-all hover-blue group">
+            <div class="flex items-center gap-2.5">
+              <span class="text-brand-blue text-lg">🐙</span>
+              <span class="text-xs font-bold dark:text-gray-200 text-slate-700">Git & GitHub</span>
+            </div>
+            <div class="w-full bg-gray-200 dark:bg-gray-855 h-1.5 rounded-full overflow-hidden mt-1 relative">
+              <div class="bg-gradient-to-r from-brand-blue to-brand-purple h-full rounded-full transition-all duration-1000 w-[85%]"></div>
+            </div>
           </div>
         </div>
 
         <!-- Tab 2: Marketing -->
         <div id="marketing" class="tab-pane hidden grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-          <div class="flex items-center gap-3 dark:bg-dark-950/40 bg-slate-50 p-4 rounded-xl border dark:border-gray-800/80 border-slate-200 hover:border-brand-purple/30 transition-colors">
-            <span class="text-brand-purple text-lg">📱</span>
-            <span class="text-xs font-bold dark:text-gray-200 text-slate-700">إدارة صفحات التواصل</span>
+          <div class="flex flex-col gap-3 dark:bg-dark-950/40 bg-slate-50 p-4 rounded-xl border dark:border-gray-800/80 border-slate-200 hover:border-brand-purple/30 transition-all hover-purple group">
+            <div class="flex items-center gap-2.5">
+              <span class="text-brand-purple text-lg">📱</span>
+              <span class="text-xs font-bold dark:text-gray-200 text-slate-700">إدارة صفحات التواصل</span>
+            </div>
+            <div class="w-full bg-gray-200 dark:bg-gray-855 h-1.5 rounded-full overflow-hidden mt-1 relative">
+              <div class="bg-gradient-to-r from-brand-blue to-brand-purple h-full rounded-full transition-all duration-1000 w-[95%]"></div>
+            </div>
           </div>
-          <div class="flex items-center gap-3 dark:bg-dark-950/40 bg-slate-50 p-4 rounded-xl border dark:border-gray-800/80 border-slate-200 hover:border-brand-purple/30 transition-colors">
-            <span class="text-brand-purple text-lg">🎬</span>
-            <span class="text-xs font-bold dark:text-gray-200 text-slate-700">صناعة الريلز والفيديو</span>
+          <div class="flex flex-col gap-3 dark:bg-dark-950/40 bg-slate-50 p-4 rounded-xl border dark:border-gray-800/80 border-slate-200 hover:border-brand-purple/30 transition-all hover-purple group">
+            <div class="flex items-center gap-2.5">
+              <span class="text-brand-purple text-lg">🎬</span>
+              <span class="text-xs font-bold dark:text-gray-200 text-slate-700">صناعة الريلز والفيديو</span>
+            </div>
+            <div class="w-full bg-gray-200 dark:bg-gray-855 h-1.5 rounded-full overflow-hidden mt-1 relative">
+              <div class="bg-gradient-to-r from-brand-blue to-brand-purple h-full rounded-full transition-all duration-1000 w-[90%]"></div>
+            </div>
           </div>
-          <div class="flex items-center gap-3 dark:bg-dark-950/40 bg-slate-50 p-4 rounded-xl border dark:border-gray-800/80 border-slate-200 hover:border-brand-purple/30 transition-colors">
-            <span class="text-brand-purple text-lg">📣</span>
-            <span class="text-xs font-bold dark:text-gray-200 text-slate-700">الإعلانات الممولة (Meta)</span>
+          <div class="flex flex-col gap-3 dark:bg-dark-950/40 bg-slate-50 p-4 rounded-xl border dark:border-gray-800/80 border-slate-200 hover:border-brand-purple/30 transition-all hover-purple group">
+            <div class="flex items-center gap-2.5">
+              <span class="text-brand-purple text-lg">📣</span>
+              <span class="text-xs font-bold dark:text-gray-200 text-slate-700">الإعلانات الممولة (Meta)</span>
+            </div>
+            <div class="w-full bg-gray-200 dark:bg-gray-855 h-1.5 rounded-full overflow-hidden mt-1 relative">
+              <div class="bg-gradient-to-r from-brand-blue to-brand-purple h-full rounded-full transition-all duration-1000 w-[92%]"></div>
+            </div>
           </div>
-          <div class="flex items-center gap-3 dark:bg-dark-950/40 bg-slate-50 p-4 rounded-xl border dark:border-gray-800/80 border-slate-200 hover:border-brand-purple/30 transition-colors">
-            <span class="text-brand-purple text-lg">📊</span>
-            <span class="text-xs font-bold dark:text-gray-200 text-slate-700">تحليل البيانات والنمو</span>
+          <div class="flex flex-col gap-3 dark:bg-dark-950/40 bg-slate-50 p-4 rounded-xl border dark:border-gray-800/80 border-slate-200 hover:border-brand-purple/30 transition-all hover-purple group">
+            <div class="flex items-center gap-2.5">
+              <span class="text-brand-purple text-lg">📊</span>
+              <span class="text-xs font-bold dark:text-gray-200 text-slate-700">تحليل البيانات والنمو</span>
+            </div>
+            <div class="w-full bg-gray-200 dark:bg-gray-855 h-1.5 rounded-full overflow-hidden mt-1 relative">
+              <div class="bg-gradient-to-r from-brand-blue to-brand-purple h-full rounded-full transition-all duration-1000 w-[88%]"></div>
+            </div>
           </div>
-          <div class="flex items-center gap-3 dark:bg-dark-950/40 bg-slate-50 p-4 rounded-xl border dark:border-gray-800/80 border-slate-200 hover:border-brand-purple/30 transition-colors">
-            <span class="text-brand-purple text-lg">📝</span>
-            <span class="text-xs font-bold dark:text-gray-200 text-slate-700">إعداد تقارير الأداء</span>
+          <div class="flex flex-col gap-3 dark:bg-dark-950/40 bg-slate-50 p-4 rounded-xl border dark:border-gray-800/80 border-slate-200 hover:border-brand-purple/30 transition-all hover-purple group">
+            <div class="flex items-center gap-2.5">
+              <span class="text-brand-purple text-lg">📝</span>
+              <span class="text-xs font-bold dark:text-gray-200 text-slate-700">إعداد تقارير الأداء</span>
+            </div>
+            <div class="w-full bg-gray-200 dark:bg-gray-855 h-1.5 rounded-full overflow-hidden mt-1 relative">
+              <div class="bg-gradient-to-r from-brand-blue to-brand-purple h-full rounded-full transition-all duration-1000 w-[90%]"></div>
+            </div>
           </div>
-          <div class="flex items-center gap-3 dark:bg-dark-950/40 bg-slate-50 p-4 rounded-xl border dark:border-gray-800/80 border-slate-200 hover:border-brand-purple/30 transition-colors">
-            <span class="text-brand-purple text-lg">✨</span>
-            <span class="text-xs font-bold dark:text-gray-200 text-slate-700">تصميم الهوية البصرية</span>
+          <div class="flex flex-col gap-3 dark:bg-dark-950/40 bg-slate-50 p-4 rounded-xl border dark:border-gray-800/80 border-slate-200 hover:border-brand-purple/30 transition-all hover-purple group">
+            <div class="flex items-center gap-2.5">
+              <span class="text-brand-purple text-lg">✨</span>
+              <span class="text-xs font-bold dark:text-gray-200 text-slate-700">تصميم الهوية البصرية</span>
+            </div>
+            <div class="w-full bg-gray-200 dark:bg-gray-855 h-1.5 rounded-full overflow-hidden mt-1 relative">
+              <div class="bg-gradient-to-r from-brand-blue to-brand-purple h-full rounded-full transition-all duration-1000 w-[95%]"></div>
+            </div>
           </div>
-          <div class="flex items-center gap-3 dark:bg-dark-950/40 bg-slate-50 p-4 rounded-xl border dark:border-gray-800/80 border-slate-200 hover:border-brand-purple/30 transition-colors">
-            <span class="text-brand-purple text-lg">📞</span>
-            <span class="text-xs font-bold dark:text-gray-200 text-slate-700">دعم العملاء وحل المشاكل</span>
+          <div class="flex flex-col gap-3 dark:bg-dark-950/40 bg-slate-50 p-4 rounded-xl border dark:border-gray-800/80 border-slate-200 hover:border-brand-purple/30 transition-all hover-purple group">
+            <div class="flex items-center gap-2.5">
+              <span class="text-brand-purple text-lg">📞</span>
+              <span class="text-xs font-bold dark:text-gray-200 text-slate-700">دعم العملاء وحل المشاكل</span>
+            </div>
+            <div class="w-full bg-gray-200 dark:bg-gray-855 h-1.5 rounded-full overflow-hidden mt-1 relative">
+              <div class="bg-gradient-to-r from-brand-blue to-brand-purple h-full rounded-full transition-all duration-1000 w-[92%]"></div>
+            </div>
           </div>
-          <div class="flex items-center gap-3 dark:bg-dark-950/40 bg-slate-50 p-4 rounded-xl border dark:border-gray-800/80 border-slate-200 hover:border-brand-purple/30 transition-colors">
-            <span class="text-brand-purple text-lg">💼</span>
-            <span class="text-xs font-bold dark:text-gray-200 text-slate-700">التسويق والمبيعات الميدانية</span>
+          <div class="flex flex-col gap-3 dark:bg-dark-950/40 bg-slate-50 p-4 rounded-xl border dark:border-gray-800/80 border-slate-200 hover:border-brand-purple/30 transition-all hover-purple group">
+            <div class="flex items-center gap-2.5">
+              <span class="text-brand-purple text-lg">💼</span>
+              <span class="text-xs font-bold dark:text-gray-200 text-slate-700">التسويق والمبيعات الميدانية</span>
+            </div>
+            <div class="w-full bg-gray-200 dark:bg-gray-855 h-1.5 rounded-full overflow-hidden mt-1 relative">
+              <div class="bg-gradient-to-r from-brand-blue to-brand-purple h-full rounded-full transition-all duration-1000 w-[90%]"></div>
+            </div>
           </div>
         </div>
 
         <!-- Tab 3: Tools -->
         <div id="tools" class="tab-pane hidden grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-          <div class="flex items-center gap-3 dark:bg-dark-950/40 bg-slate-50 p-4 rounded-xl border dark:border-gray-800/80 border-slate-200 hover:border-brand-emerald/30 transition-colors">
-            <span class="text-brand-emerald text-lg">🎨</span>
-            <span class="text-xs font-bold dark:text-gray-200 text-slate-700">Adobe Photoshop</span>
+          <div class="flex flex-col gap-3 dark:bg-dark-950/40 bg-slate-50 p-4 rounded-xl border dark:border-gray-800/80 border-slate-200 hover:border-brand-emerald/30 transition-all hover-emerald group">
+            <div class="flex items-center gap-2.5">
+              <span class="text-brand-emerald text-lg">🎨</span>
+              <span class="text-xs font-bold dark:text-gray-200 text-slate-700">Adobe Photoshop</span>
+            </div>
+            <div class="w-full bg-gray-200 dark:bg-gray-855 h-1.5 rounded-full overflow-hidden mt-1 relative">
+              <div class="bg-gradient-to-r from-brand-blue to-brand-purple h-full rounded-full transition-all duration-1000 w-[95%]"></div>
+            </div>
           </div>
-          <div class="flex items-center gap-3 dark:bg-dark-950/40 bg-slate-50 p-4 rounded-xl border dark:border-gray-800/80 border-slate-200 hover:border-brand-emerald/30 transition-colors">
-            <span class="text-brand-emerald text-lg">🎞️</span>
-            <span class="text-xs font-bold dark:text-gray-200 text-slate-700">Adobe Premiere Pro</span>
+          <div class="flex flex-col gap-3 dark:bg-dark-950/40 bg-slate-50 p-4 rounded-xl border dark:border-gray-800/80 border-slate-200 hover:border-brand-emerald/30 transition-all hover-emerald group">
+            <div class="flex items-center gap-2.5">
+              <span class="text-brand-emerald text-lg">🎞️</span>
+              <span class="text-xs font-bold dark:text-gray-200 text-slate-700">Adobe Premiere Pro</span>
+            </div>
+            <div class="w-full bg-gray-200 dark:bg-gray-855 h-1.5 rounded-full overflow-hidden mt-1 relative">
+              <div class="bg-gradient-to-r from-brand-blue to-brand-purple h-full rounded-full transition-all duration-1000 w-[85%]"></div>
+            </div>
           </div>
-          <div class="flex items-center gap-3 dark:bg-dark-950/40 bg-slate-50 p-4 rounded-xl border dark:border-gray-800/80 border-slate-200 hover:border-brand-emerald/30 transition-colors">
-            <span class="text-brand-emerald text-lg">📐</span>
-            <span class="text-xs font-bold dark:text-gray-200 text-slate-700">Adobe Illustrator</span>
+          <div class="flex flex-col gap-3 dark:bg-dark-950/40 bg-slate-50 p-4 rounded-xl border dark:border-gray-800/80 border-slate-200 hover:border-brand-emerald/30 transition-all hover-emerald group">
+            <div class="flex items-center gap-2.5">
+              <span class="text-brand-emerald text-lg">📐</span>
+              <span class="text-xs font-bold dark:text-gray-200 text-slate-700">Adobe Illustrator</span>
+            </div>
+            <div class="w-full bg-gray-200 dark:bg-gray-855 h-1.5 rounded-full overflow-hidden mt-1 relative">
+              <div class="bg-gradient-to-r from-brand-blue to-brand-purple h-full rounded-full transition-all duration-1000 w-[80%]"></div>
+            </div>
           </div>
-          <div class="flex items-center gap-3 dark:bg-dark-950/40 bg-slate-50 p-4 rounded-xl border dark:border-gray-800/80 border-slate-200 hover:border-brand-emerald/30 transition-colors">
-            <span class="text-brand-emerald text-lg">⚡</span>
-            <span class="text-xs font-bold dark:text-gray-200 text-slate-700">Canva</span>
+          <div class="flex flex-col gap-3 dark:bg-dark-950/40 bg-slate-50 p-4 rounded-xl border dark:border-gray-800/80 border-slate-200 hover:border-brand-emerald/30 transition-all hover-emerald group">
+            <div class="flex items-center gap-2.5">
+              <span class="text-brand-emerald text-lg">⚡</span>
+              <span class="text-xs font-bold dark:text-gray-200 text-slate-700">Canva</span>
+            </div>
+            <div class="w-full bg-gray-200 dark:bg-gray-855 h-1.5 rounded-full overflow-hidden mt-1 relative">
+              <div class="bg-gradient-to-r from-brand-blue to-brand-purple h-full rounded-full transition-all duration-1000 w-[98%]"></div>
+            </div>
           </div>
-          <div class="flex items-center gap-3 dark:bg-dark-950/40 bg-slate-50 p-4 rounded-xl border dark:border-gray-800/80 border-slate-200 hover:border-brand-emerald/30 transition-colors">
-            <span class="text-brand-emerald text-lg">✂️</span>
-            <span class="text-xs font-bold dark:text-gray-200 text-slate-700">CapCut</span>
+          <div class="flex flex-col gap-3 dark:bg-dark-950/40 bg-slate-50 p-4 rounded-xl border dark:border-gray-800/80 border-slate-200 hover:border-brand-emerald/30 transition-all hover-emerald group">
+            <div class="flex items-center gap-2.5">
+              <span class="text-brand-emerald text-lg">✂️</span>
+              <span class="text-xs font-bold dark:text-gray-200 text-slate-700">CapCut</span>
+            </div>
+            <div class="w-full bg-gray-200 dark:bg-gray-855 h-1.5 rounded-full overflow-hidden mt-1 relative">
+              <div class="bg-gradient-to-r from-brand-blue to-brand-purple h-full rounded-full transition-all duration-1000 w-[90%]"></div>
+            </div>
           </div>
-          <div class="flex items-center gap-3 dark:bg-dark-950/40 bg-slate-50 p-4 rounded-xl border dark:border-gray-800/80 border-slate-200 hover:border-brand-emerald/30 transition-colors">
-            <span class="text-brand-emerald text-lg">🎯</span>
-            <span class="text-xs font-bold dark:text-gray-200 text-slate-700">Meta Ads Manager</span>
+          <div class="flex flex-col gap-3 dark:bg-dark-950/40 bg-slate-50 p-4 rounded-xl border dark:border-gray-800/80 border-slate-200 hover:border-brand-emerald/30 transition-all hover-emerald group">
+            <div class="flex items-center gap-2.5">
+              <span class="text-brand-emerald text-lg">🎯</span>
+              <span class="text-xs font-bold dark:text-gray-200 text-slate-700">Meta Ads Manager</span>
+            </div>
+            <div class="w-full bg-gray-200 dark:bg-gray-855 h-1.5 rounded-full overflow-hidden mt-1 relative">
+              <div class="bg-gradient-to-r from-brand-blue to-brand-purple h-full rounded-full transition-all duration-1000 w-[92%]"></div>
+            </div>
           </div>
-          <div class="flex items-center gap-3 dark:bg-dark-950/40 bg-slate-50 p-4 rounded-xl border dark:border-gray-800/80 border-slate-200 hover:border-brand-emerald/30 transition-colors">
-            <span class="text-brand-emerald text-lg">📊</span>
-            <span class="text-xs font-bold dark:text-gray-200 text-slate-700">MS Excel</span>
+          <div class="flex flex-col gap-3 dark:bg-dark-950/40 bg-slate-50 p-4 rounded-xl border dark:border-gray-800/80 border-slate-200 hover:border-brand-emerald/30 transition-all hover-emerald group">
+            <div class="flex items-center gap-2.5">
+              <span class="text-brand-emerald text-lg">📊</span>
+              <span class="text-xs font-bold dark:text-gray-200 text-slate-700">MS Excel</span>
+            </div>
+            <div class="w-full bg-gray-200 dark:bg-gray-855 h-1.5 rounded-full overflow-hidden mt-1 relative">
+              <div class="bg-gradient-to-r from-brand-blue to-brand-purple h-full rounded-full transition-all duration-1000 w-[88%]"></div>
+            </div>
           </div>
         </div>
 
