@@ -1981,6 +1981,52 @@
         ctx.fillStyle = `rgba(${particleColor}, ${this.alpha})`;
         ctx.fill();
       }
+
+    class Confetti {
+      constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = -20;
+        this.vx = (Math.random() - 0.5) * 6;
+        this.vy = Math.random() * 4 + 4;
+        this.size = Math.random() * 8 + 6;
+        this.color = this.getRandomColor();
+        this.rotation = Math.random() * 360;
+        this.rotationSpeed = (Math.random() - 0.5) * 8;
+        this.alpha = 1;
+        this.fadeSpeed = Math.random() * 0.005 + 0.005;
+      }
+      
+      getRandomColor() {
+        const colors = ['#3b82f6', '#8b5cf6', '#10b981', '#f59e0b', '#ef4444', '#ec4899'];
+        return colors[Math.floor(Math.random() * colors.length)];
+      }
+      
+      update() {
+        this.x += this.vx;
+        this.y += this.vy;
+        this.rotation += this.rotationSpeed;
+        this.alpha -= this.fadeSpeed;
+      }
+      
+      draw() {
+        ctx.save();
+        ctx.translate(this.x, this.y);
+        ctx.rotate(this.rotation * Math.PI / 180);
+        ctx.globalAlpha = Math.max(0, this.alpha);
+        ctx.fillStyle = this.color;
+        ctx.fillRect(-this.size / 2, -this.size / 2, this.size, this.size);
+        ctx.restore();
+        ctx.globalAlpha = 1.0;
+      }
+    }
+
+    let confettiActive = [];
+
+    function triggerConfetti() {
+      confettiActive = [];
+      for (let i = 0; i < 120; i++) {
+        confettiActive.push(new Confetti());
+      }
     }
 
     function getRgbFromHexVar(varName, fallback) {
@@ -2089,6 +2135,18 @@
             ctx.strokeStyle = `rgba(${mouseLineColor}, ${0.15 * (1 - mdist / mouse.radius)})`;
             ctx.lineWidth = 0.8;
             ctx.stroke();
+          }
+        }
+      }
+
+      // Draw and update Confetti particles
+      if (confettiActive.length > 0) {
+        for (let i = confettiActive.length - 1; i >= 0; i--) {
+          confettiActive[i].update();
+          confettiActive[i].draw();
+          
+          if (confettiActive[i].y > canvas.height || confettiActive[i].alpha <= 0) {
+            confettiActive.splice(i, 1);
           }
         }
       }
@@ -2503,6 +2561,7 @@ Canva/CapCut  [====================] 98%
             toast.classList.add('flex');
             
             playSound('toggle');
+            triggerConfetti();
             
             setTimeout(() => {
               toast.classList.add('hidden');
@@ -2533,6 +2592,15 @@ Canva/CapCut  [====================] 98%
       type();
       resizeCanvas();
       animate();
+      
+      console.log(
+        "%cمرحباً بك في كود المصدر الخاص بأحمد طعمة! 💻",
+        "color: #3b82f6; font-size: 20px; font-weight: bold; text-shadow: 0 0 10px rgba(59,130,246,0.35); font-family: cairo, system-ui, sans-serif;"
+      );
+      console.log(
+        "%cإذا كنت مطوراً وتبحث في الكود، جرب كتابة 'cyber' على لوحة المفاتيح في أي مكان بالموقع لفتح لوحة التحكم البرمجية السرية! 🕵️‍♂️⚡",
+        "color: #8b5cf6; font-size: 13px; font-weight: bold; font-family: cairo, system-ui, sans-serif;"
+      );
     });
   </script>
 
