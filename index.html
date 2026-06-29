@@ -189,9 +189,19 @@
     .animate-float-slower {
       animation: floatSlow 12s ease-in-out infinite;
     }
+    /* Hide default cursor on desktop to allow custom cursor */
+    @media (min-width: 768px) {
+      body, a, button, select, input, textarea, .faq-item, .gallery-item, [onclick] {
+        cursor: none !important;
+      }
+    }
   </style>
 </head>
 <body class="dark:bg-dark-950 bg-slate-50 dark:text-gray-100 text-slate-800 transition-colors duration-300 font-cairo overflow-x-hidden selection:bg-brand-blue/30">
+
+  <!-- Custom Glowing Cursor Follower -->
+  <div id="custom-cursor" class="hidden md:block fixed w-2 h-2 bg-brand-blue rounded-full pointer-events-none z-[300] -translate-x-1/2 -translate-y-1/2 transition-transform duration-75 shadow-[0_0_10px_#3b82f6]"></div>
+  <div id="custom-cursor-follower" class="hidden md:block fixed w-8 h-8 border border-brand-purple rounded-full pointer-events-none z-[300] -translate-x-1/2 -translate-y-1/2 transition-all duration-200 ease-out shadow-[0_0_15px_rgba(139,92,246,0.15)]"></div>
 
   <!-- Scroll Progress Bar -->
   <div id="scrollProgressBar" class="fixed top-0 left-0 right-0 h-[3px] bg-gradient-to-l from-brand-blue to-brand-purple z-[100] w-0 transition-all duration-75"></div>
@@ -224,6 +234,11 @@
       </ul>
       
       <div class="flex items-center gap-3">
+        <!-- Sound Toggle Switch -->
+        <button id="sound-btn" onclick="toggleSound()" class="w-10 h-10 rounded-xl bg-gray-200/50 dark:bg-dark-900/50 border dark:border-gray-800 border-slate-200 flex items-center justify-center text-slate-700 dark:text-gray-300 hover:scale-105 transition-transform" title="كتم/تفعيل الأصوات">
+          <i id="sound-icon" data-lucide="volume-2" class="w-5 h-5"></i>
+        </button>
+
         <!-- Theme Toggle Switch -->
         <button onclick="toggleTheme()" class="w-10 h-10 rounded-xl bg-gray-200/50 dark:bg-dark-900/50 border dark:border-gray-800 border-slate-200 flex items-center justify-center text-slate-700 dark:text-gray-300 hover:scale-105 transition-transform" title="تبديل المظهر">
           <i id="theme-icon" data-lucide="sun" class="w-5 h-5"></i>
@@ -1372,6 +1387,7 @@
       const activePane = document.getElementById(tabId);
       activePane.classList.remove('hidden');
       activePane.classList.add('active');
+      playSound('click');
     }
 
     // Filter Design Gallery
@@ -1395,6 +1411,7 @@
           setTimeout(() => { item.style.display = 'none'; }, 300);
         }
       });
+      playSound('click');
     }
 
     // Theme Switcher Logic
@@ -1411,6 +1428,7 @@
         themeIcon.setAttribute('data-lucide', 'sun');
       }
       lucide.createIcons();
+      playSound('toggle');
     }
 
     // Set initial theme based on localStorage
@@ -1436,6 +1454,7 @@
         document.body.classList.remove('overflow-hidden');
       }
       lucide.createIcons();
+      toggleMobileMenuSoundHelper();
     }
 
     // Project Modals Logic
@@ -1444,6 +1463,12 @@
       modal.classList.remove('hidden');
       modal.classList.add('flex');
       document.body.classList.add('overflow-hidden');
+      playSound('click');
+    }
+
+    // Mobile Menu Toggle Logic inside body context helper
+    function toggleMobileMenuSoundHelper() {
+      playSound('click');
     }
 
     function closeModal(modalId) {
@@ -1451,6 +1476,7 @@
       modal.classList.add('hidden');
       modal.classList.remove('flex');
       document.body.classList.remove('overflow-hidden');
+      playSound('click');
     }
 
     // Lightbox Logic for Design Gallery
@@ -1465,13 +1491,16 @@
       modal.classList.remove('hidden');
       modal.classList.add('flex');
       document.body.classList.add('overflow-hidden');
+      playSound('click');
     }
 
+    // Lightbox Closer
     function closeLightbox() {
       const modal = document.getElementById('lightbox-modal');
       modal.classList.add('hidden');
       modal.classList.remove('flex');
       document.body.classList.remove('overflow-hidden');
+      playSound('click');
     }
 
     // FAQ Accordion Logic
@@ -1486,6 +1515,7 @@
       if (!isActive) {
         element.classList.add('active');
       }
+      playSound('click');
     }
 
     // Copy to Clipboard with Animated Tooltip
@@ -1701,6 +1731,99 @@
       }
 
       requestAnimationFrame(animate);
+    }
+
+    // Custom Cursor Follower Logic
+    const cursorDot = document.getElementById('custom-cursor');
+    const cursorFollower = document.getElementById('custom-cursor-follower');
+
+    if (cursorDot && cursorFollower) {
+      document.addEventListener('mousemove', (e) => {
+        cursorDot.style.left = e.clientX + 'px';
+        cursorDot.style.top = e.clientY + 'px';
+        
+        // Smooth follower animation
+        setTimeout(() => {
+          cursorFollower.style.left = e.clientX + 'px';
+          cursorFollower.style.top = e.clientY + 'px';
+        }, 50);
+      });
+
+      // Event delegation for cursor hover state
+      document.addEventListener('mouseover', (e) => {
+        const target = e.target.closest('a, button, input, textarea, .faq-item, .gallery-item, [onclick], .tab-btn');
+        if (target) {
+          cursorFollower.style.width = '48px';
+          cursorFollower.style.height = '48px';
+          cursorFollower.style.borderColor = '#3b82f6';
+          cursorFollower.style.backgroundColor = 'rgba(59, 130, 246, 0.08)';
+          cursorFollower.style.boxShadow = '0 0 25px rgba(59, 130, 246, 0.3)';
+          
+          cursorDot.style.transform = 'translate(-50%, -50%) scale(1.5)';
+          cursorDot.style.backgroundColor = '#8b5cf6';
+          cursorDot.style.boxShadow = '0 0 15px #8b5cf6';
+        } else {
+          cursorFollower.style.width = '32px';
+          cursorFollower.style.height = '32px';
+          cursorFollower.style.borderColor = '#8b5cf6';
+          cursorFollower.style.backgroundColor = 'transparent';
+          cursorFollower.style.boxShadow = '0 0 15px rgba(139, 92, 246, 0.15)';
+          
+          cursorDot.style.transform = 'translate(-50%, -50%) scale(1)';
+          cursorDot.style.backgroundColor = '#3b82f6';
+          cursorDot.style.boxShadow = '0 0 10px #3b82f6';
+        }
+      });
+    }
+
+    // Synthesized Audio Controller using Web Audio API
+    let audioEnabled = true;
+
+    function playSound(type) {
+      if (!audioEnabled) return;
+      try {
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        
+        if (type === 'click') {
+          // Soft tech click sound
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(800, audioCtx.currentTime);
+          osc.frequency.exponentialRampToValueAtTime(300, audioCtx.currentTime + 0.08);
+          gain.gain.setValueAtTime(0.04, audioCtx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.08);
+          osc.start();
+          osc.stop(audioCtx.currentTime + 0.08);
+        } else if (type === 'toggle') {
+          // Soft double beep
+          osc.type = 'sine';
+          const isLight = !document.documentElement.classList.contains('dark');
+          osc.frequency.setValueAtTime(isLight ? 400 : 600, audioCtx.currentTime);
+          osc.frequency.exponentialRampToValueAtTime(isLight ? 800 : 300, audioCtx.currentTime + 0.15);
+          gain.gain.setValueAtTime(0.03, audioCtx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.005, audioCtx.currentTime + 0.15);
+          osc.start();
+          osc.stop(audioCtx.currentTime + 0.15);
+        }
+      } catch (err) {
+        // Silently fail if audio context blocked or not supported
+      }
+    }
+
+    function toggleSound() {
+      audioEnabled = !audioEnabled;
+      const soundIcon = document.getElementById('sound-icon');
+      if (audioEnabled) {
+        soundIcon.setAttribute('data-lucide', 'volume-2');
+        playSound('click');
+      } else {
+        soundIcon.setAttribute('data-lucide', 'volume-x');
+      }
+      lucide.createIcons();
     }
 
     window.addEventListener('resize', resizeCanvas);
