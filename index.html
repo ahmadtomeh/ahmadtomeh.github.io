@@ -1172,6 +1172,46 @@
     </div>
   </div>
 
+  <!-- Cyber Terminal Easter Egg Modal -->
+  <div id="cyber-terminal-modal" class="hidden fixed inset-0 z-[350] items-center justify-center p-4">
+    <div class="absolute inset-0 bg-black/90 backdrop-blur-md" onclick="closeTerminal()"></div>
+    <div class="relative z-10 max-w-2xl w-full bg-black border border-green-500/30 rounded-2xl shadow-[0_0_40px_rgba(34,197,94,0.15)] overflow-hidden flex flex-col h-[65vh]">
+      <!-- Terminal Header -->
+      <div class="bg-gray-950 px-4 py-3 border-b border-green-500/20 flex items-center justify-between text-[10px] font-mono text-green-400 select-none">
+        <div class="flex items-center gap-2">
+          <span class="w-3 h-3 rounded-full bg-red-500/85 cursor-pointer" onclick="closeTerminal()"></span>
+          <span class="w-3 h-3 rounded-full bg-yellow-500/85"></span>
+          <span class="w-3 h-3 rounded-full bg-green-500/85"></span>
+          <span class="ml-2 font-bold font-sans">Ahmad_Tomeh@CyberTerminal:~</span>
+        </div>
+        <button onclick="closeTerminal()" class="text-green-500 hover:text-red-400 font-bold font-sans">
+          [ESC] EXIT
+        </button>
+      </div>
+      
+      <!-- Terminal Output Container -->
+      <div id="terminal-body" class="flex-1 p-5 overflow-y-auto font-mono text-xs text-green-400 space-y-3">
+        <div>
+          <pre class="text-[7px] sm:text-[9px] text-green-500 font-bold leading-none select-none">
+  ██████╗██╗   ██╗██████╗ ███████╗██████╗ 
+ ██╔════╝╚██╗ ██╔╝██╔══██╗██╔════╝██╔══██╗
+ ██║      ╚████╔╝ ██████╔╝█████╗  ██████╔╝
+ ██║       ╚██╔╝  ██╔══██╗██╔══╝  ██╔══██╗
+ ╚██████╗   ██║   ██████╔╝███████╗██║  ██║
+  ╚══════╝   ╚═╝   ╚═════╝ ╚══════╝╚═╝  ╚═╝
+          </pre>
+          <p class="mt-4 text-[10px] text-green-500/60 select-none">Ahmad Tomeh Secure Console v1.0.0. Cryptographic tunnels active.</p>
+          <p class="text-[10px] text-green-500/60 select-none">Type <span class="text-white underline">help</span> to list commands. Press <span class="text-white underline">ESC</span> to exit.</p>
+        </div>
+        <div id="terminal-history" class="space-y-1.5"></div>
+        <div class="flex items-center gap-2 pt-1">
+          <span class="text-green-500 font-bold select-none">guest@ahmadtomeh:~$</span>
+          <input type="text" id="terminal-input" class="flex-1 bg-transparent border-none outline-none text-green-400 font-mono text-xs p-0 focus:ring-0 focus:outline-none" autofocus autocomplete="off" spellcheck="false">
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- Modal 1: Bank of Palestine -->
   <div id="modal-bop" class="hidden fixed inset-0 z-[200] flex items-center justify-center p-4">
     <div class="absolute inset-0 bg-black/75 backdrop-blur-sm" onclick="closeModal('modal-bop')"></div>
@@ -1827,7 +1867,35 @@
       }
     }
 
+    let matrixRainActive = false;
+    let columns = 0;
+    let drops = [];
+    const matrixChars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ$#@%&*+-/=<>?";
+
     function animate() {
+      if (matrixRainActive) {
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.06)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        
+        ctx.fillStyle = '#22c55e';
+        ctx.font = '14px monospace';
+        
+        for (let i = 0; i < drops.length; i++) {
+          const text = matrixChars[Math.floor(Math.random() * matrixChars.length)];
+          const x = i * 16;
+          const y = drops[i] * 16;
+          
+          ctx.fillText(text, x, y);
+          
+          if (y > canvas.height && Math.random() > 0.975) {
+            drops[i] = 0;
+          }
+          drops[i]++;
+        }
+        requestAnimationFrame(animate);
+        return;
+      }
+
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       
       // Update, interact and draw particles
@@ -2002,6 +2070,214 @@
         soundIcon.setAttribute('data-lucide', 'volume-x');
       }
       lucide.createIcons();
+    }
+
+    // Cyber Terminal Easter Egg Logic
+    let keyboardBuffer = '';
+    
+    function openTerminal() {
+      const modal = document.getElementById('cyber-terminal-modal');
+      if (modal && modal.classList.contains('hidden')) {
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+        document.body.classList.add('overflow-hidden');
+        
+        // Focus the input
+        setTimeout(() => {
+          const input = document.getElementById('terminal-input');
+          if (input) input.focus();
+        }, 100);
+        
+        playSound('toggle');
+      }
+    }
+    
+    function closeTerminal() {
+      const modal = document.getElementById('cyber-terminal-modal');
+      if (modal && !modal.classList.contains('hidden')) {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+        document.body.classList.remove('overflow-hidden');
+        playSound('click');
+      }
+    }
+    
+    // Listen for keys to open terminal
+    document.addEventListener('keydown', (e) => {
+      // Toggle on backtick
+      if (e.key === '`' || e.key === '~') {
+        e.preventDefault();
+        const modal = document.getElementById('cyber-terminal-modal');
+        if (modal) {
+          if (modal.classList.contains('hidden')) {
+            openTerminal();
+          } else {
+            closeTerminal();
+          }
+        }
+      }
+      
+      // Close on escape
+      if (e.key === 'Escape') {
+        closeTerminal();
+      }
+      
+      // Buffer keys for secret word "cyber" or "admin"
+      keyboardBuffer += e.key.toLowerCase();
+      if (keyboardBuffer.length > 10) {
+        keyboardBuffer = keyboardBuffer.slice(-10);
+      }
+      if (keyboardBuffer.includes('cyber') || keyboardBuffer.includes('admin')) {
+        keyboardBuffer = '';
+        openTerminal();
+      }
+    });
+
+    const terminalInput = document.getElementById('terminal-input');
+    const terminalHistory = document.getElementById('terminal-history');
+    
+    if (terminalInput) {
+      terminalInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          const command = terminalInput.value.trim();
+          terminalInput.value = '';
+          executeTerminalCommand(command);
+        }
+      });
+      
+      // Keep input focused when clicking inside terminal modal
+      const termModal = document.getElementById('cyber-terminal-modal');
+      if (termModal) {
+        termModal.addEventListener('click', (e) => {
+          if (e.target.id !== 'terminal-input') {
+            terminalInput.focus();
+          }
+        });
+      }
+    }
+    
+    function appendToHistory(userText, resultText, isHTML = false) {
+      if (!terminalHistory) return;
+      
+      // User input line
+      const userLine = document.createElement('div');
+      userLine.className = 'flex items-center gap-2';
+      userLine.innerHTML = `<span class="text-green-500 font-bold">guest@ahmadtomeh:~$</span> <span class="text-white">${userText}</span>`;
+      terminalHistory.appendChild(userLine);
+      
+      // Output line
+      const outputLine = document.createElement('div');
+      outputLine.className = 'text-green-400 leading-relaxed';
+      if (isHTML) {
+        outputLine.innerHTML = resultText;
+      } else {
+        outputLine.textContent = resultText;
+      }
+      terminalHistory.appendChild(outputLine);
+      
+      // Auto-scroll terminal body
+      const termBody = document.getElementById('terminal-body');
+      if (termBody) {
+        termBody.scrollTop = termBody.scrollHeight;
+      }
+    }
+    
+    function executeTerminalCommand(cmdText) {
+      const cleanCmd = cmdText.trim().toLowerCase();
+      if (!cleanCmd) return;
+      
+      playSound('click');
+      
+      switch (cleanCmd) {
+        case 'help':
+          const helpHTML = `
+            <div class="space-y-1">
+              <p>Available commands:</p>
+              <p>  <span class="text-white">about</span>   - Prints bio summary of Ahmad Tomeh</p>
+              <p>  <span class="text-white">skills</span>  - Displays an ASCII skills chart</p>
+              <p>  <span class="text-white">hack</span>    - Toggles falling matrix digital code rain on the background</p>
+              <p>  <span class="text-white">cv</span>      - Opens Arabic CV in a new tab</p>
+              <p>  <span class="text-white">clear</span>   - Clears console output history</p>
+              <p>  <span class="text-white">exit</span>    - Closes secure cyber console</p>
+            </div>
+          `;
+          appendToHistory(cmdText, helpHTML, true);
+          break;
+          
+        case 'about':
+          const aboutHTML = `
+            <div class="space-y-1.5 text-justify leading-relaxed">
+              <p class="text-white font-bold">Name: Ahmad Tomeh</p>
+              <p>Role: Full-Stack Web Developer & Content Manager</p>
+              <p>Location: Tulkarm, Palestine</p>
+              <p>Bio: Business Administration background combined with a software & databases degree from Kadoorie University. Experience in control rooms at Bank of Palestine and tech support at Mada Internet. Passionate about building seamless websites, visual branding, and digital strategy.</p>
+            </div>
+          `;
+          appendToHistory(cmdText, aboutHTML, true);
+          break;
+          
+        case 'skills':
+          const skillsChart = `
+            <pre class="text-green-500 font-bold leading-normal select-none">
+HTML5 / CSS3  [====================] 95%
+JavaScript    [==================--] 90%
+React.js      [=================---] 85%
+Django/Python [=================---] 85%
+SQL/Databases [==================--] 90%
+Photoshop     [====================] 95%
+Premiere Pro  [=================---] 85%
+Canva/CapCut  [====================] 98%
+            </pre>
+          `;
+          appendToHistory(cmdText, skillsChart, true);
+          break;
+          
+        case 'hack':
+          if (!matrixRainActive) {
+            startMatrixRain();
+            appendToHistory(cmdText, "SYSTEM BREACH INITIATED: Matrix Digital Rain active.", false);
+          } else {
+            stopMatrixRain();
+            appendToHistory(cmdText, "SYSTEM RESTORED: Particle constellation background active.", false);
+          }
+          break;
+          
+        case 'cv':
+          window.open('cv_ar.html', '_blank');
+          appendToHistory(cmdText, "Opening Arabic Curriculum Vitae in a new tab...", false);
+          break;
+          
+        case 'clear':
+          if (terminalHistory) terminalHistory.innerHTML = '';
+          break;
+          
+        case 'exit':
+          closeTerminal();
+          break;
+          
+        default:
+          appendToHistory(cmdText, `bash: command not found: ${cmdText}. Type 'help' for options.`, false);
+          break;
+      }
+    }
+
+    function startMatrixRain() {
+      matrixRainActive = true;
+      const canvas = document.getElementById('particleCanvas');
+      if (canvas) {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        columns = Math.floor(canvas.width / 16);
+        drops = [];
+        for (let i = 0; i < columns; i++) {
+          drops[i] = Math.random() * -100;
+        }
+      }
+    }
+
+    function stopMatrixRain() {
+      matrixRainActive = false;
+      resizeCanvas();
     }
 
     window.addEventListener('resize', resizeCanvas);
